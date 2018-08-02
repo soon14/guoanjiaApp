@@ -1,97 +1,137 @@
 <template>
 	<div class="fixContent">
-	    <div class="fixContent">
+      <IosorAndroid></IosorAndroid>
+	    <div  style="padding-bottom:1.5rem">
 	      <!-- 头部 -->
 	        <!--轮播图  -->
-	        <swipers></swipers>
-	        <!--导航栏  -->
-	        <navigation></navigation>
+	        <!-- <swipers></swipers> -->
+          <div class="topTest"><span>国安家首页</span></div>
+          <div class="topImgdiv" @click="TabOneClick"></div>
+          <!-- 搜索 -->
+          <div class="topSearchInput">
+            <x-input class='topSearch' title="" placeholder="">
+              <img style="width:20px;margin-left:.3rem;" slot="label" src='../../static/new/reversionimg/search.png' />
+              <img style="width:20px;margin-right:.3rem;" slot="right" src='../../static/new/reversionimg/location.png' />
+            </x-input>
+          </div>
+          <!--导航栏  -->
+          <div class="navigation">
+            <flexbox>
+              <flexbox-item  @click.native="TabOneClick">
+                <div class="flex-demo">
+                  <img src='../../static/new/reversionimg/newHouse.png' />
+                  <span>新房</span>
+                </div>
+              </flexbox-item>
+              <flexbox-item @click.native="TabTwoClick">
+                <div class="flex-demo">
+                  <img src='../../static/new/reversionimg/rentHouse.png' />
+                  <span>租房</span>
+                </div>
+              </flexbox-item>
+              <flexbox-item @click.native="TabThreeClick">
+                <div class="flex-demo">
+                  <img src='../../static/new/reversionimg/housePictuere.png' />
+                  <span>房价</span>
+                </div>
+              </flexbox-item>
+              <flexbox-item @click.native="TabFourClcik">
+                <div class="flex-demo">
+                  <img src='../../static/new/reversionimg/Entrust.png' />
+                  <span>业主委托</span>
+                </div>
+              </flexbox-item>
+              <flexbox-item @click.native="TabFiveClcik">
+                <div class="flex-demo">
+                  <img src='../../static/new/reversionimg/lookCenter.png' />
+                   <span>展示中心</span>
+                </div>
+              </flexbox-item>
+            </flexbox>
+          </div>
+          <!-- 横线 -->
+          <div class="Division"></div>
+          <!-- 全景看房 -->
+          <div class='panorama'><span>360°全景看房</span></div>
+          <!-- 全景看房图片展示 -->
+          <div class='panoramaImg'></div>
+	        <!-- <navigation></navigation> -->
+          <!-- 精彩活动部分 -->
+          <div class='panorama' style='margin-top:.4rem;'>
+            <span>精彩活动</span>
+            <span @click="ActiveListClick"></span>
+          </div>
+          <activity></activity>
+          <!-- 横线 -->
+          <div class="Division"></div>
+           <!-- 租房部分 -->
+	       	<div class='addCustomer'>
+             <span>高品质服务公寓</span>
+	            <span>国安家公寓</span>
+              <span @click="apartmentClick"></span>
+	        </div>
+          <!-- 国安家公寓 -->
+          <hometemplate></hometemplate>
+          <!-- 分割线 -->
+          <div style='margin-left:.3rem;margin-right:.3rem;height:1px;background:#ccc'></div>
 	        <!--新房部分-->
-	        <div class='addCustomer' v-on:click="addNewHouse">
-	            <!-- <span>
-	                <img src='../../static/new/img/smallBuild.png' style="height:70%;margin-top:5px;margin-left:.3rem;" />
-	            </span> -->
-	            <span style="font-size:0.35rem;line-height:40px;margin-left:0.2rem;font-weight:500;">热销楼盘</span>
+	        <div class='addCustomer'>
+              <span>超低价优选房源</span>
+	            <span>热门楼盘</span>
+	            <span @click="TabOneClick"></span>
 	        </div>
 	        <!-- 跳转链接 -->
 	        <div class="housTypeImgScroll">
 	            <ul class="bigul">
 	                <li class="bigli" :key="index" v-for="(item,index) in list" @click="newHouseClick(item.id)">
 	                    <div class="HousTypeBottomImg">
-	                        <div class="filters"></div>
-	                        <div class="buildName">{{item.buildname}}</div>
-	                        <div class="tag">
-	                          <!-- <ul>
-	                            <li :key="index1" v-for="(items,index1) in item.buildtagnameList">{{items}}</li>
-	                            <div style="clear:both;height:0;line-height:0;"></div>
-	                          </ul> -->
+	                        <!-- <div class="filters"></div> -->
+	                        <!-- <div class="buildName">{{item.buildname}}</div> -->
+	                        <!-- <div class="tag">
 	                          <span style="display:inline-block" :key="index1" v-for="(items,index1) in item.buildtagnameList">{{items}}</span>
-	                        </div>
+	                        </div> -->
 	                        <img :src='item.firstpicture'>
 	                    </div>
 	                    <div class="HousTypeTop">
-	                      <span v-if="item.averageprice !=='售价待定'">均价</span>
-	                      <span>{{item.averageprice}}</span>
-	                      <span v-if="item.averageprice !=='售价待定'">起</span>
-	                      </div>
+                        <span style="margin-top:.8rem;font-size:.32rem;color:#666666;display:inline-block;width:100%;text-align:left;">{{item.buildname}}</span>
+	                      <span style="height:.3rem;margin-top:10px;" v-if="item.averageprice !=='售价待定'">均价</span>
+	                      <span style="height:.3rem;margin-top:10px;font-weight:600;">{{item.averageprice}}</span>
+	                      <span style="height:.3rem;margin-top:10px;" v-if="item.averageprice !=='售价待定'">起</span>
+	                    </div>
 	                </li>
 	            </ul>
 	            </div>
-	        <div style="width:100%;height:0.15rem;background:#f8f8f8;"></div>
-	        <flexbox>
-	            <flexbox-item>
-	                <img src="../../static/new/img/rentadver.jpg" alt="">
-	            </flexbox-item>
-	        </flexbox> 
-	        <!-- 租房部分 -->
-	       	<div class='addCustomer' v-on:click="addNewHouse">
-	            <span style="font-size:0.35rem;line-height:40px;margin-left:0.3rem;font-weight:500;">国安家公寓</span>
-	        </div>
-	       
-	        <div class="bottom-margin">
-	        	<div class="earnestShow">
-				    <div class="earnestShow-slide">
-				    	<div class="earnestShow-item" v-for="(item,index) in roomList" :key="index" @click="toRoomDetail(item)">
-				    		<img class="background-img" :src="item.image" />
-				    		<div class="shadow"></div>
-				    		<div class="earnestShow-item-top">
-				    			<div class="item-top">
-				    				<p class="earnestShow-item-top-title">{{item.houseName}}{{item.roomName}}{{item.roomNumber}}</p>
-					    			<div class="earnestShow-item-top-tags">
-					    				<span v-for="(tag,tagindex) in item.tagsArr" :key="tagindex">{{tag}}</span>
-					    			</div>
-				    			</div>
-				    			<div class="item-bottom">
-					    			￥{{item.price}}/月
-					    		</div>
-				    		</div>
-				    		<!--<div class="active5" v-if="item.active418"></div>-->
-				   		</div>
-				    </div>
-		        </div>
-		        <div style="text-align: left;"><span style="font-size:0.35rem;line-height:40px;margin-left:0.3rem;font-weight:500;">最新上架</span> </div>
-		    
-		        <div class="earnestShow">
-				    <div class="earnestShow-slide">
-				    	<div class="earnestShow-item" v-for="(item,index) in newRoomList" :key="index" @click="toRoomDetail(item)">
-				    		<img class="background-img" :src="item.image" />
-				    		<div class="shadow"></div>
-				    		<div class="earnestShow-item-top">
-				    			<div class="item-top">
-				    				<p class="earnestShow-item-top-title">{{item.houseName}}{{item.roomName}}{{item.roomNumber}}</p>
-					    			<div class="earnestShow-item-top-tags">
-					    				<span v-for="(tag,tagindex) in item.tagsArr" :key="tagindex">{{tag}}</span>
-					    			</div>
-				    			</div>
-				    			<div class="item-bottom">
-					    			￥{{item.price}}/月
-					    		</div>
-				    		</div>
-				    		<!--<div class="active5" v-if="item.active418"></div>-->
-				   		</div>
-				    </div>
-		        </div>
-	        </div>
+	        <!-- 横线 -->
+          <div class="Division"></div>
+	        <!--宣传语 -->
+          <div class="Propaganda"></div>
+          <!-- 预约看房 -->
+          <div class="Reservations">
+            <div @click="yuyuekanfang">
+              <span class="yuyueImg"></span>
+              <span class="describe">
+                <p>预约看房</p>
+                <p>看好看准在住</p>
+              </span>
+            </div>
+            <div></div>
+            <div @click='searchHouse'>
+              <span class="yuyueImg"></span>
+              <span class="describe">
+                <p>搜索房源</p>
+                <p>省时省心放心</p>
+              </span>
+            </div>
+          </div>
+          <!-- 横线 -->
+          <div class="Division"></div>
+
+          <!-- 最新上架 -->
+          <div class='panorama' style='margin-top:.4rem;'>
+            <span>最新上架</span>
+            <span @click="apartmentClick"></span>
+          </div>
+          <newuploade></newuploade>
 	        <!-- 抽奖活动 -->
 	        <div :class="{'luckDraw':!hideSigno,'singoNone':hideSigno}" v-show="luckdraw" v-transfer-dom  @click="toluckDraw"></div>
 	        <!-- 邀请注册部分 -->
@@ -112,18 +152,26 @@
 
 <script>
 import { TransferDom } from "vux";
+import IosorAndroid from './components/IosorAndroid'
 import swipers from "./components/Swiper"; //引入轮播图组件
 import navigation from "./components/navigation"; //引入导航栏
 import downLoad from "../rent/components/home/downLoad";
+import activity from '../rent/components/home/activity';//精彩活动
+import hometemplate from '../rent/components/home/HomeTemplate';//国安家公寓
+import newuploade from '../rent/components/home/newupload';//最新上架
 // import{ViewBox} from 'vux'
 export default {
   directives: {
     TransferDom
   },
   components: {
+    IosorAndroid,
     swipers,
     navigation,
-    downLoad
+    downLoad,
+    activity,
+    hometemplate,
+    newuploade
   },
   data() {
     return {
@@ -140,37 +188,59 @@ export default {
     };
   },
   methods: {
-  	//获取租房国安家公寓数据
-	getHomePageDetail(){
-        this.post('common/homePage',{
-        	"size":'20'
-        })
-        .then((res) =>{
-            this.roomList = res.data.roomList.filter(item => {
-            	return item.houseName.length <= 8;
-            }).map((item,index) => {
-            	if(!item.image){
-            		item.image = 'https://img.guoanfamily.com/rent/static/HomePage/roomimg_03.png';
-            	}else{
-            		item.image = !item.image ||this.concatFileUrl(item.image,331,259);
-            	}
-                item.tagsArr = item.tags.split(",",2);
-                return item;
-            })
-			this.roomList = this.roomList.slice(0,5);
-			
-			this.newRoomList = res.data.roomList.filter(item => {
-            	return item.houseName.length <= 8;
-          	})
-            this.newRoomList = (this.newRoomList.slice(0,5)).reverse();
-        })
-	},
+    /**
+   * 新房改版部分
+   * 
+   */
+  // 新房的点击事件
+    TabOneClick(){
+      this.$router.push('buildList');
+    },
+   // 租房的点击事件  
+    TabTwoClick(){
+      this.$router.push("HomePage");
+    },
+    // 房价的点击事件
+    TabThreeClick(){
+      this.$router.push("housingPrice");
+    },
+    // 业主委托的点击事件
+    TabFourClcik(){
+      this.$router.push("Delegation");
+    },
+    // 展示中心的点击事件
+    TabFiveClcik(){
+      let src = "https://beyond.3dnest.cn/play/?m=zhq_gaj_83";
+      let title = "展示中心";
+      this.$router.push({
+        path: "framePage",
+        query: { src: src, title: title }
+      });
+    },
+    // 国安家公寓更多的点击事件
+    apartmentClick(){
+      this.$router.push({path:"/HouseList"});
+    },
+    // 更多精彩活动的点击事件
+    ActiveListClick(){
+       	this.$router.push({path:"/ActiveList"})
+    },
+    // 预约看房的点击事件
+    yuyuekanfang() {
+      this.$router.push("HouseList");
+    },
+    // 搜索房源的点击事件
+    searchHouse(){
+       this.$router.push({
+        path: "/HouseList/HotSearch"
+      });
+    },
+ 
 	//跳转到该房间详情
 	toRoomDetail(item){
         this.$router.push({path:"/HouseList/houseDetail",query:{id:item.id,productType:item.productType}})
     },
-    //推荐楼盘的点击事件
-    addNewHouse() {},
+   
     newHouseClick(item) {
       this.$router.push({
         path: "building_detial",
@@ -241,18 +311,11 @@ export default {
               if (response.data[i].averageprice !== null) {
                 if (response.data[i].averageprice == "售价待定") {
                   response.data[i].averageprice = "售价待定";
-                } else if (
-                  response.data[i].averageprice.substr(
-                    response.data[i].averageprice.length - 2
-                  ) == "/㎡"
-                ) {
-                  response.data[i].averageprice =
-                    "¥" + response.data[i].averageprice;
                 } else if (response.data[i].averageprice == "") {
                   response.data[i].averageprice = "售价待定";
                 } else {
                   response.data[i].averageprice =
-                    "¥" + response.data[i].averageprice + "/㎡";
+                    "¥" + response.data[i].averageprice + "元/㎡";
                 }
               }
             }
@@ -320,8 +383,25 @@ export default {
   },
 
   mounted() {
-  	//执行家家国安家公寓数据的接口
-  	this.getHomePageDetail();
+    
+    // fetch("https://nt.guoanfamily.com/agenthouseCutomer/common/homePage",{
+    // method: 'post',
+    // headers: {
+    //   "Content-Type": "application/json",
+    //   "Authorization": ''
+    // },
+    // body: JSON.stringify({}),
+
+    // }).then((res)=>{
+    //     return res.json();
+    // }).then((res)=>{
+    //     console.log('125685895',res)
+    // }).catch(function (e) {
+    //     console.error(e);
+    // })
+
+
+
     this.$store.state.buttonGroup = 0;
     if(!this.LoToken() && !this.UserPhone()){
       this.$store.state.userName = localStorage.getItem('userName');
@@ -352,6 +432,160 @@ export default {
 </script>
 
 <style lang='less' scoped>
+.topTest{
+  width:100%;
+  height:.8rem;
+  font-size:0.48rem;
+  color:#000000;
+  line-height:40px;
+  text-align:left;
+  font-weight:500;
+  span{
+     padding-left:.3rem;
+  }
+ 
+}
+.topImgdiv{
+  height:4rem;
+  margin-top:.1rem;
+  margin-left:.3rem;
+  margin-right:.3rem;
+  background:url('.././../static/new/reversionimg/indexTop.jpg') no-repeat center;
+  background-size:100%;
+}
+.topSearchInput{
+  margin-left: .3rem;
+  margin-right: .3rem;
+  margin-top: .4rem;
+  height:.8rem;
+  border-radius:.08rem;
+  background:#f5f5f5;
+}
+.navigation{
+  margin-top:.6rem;
+  margin-left:.3rem;
+  margin-right:.3rem;
+  height:2rem;
+  // background:red;
+}
+.Division{
+  width:100%;
+  height:20px;
+  background:#eeeeee;
+  margin-top:.2rem;
+}
+.panorama{
+  margin-top:.64rem;
+  width:100%;
+  height:.8rem;
+  font-size:0.38rem;
+  color:#000000;
+  line-height:38px;
+  text-align:left;
+  font-weight:500;
+  span{
+     padding-left:.3rem;
+  }
+  span:nth-child(2){
+    display: block;
+    float: right;
+    height:35px;
+    width:115px;
+    margin-right:.3rem;
+    margin-bottom:.1rem;
+    background:url('../../static/new/reversionimg/more.png') no-repeat right;
+    background-size:50%;
+  }
+}
+.panoramaImg{
+  height:2rem;
+  margin-top:.1rem;
+  margin-left:.3rem;
+  margin-right:.3rem;
+  background:url('.././../static/new/reversionimg/panoramaImg.png') no-repeat center;
+  background-size:100%;
+}
+.Propaganda{
+  margin:.6rem .3rem 0 .3rem;
+  height:1.5rem;
+  background:url('../../static/new/reversionimg/poster.png') no-repeat center;
+  background-size:100%;
+}
+.Reservations{
+  margin:0 .3rem 0 .3rem;
+  height:1.84rem;
+  // background:red;
+  div{
+    float:left;
+  }
+  div:nth-child(1){
+    width:48%;
+    margin-top:.27rem;
+    height:1.3rem;
+    // background:blue;
+    .yuyueImg{
+      margin-left:.35rem;
+      display:inline-block;
+      width:30%;
+      height:100%;
+      float:left;
+      background:url('../../static/new/reversionimg/yuyue.png') no-repeat center;
+      background-size:80%;
+    }
+    .describe{
+      width:58%;
+      height:100%;
+      float:right;
+      // background:yellow;
+      p:nth-child(1){
+        margin-top:.24rem;
+        text-align:left;
+        font-size:.30rem;
+      }
+      p:nth-child(2){
+        text-align:left;
+        font-size:.24rem;
+      }
+    }
+  }
+  div:nth-child(2){
+    width:.02rem;
+    height:0.64rem;
+    background:#cccccc;
+    margin:.6rem 5px auto;
+  }
+  div:nth-child(3){
+    width:48%;
+    margin-top:.27rem;
+    height:1.3rem;
+    // background:blue;
+    float:right;
+    .yuyueImg{
+      margin-left:.35rem;
+      display:inline-block;
+      width:30%;
+      height:100%;
+      float:left;
+      background:url('../../static/new/reversionimg/redSearch.png') no-repeat center;
+      background-size:80%;
+    }
+    .describe{
+      width:58%;
+      height:100%;
+      float:right;
+      // background:yellow;
+      p:nth-child(1){
+        margin-top:.24rem;
+        text-align:left;
+        font-size:.30rem;
+      }
+      p:nth-child(2){
+        text-align:left;
+        font-size:.24rem;
+      }
+    }
+  }
+}
 .luckDraw {
   width: 1.5rem;
   height: 1.8rem;
@@ -421,72 +655,66 @@ export default {
   background-color: #fff;
   border-radius: 4px;
   background-clip: padding-box;
+  img{
+    width:80%;
+    margin:0 auto;
+  }
+  span{
+    font-size: .24rem;
+    display: inherit;
+    text-align: center;
+    width: 100%;
+    line-height:.7rem;
+    color:#000000;
+  }
 }
 .housTypeImgScroll {
-  width: 96%;
-  margin-left: 2%;
+  margin-left: .3rem;
+  margin-right:.3rem;
   overflow: hidden;
-  height: 4rem;
+  height: 3.5rem;
   .bigul {
     width: 100%;
     overflow-x: scroll;
+    overflow-y: hidden;
     display: flex;
-    height: 4rem;
+    height: 3.5rem;
     .bigli {
-      margin-right: 0.25rem;
+      margin-right: 0.4rem;
     }
   }
   .HousTypeTop {
-    width: 3.28rem;
+    width: 2.5rem;
     height: 0.8rem;
     background: #ffffff;
     border-radius: 0 0 0.05rem 0.05rem;
-    box-shadow: 0.05rem 0.05rem 0.05rem #f4f4f4;
+    // box-shadow: 0.05rem 0.05rem 0.05rem #f4f4f4;
     font-size: 0.24rem;
     color: #d80010;
     line-height: 0.8rem;
     text-align: center;
+    span{
+      display:inline-block;
+      float:left;
+      line-height:30px;
+      color:#000000;
+      height:.3rem;
+      font-size:.24rem;
+      font-family:'Source Han Sans CN';
+    }
   }
   .HousTypeBottomImg {
     clear: left;
     text-align: center;
     width: 100%;
-    height: 70%;
+    height: 50%;
     padding-top: 0.6rem;
     box-sizing: border-box;
     position: relative;
-    .filters {
-      width: 3.28rem;
-      height: 2.86rem;
-      background: rgba(0, 0, 0, 0.3);
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 9;
-      border-radius: 0.05rem 0.05rem 0 0;
-    }
-    .tag {
-      height: 0.3rem;
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      line-height: 0.2rem;
-      span {
-        display: inline-block;
-        color: #5a5a5a;
-        background: rgb(249, 249, 249);
-        border-radius: 0.05rem;
-        font-size: 0.22rem;
-        margin-left: 0.1rem;
-        height: 0.3rem;
-        line-height: 0.32rem;
-        padding: 0 0.1rem 0 0.1rem;
-      }
-    }
     img {
-      width: 3.28rem;
-      height: 2.86rem;
-      border-radius: 0.05rem 0.05rem 0 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 0.1rem;
       position: absolute;
       left: 0;
       top: 0;
@@ -494,8 +722,6 @@ export default {
     .buildName {
       width: 100%;
       position: relative;
-      // left: 15%;
-      // top: 0.5rem;
       font-size: 0.34rem;
       font-weight: bold;
       text-align: center;
@@ -507,17 +733,41 @@ export default {
 .addCustomer {
   width: 100%;
   background: #fff;
-  height: 0.8rem;
+  height: 1.3rem;
   // margin-top: .3rem;
   line-height: 0.8rem;
+  margin-top:.6rem;
   // border-bottom: 1px solid #e6e6e6;
 }
-
-.addCustomer span {
+.addCustomer span:nth-child(1){
+  display: block;
+  height: .4rem;
+  line-height:.7rem;
+  color:#999999;
+  margin-left: .3rem;
+  margin-right: .3rem;
+  font-size: .23rem;
+  text-align: left;
+}
+.addCustomer span:nth-child(2) {
   display: block;
   float: left;
-  height: 100%;
   line-height: 1.3rem;
+  font-size:0.35rem;
+  line-height:40px;
+  margin-left:0.3rem;
+  font-weight:500;
+  color:#000000;
+}
+.addCustomer span:nth-child(3){ 
+  display: block;
+  float: right;
+  height:35px;
+  width:115px;
+  margin-right:.3rem;
+  margin-bottom:.1rem;
+  background:url('../../static/new/reversionimg/more.png') no-repeat right;
+  background-size:50%;
 }
 .searchDiv {
   position: absolute;
@@ -699,8 +949,22 @@ export default {
   
 }
 </style>
-<style>
+<style lang ='less'>
 .vux-swiper-desc {
   display: none;
+}
+.topSearchInput{
+  .topSearch{
+    /* background: red; */
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding:0;
+    font-size:.24rem;
+    input{
+      padding-left:10px;
+      height:.8rem;
+    }
+  }
 }
 </style>

@@ -728,6 +728,15 @@
 /*百度地图*/
 .map-out{
 	position: relative;
+	.drawdown{
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 100;
+		canvas { 
+			opacity: 0.5; 
+		}
+	}
 	.houseMap{
 		width: 100%;
 		height: 4.6rem;
@@ -757,6 +766,7 @@
 		animation: show 2s infinite ease-out 1.5s;
 		background:url(../../../../static/rent/fyxq/getmapline.png) no-repeat center;
 		background-size:100% 100%; 
+		z-index: 101;
 	}
 	@keyframes show {
 		0% {
@@ -798,6 +808,8 @@
 		}
 	}
 }
+
+
 /*loding样式*/
 .loding{
 	position: fixed;
@@ -1004,7 +1016,7 @@
 						<p style="font-size: 0.3rem;">分享</p>
 					</div>
 				</div>
-				<p style="font-size: 0.28rem;text-align: left;">{{areaName}} <span v-if="isRoomOrHouse">{{houseName}}</span> {{colledtName}}{{roomNumber}}</p>
+				<p style="font-size: 0.28rem;text-align: left;">{{areaName}} <span v-if="isRoomOrHouse">{{houseName}}</span> {{houseName == '东大桥店'?roomFloor:colledtName}}{{roomNumber}}</p>
 				<div class="collect-message">
 					<span v-for="(item,index) in advantageTagsArr" class="recommend1">{{item}}</span>
 					<div style="clear: both;"></div>
@@ -1021,7 +1033,7 @@
 					</div>
 					<div class="row-col">
 						<span>层数：</span>
-						<span >{{buildFloor}}</span>
+						<span >{{houseName == '东大桥店'?roomFloor:buildFloor}}</span>
 					</div>
 				</div>
 				<div class="houseType-row" style=" border-bottom:0.01rem solid #e6e6e6;">
@@ -1063,9 +1075,10 @@
 				</div>
 				<div style="height: 0.05rem; background: #f2f2f2;"></div>
 				<div class="facility">
-					<div class="roomItems"  v-for="(item,index) in roomItems" >
+					<div class="roomItems"  v-for="(item,index) in roomItems" v-if="!(item.typeCode == '0014006' || item.typeCode == '0014007')">
 						<div class="facility-title" :class="itemStyle[item.typeCode]" style="background-size:100% 100% ;">
-							<span>{{ productType == '0019003' && item.typeCode == '0014004' ? '独立卫生间' : item.roomItemName}}</span>
+							<span v-if="item.typeCode == '0014001'">{{item.roomItemName+roomNumber}}</span>
+							<span v-else>{{ productType == '0019003' && item.typeCode == '0014004' ? '独立卫生间' : item.roomItemName}}</span>
 							<span>({{item.usedArea}}㎡ )</span>
 						</div>
 						<div class="facility-content">
@@ -1217,7 +1230,7 @@
 					<div style="height: 0.05rem; background: #f2f2f2;"></div>
 					<div class="roommate">
 						<ul v-for="(item,index) in roomList">
-							<li style="width: 15%;"><span class="roommate-col1" :class="backgroundStyle[index]">{{item.roomName}}{{item.roomNumber}}</span></li>
+							<li style="width: 15%;"><span class="roommate-col1" :class="backgroundStyle[index]">{{houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}</span></li>
 							<li style="width: 30%;" :class="!item.isIntakeState ? 'yesCheck' : 'noCheck' ">
 								<p style="width: 100%; text-align: center;">{{item.intakeState}}</p>
 								<!--<img v-if="item.isIntakeState" :src="item.icon"/>-->
@@ -1327,7 +1340,11 @@
 						<div class="houseMap" id="houseMap"></div>
 						<!--<div class="map-in" @click="theLocation"></div>-->
 						<div class="map-line" @click="houseDetailMap"></div>
+						<div class="drawdown">
+							<canvas id="snow">不支持canvas</canvas>
+						</div>
 					</div>
+					
 				</div>
 	
 				<!--小区-->
@@ -1372,7 +1389,7 @@
 									<img :src="item.image" />
 								</div>
 								<div class="gatitle">
-									<p class="recommend-firstline">{{item.houseName}} {{item.roomName}}{{item.roomNumber}}</p>
+									<p class="recommend-firstline">{{item.houseName}} {{item.houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}</p>
 									<p class="recommend-secondline">￥{{item.price == null?0:item.price}}/月 </p>
 								</div>
 								<!--<div class="active5" v-if="item.active418"></div>-->
@@ -1527,7 +1544,9 @@
 					"0014002": "facility-title4",
 					"0014003": "facility-title3",
 					"0014004": "facility-title2",
-					"0014005": "facility-title2"
+					"0014005": "facility-title2",
+					"0014006": "facility-title2",
+					"0014007": "facility-title2"
 				},
 				backgroundStyle:{
 					"0":"background0",
@@ -1573,7 +1592,39 @@
 					"40":"background0",
 					"41":"background1",
 					"42":"background2",
-					"43":"background3"
+					"43":"background3",
+					"44":"background0",
+					"45":"background1",
+					"46":"background2",
+					"47":"background3",
+					"48":"background0",
+					"49":"background1",
+					"50":"background2",
+					"51":"background3",
+					"52":"background0",
+					"53":"background1",
+					"54":"background2",
+					"55":"background3",
+					"56":"background0",
+					"57":"background1",
+					"58":"background2",
+					"59":"background3",
+					"60":"background0",
+					"61":"background1",
+					"62":"background2",
+					"63":"background3",
+					"64":"background0",
+					"65":"background1",
+					"66":"background2",
+					"67":"background3",
+					"68":"background0",
+					"69":"background1",
+					"70":"background2",
+					"71":"background3",
+					"72":"background0",
+					"73":"background1",
+					"74":"background2",
+					"75":"background3"
 				},
 				colledtName:'',//房间显示的名字和收藏的名字
 				areaName:'',//区域名字
@@ -1601,6 +1652,7 @@
 				collectHashUrl:"",	//3-16.收藏改成传入hash值给后台
 				supernatantTel:"",//接收的电话号
 				active418:false,
+				roomFloor:''
 			}
 		},
 		created() {
@@ -1654,8 +1706,151 @@
 	        		time_this.isLoding = false;
 	        	}
 	        },1000)
+	        this.getweather();
+			
 		},
 		methods: {
+			//天气预报
+			getweather(){
+				fetch("https://free-api.heweather.com/s6/weather/now?location=beijing&key=9e027a426bfa4318b606f4abbd77d93a",{
+					method:'post',			
+				}).then(function(response) {
+		            return response.json();
+		       }).then((res) => {
+		       		if(res.HeWeather6[0].now.cond_code >= 300 && res.HeWeather6[0].now.cond_code <= 399){
+		       			this.rainCanvas();
+		       		}
+				})
+			},
+			
+			
+			rainCanvas(){
+				  var canvasEl = document.getElementById("snow");
+				  var ctx = canvasEl.getContext('2d');
+				  var backgroundColor = 'rgba(0,0,0, 0.2)';
+				  canvasEl.width = document.getElementsByClassName("houseMap")[0].offsetWidth;
+			  	  canvasEl.height = document.getElementsByClassName("houseMap")[0].offsetHeight;
+				  var dropList = [];
+				  var gravity = 0.5;
+				  var linelist = [];
+				  var mousePos = [0, 0];
+				  var mouseDis = 35;
+				  var lineNum = 2;
+				  var speedx = 0;
+				  var maxspeedx = 0;
+				  window.onresize = function() {
+				    canvasEl.width = document.getElementsByClassName("houseMap")[0].offsetWidth;
+			  		canvasEl.height = document.getElementsByClassName("houseMap")[0].offsetHeight;
+				    maxspeedx = (e.clientX - canvasEl.clientWidth / 2) / (canvasEl.clientWidth / 2);
+				  }
+				
+				  function getRgb(r, g, b) {
+				    return "rgb(" + r + "," + g + "," + b + ")";
+				  }
+				
+				  function createLine(e) {
+				    var temp = 0.1 * (10 + Math.random() * 100);
+				    var line = {
+				      speed: 8 * (Math.random() * 5 + 1),
+				      die: false,
+				      posx: e,
+				      posy: -1,
+				      h: temp,
+				      color: getRgb(Math.floor(temp * 255 / 35), Math.floor(temp * 255 / 35), Math.floor(temp * 255 / 35))
+				    };
+				    linelist.push(line);
+				  }
+				
+				  function createDrop(x, y) {
+				    var drop = {
+				      die: false,
+				      posx: x,
+				      posy: y,
+				      vx: (Math.random() - 0.5) * 4,
+				      vy: Math.random() * (-6),
+				      radius: Math.random() * 0.01+1
+				    };
+				    return drop;
+				  }
+				
+				  function madedrops(x, y) {
+				    var maxi = Math.floor(Math.random() * 3);
+				    for (var i = 0; i < maxi; i++) {
+//				      dropList.push(createDrop(x, y));
+				    }
+				  }
+				  window.requestAnimationFrame(update);
+				
+				  function update() {
+				    if (dropList.length > 0) {
+				      dropList.forEach(function(e) {
+				        e.vx = e.vx + (speedx / 2);
+				        e.posx = e.posx + e.vx;
+				        e.vy = e.vy + gravity;
+				        e.posy = e.posy + e.vy;
+				        if (e.posy > canvasEl.clientHeight) {
+				          e.die = true;
+				        }
+				      });
+				    }
+				    for (var i = dropList.length - 1; i >= 0; i--) {
+				      if (dropList[i].die) {
+				        dropList.splice(i, 1);
+				      }
+				    }
+				    speedx = speedx + (maxspeedx - speedx) / 100;
+				    for (var i = 0; i < lineNum; i++) {
+				      createLine(Math.random() * 2 * canvasEl.width - (0.5 * canvasEl.width));
+				    }
+				    var endLine = canvasEl.clientHeight - Math.random() * canvasEl.clientHeight / 5;
+				    linelist.forEach(function(e) {
+				      var dis = Math.sqrt(((e.posx + speedx * e.h) - mousePos[0]) * ((e.posx + speedx * e.h) - mousePos[0]) + (e.posy + e.h - mousePos[1]) * (e.posy + e.h - mousePos[1]));
+				      if (dis < mouseDis) {
+				        e.die = true;
+				        madedrops(e.posx + speedx * e.h, e.posy + e.h);
+				      }
+				      if ((e.posy + e.h) > endLine) {
+				        e.die = true;
+				        madedrops(e.posx + speedx * e.h, e.posy + e.h);
+				      }
+				      if (e.posy >= canvasEl.clientHeight) {
+				        e.die = true;
+				      } else {
+				        e.posy = e.posy + e.speed;
+				        e.posx = e.posx + e.speed * speedx;
+				      }
+				    });
+				    for (var i = linelist.length - 1; i >= 0; i--) {
+				      if (linelist[i].die) {
+				        linelist.splice(i, 1);
+				      }
+				    }
+				
+				    render();
+				    window.requestAnimationFrame(update);
+				  }
+				
+				  function render() {
+				    ctx.fillStyle = "rgba(0,0,0,0.1)";
+				    ctx.fillRect(0, 0, canvasEl.width, canvasEl.height);
+				    ctx.lineWidth = 1;
+				    linelist.forEach(function(line) {
+				      ctx.strokeStyle = line.color;
+				      ctx.beginPath();
+				      ctx.moveTo(line.posx, line.posy);
+				      ctx.lineTo(line.posx + line.h * speedx, line.posy + line.h);
+				      ctx.stroke();
+				    });
+				
+				    ctx.lineWidth = 1;
+				    ctx.strokeStyle = "#fff";
+				    dropList.forEach(function(e) {
+				      ctx.beginPath();
+				      ctx.arc(e.posx, e.posy, e.radius, Math.random() * Math.PI * 2, 1 * Math.PI);
+				      ctx.stroke();
+				    });
+				  }
+			},
 			//判断是否是扫码过来的，拨打电话
 			callphone(){
 				// 获取url后面的参数
@@ -1672,22 +1867,6 @@
 				if(getUrlParam('supernatant')){
 					window.location.href = "tel:"+this.supernatantTel;
 				}
-			},
-			//判断是否在APP端
-			PagewechatMstationApp(){
-				var userAgent = navigator.userAgent;
-				if (userAgent.indexOf("Opera") > -1 || 
-        			userAgent.indexOf("BIDUBrowser") > -1 || 
-        			userAgent.indexOf("Firefox") > -1 ||
-        			userAgent.indexOf("Chrome") > -1 ||
-        			userAgent.indexOf("Safari") > -1){
-        				
-	        		return false;
-	        		console.log("浏览器端");
-        		}else{
-        			return true;
-        			console.log("微信端或者浏览器端");
-        		}
 			},
         			
 			//跳转到3d看房页
@@ -1720,8 +1899,6 @@
 		    // 分享到微信朋友方法
 		    wxShare(){
 		        let self = this;
-		        //console.log(self.shareName,self.advantageEnvironment);
-		        //console.log("https://www.guoanfamily.com/rentHouse/wap/#/HouseList/houseDetail?id=" + self.id + "&productType=" + self.productType);
 		        Wechat.share({
 		            message: {
 		                title:"国安家公寓-" + self.shareName, //标题
@@ -1746,8 +1923,6 @@
 		    //分享到朋友圈方法
 		    friendShare(){
 		        let self = this;
-		        //console.log(self.shareName,self.advantageEnvironment);
-		        //console.log("https://www.guoanfamily.com/rentHouse/wap/#/HouseList/houseDetail?id=" + self.id + "&productType=" + self.productType);
 		        Wechat.share({
 		            message: {
 		                title:"国安家公寓-" + self.shareName, //标题
@@ -1890,13 +2065,18 @@
 				}).then((res) => {
 					if(this.productType == "0019001" || this.productType == "0019003"){//判断是整租-合租
 						//console.log("合租")
+						this.roomFloor = res.data.roomFloor;
 						this.colledtName=res.data.roomName;
 						this.Price = res.data.price;
 						this.Orientation=res.data.roomOrientation;
 						this.Area = res.data.usedArea;
 						this.roomId=res.data.roomId;
 						this.isRoomOrHouse = true;
-						this.shareName = res.data.houseName + res.data.roomName + res.data.roomNumber;
+						if(res.data.houseName == '东大桥店'){
+							this.shareName = res.data.houseName + res.data.roomFloor + res.data.roomNumber;
+						}else{
+							this.shareName = res.data.houseName + res.data.roomName + res.data.roomNumber;	
+						}
 						switch(res.data.intakeState){
 							case "0015001"://已预约
 							this.isAppointment = true;
@@ -1909,7 +2089,7 @@
 							this.isRent = false;
 							break;
 						}
-						if(res.data.advantageEnvironment){//房间描述
+						if(res.data.assessmentRoom){//房间描述
 							this.advantageEnvironment = res.data.assessmentRoom;
 						} else {
 							this.isHaveEnvironment = false;
@@ -1995,8 +2175,8 @@
 						//添加每个房间的roomFirst
 						if(res.data.roomBanners[i].roomFirst == null || res.data.roomBanners[i].roomFirst == ""){
 							//如果没有图片，用暂无图片代替
-							this.imgUrl.push({img:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.png'})
-							this.previewerList.push({src:'https://media.guoanfamily.com/rent/static/HomePage/noneImg1.png'})
+							this.imgUrl.push({img:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.jpg'})
+							this.previewerList.push({src:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.jpg'})
 						} else{
 							this.imgUrl.push({img:this.concatFileUrl(res.data.roomBanners[i].roomFirst,750,415)})//所有房间的第一张照片
 							this.previewerList.push({src:this.concatFileUrl(res.data.roomBanners[i].roomFirst,750,415)})//所有房间的第一张照片
@@ -2006,8 +2186,8 @@
 					//卧室第二张图片
 					if(res.data.roomBanners[0].roomSecond == null || res.data.roomBanners[0].roomSecond == ""){
 						//如果没有图片，用暂无图片代替
-						this.imgUrl.splice(1,0,{img:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.png'})
-						this.previewerList.splice(1,0,{src:'https://media.guoanfamily.com/rent/static/HomePage/noneImg1.png'})
+						this.imgUrl.splice(1,0,{img:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.jpg'})
+						this.previewerList.splice(1,0,{src:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.jpg'})
 					} else {
 						this.imgUrl.splice(1,0,{img:this.concatFileUrl(res.data.roomBanners[0].roomSecond,750,415)})//卧室第1张
 						this.previewerList.splice(1,0,{src:this.concatFileUrl(res.data.roomBanners[0].roomSecond,750,415)})//卧室第1张
@@ -2015,8 +2195,8 @@
 					//卧室第三张
 					if(res.data.roomBanners[0].roomThird == null || res.data.roomBanners[0].roomThird == ""){
 						//如果没有图片，用暂无图片代替
-						this.imgUrl.splice(2,0,{img:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.png'})
-						this.previewerList.splice(2,0,{src:'https://media.guoanfamily.com/rent/static/HomePage/noneImg1.png'})
+						this.imgUrl.splice(2,0,{img:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.jpg'})
+						this.previewerList.splice(2,0,{src:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.jpg'})
 					} else {
 						this.imgUrl.splice(2,0,{img:this.concatFileUrl(res.data.roomBanners[0].roomThird,750,415)})//卧室第2张
 						this.previewerList.splice(2,0,{src:this.concatFileUrl(res.data.roomBanners[0].roomThird,750,415)})//卧室第2张
@@ -2028,8 +2208,8 @@
 							this.everyName.push("户型图");//当存在客厅时，添加底部导航文字户型图
 							if(res.data.roomBanners[i].layoutImage == null || res.data.roomBanners[i].layoutImage == ""){
 								//如果没有图片，用暂无图片代替
-								this.imgUrl.push({img:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.png'})
-								this.previewerList.push({src:'https://media.guoanfamily.com/rent/static/HomePage/noneImg1.png'})
+								this.imgUrl.push({img:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.jpg'})
+								this.previewerList.push({src:'https://media.guoanfamily.com/rent/static/HomePage/noimgAPP.jpg'})
 							} else {
 								this.imgUrl.push({img:this.concatFileUrl(res.data.roomBanners[i].layoutImage,750,415)})
 								this.previewerList.push({src:this.concatFileUrl(res.data.roomBanners[i].layoutImage,750,415)})
@@ -2258,7 +2438,7 @@
 					}
 					this.recommendList = res.data.map((item) => {
 						if(item.image == null || item.image == ""){
-							item.image = 'https://media.guoanfamily.com/rent/static/HomePage/noneImg1.png';
+							item.image = 'https://media.guoanfamily.com/rent/static/HomePage/noneImg1.jpg';
 						} else {
 							item.image = !item.image ||this.concatFileUrl(item.image,320,260);
 						}
@@ -2305,7 +2485,7 @@
 						})
 						return false;
 					} else {
-						this.$router.push({path:"/appointList/submitAppoint",query:{roomId:this.roomId,houseId:this.houseId}})
+						this.$router.push({path:"/appointList/submitAppoint",query:{roomId:this.roomId,houseId:this.houseId,shareName:this.shareName,userId:this.userId}})
 					}
 					
 				}else{
@@ -2329,7 +2509,7 @@
 						return false;
 					} else {
 						//未被预定则转向定金支付页面
-						this.$router.push({path:"/payDeposit",query:{roomId:this.roomId,houseId:this.houseId,productType:this.productType,depositImg:this.depositImg,roomNumber:this.roomNumber}})
+						this.$router.push({path:"/payDeposit",query:{roomId:this.roomId,houseId:this.houseId,productType:this.productType,depositImg:this.depositImg,roomNumber:this.roomNumber,shareName:this.shareName}})
 					}
 				}else{
 					this.$store.state.loginShow = true;
@@ -2380,7 +2560,7 @@
 				this.everyName=[];
 				this.getHouseDetaile();
 				this.getRecommendHouse();
-				
+				this.$refs.load.style.display = 'block';
 			}
 		},
 		components: {

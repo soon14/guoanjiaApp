@@ -1,22 +1,64 @@
 <template>
       <div  class="fixContent" >
-       
         <div :class="{'body_top':IosTop,'body_tops':AndroidTop,'wx_top':wxTop}" >
           <!--轮播图  -->
           <div class="swipertop">
+            <div class="swipertopabs">
+              <!-- animation: 'danmu '+item.settime+' linear 0s '+item.num
+              animation: 'danmu 5s linear 0s 3' -->
+              <!-- <Barrage :barrageList="barrageList" :comment="commentData" v-if="barrageList.length !== 0"/> -->
+              <div 
+                v-for="(item, i) in barList" 
+                :key="i" :style="{animation: 'danmu '+item.settime+'s linear 0s '+item.num}" 
+                class="absitem danmu" 
+                :class="'danmus' + item.dame"
+              >
+                <img src="../../../static/new/img/whiteren.png" alt="">
+                <p class="absitemp">{{item.text}}</p>
+              </div>
+              <!-- <div class="absitem danmu danmus01">
+                <img src="../../../static/new/img/whiteren.png" alt="">
+                <p class="absitemp">sdfasddfadsfasdfdssdfdsaff</p>
+              </div>
+              <div class="absitem danmu danmus02">
+                <img src="../../../static/new/img/whiteren.png" alt="">
+                <p class="absitemp">sdfasddfadsfasdfdssdfdsaff</p>
+              </div>
+              <div class="absitem danmu danmus03">
+                <img src="../../../static/new/img/whiteren.png" alt="">
+                <p class="absitemp">sdfasddfadsfasdfdssdfdsaff</p>
+              </div> -->
+            </div>
+            <div class="swipers">
               <swiper :options="swiperOption" ref="mySwiper">
-                  <swiper-slide :key='index' v-for="(item,index) in demo06_list"><img style="width:100%; height:5rem" :src='item.img' /></swiper-slide>
+                  <swiper-slide :key='index' v-for="(item,index) in demo06_list"><img style=" height:5rem" :src='item.img' /></swiper-slide>
               </swiper>
+              <div class="swiperpos">
+                  <div class="swiperpositem">
+                    <img v-show="quitCollent" @click="quitCollentClick" src="../../../static/new/img/shoucang02.png" alt="">
+                    <img v-show="collent" @click="collentClick" src="../../../static/new/img/shoucang01.png" alt="">
+                  </div>
+              <!-- <div class="collentDiv">
+                <button v-show="quitCollent" class="collent" @click="quitCollentClick">已收藏</button>
+                <button v-show="collent" class="quitCollent" @click="collentClick">收藏</button>
+              </div> -->
+                <!-- 分享图标 -->
+                  <div class="swiperpositem" @click="ShareClick">
+                    <img src="../../../static/new/img/fx01.png" alt="">
+                  </div>
+              </div>
+            </div>
               <!-- 图片头部标记 -->
-              <div slot="bottom" class="ImgHeader" :class="{'ImgHeader1':AndroidTop}">
+               <div v-transfer-dom>
+                  <previewer :list="List" ref="previewer" @on-close='close' @on-change='changes'></previewer>
+                </div>
+              <!-- <div slot="bottom" class="ImgHeader" :class="{'ImgHeader1':AndroidTop}">
                   <div  class="EffectImg" @click="show(0)">
                       <img src="../../../static/new/img/xiaoguotu.png" />
                       <span>效果图</span>
                       <span style="right:0rem;">{{EffectImg}}</span>
                       <div>
-                          <div v-transfer-dom>
-                              <previewer :list="List" ref="previewer" @on-close='close' @on-change='changes'></previewer>
-                          </div>
+                         
                       </div>
                   </div>
                   <div class="ApartMentImg" @click="showImg(0)">
@@ -24,13 +66,36 @@
                       <span>户型图</span>
                       <span style="right:-0rem;">{{ApartMentImg}}</span>
                   </div>
-              </div>
+              </div> -->
           </div>
-        
+          <div class="geshi">
+            <div style="width: 100%;overflow:scroll;-webkit-overflow-scrolling:touch;">
+              <tab style="float:left;" active-color="#000" bar-active-color="black" default-color="#666" :line-width="1">
+                  <tab-item :selected="itemOne" @on-item-click="show(0)">效果图
+                      <span>
+                          <span>(</span>{{EffectImg}}</span><span>)</span>
+                  </tab-item>
+                  <tab-item :selected="itemTwo" @on-item-click="show(0)">户型图
+                      <span>
+                          <span>(</span>{{ApartMentImg}}</span><span>)</span>
+                  </tab-item>
+                  <tab-item :selected="itemThr" @on-item-click="show(0)">规划图
+                      <span>
+                          <span>(</span>{{GuihuaImg}}</span><span>)</span> 
+                  </tab-item>
+                  <tab-item :selected="itemFor" @on-item-click="show(0)">样板间
+                      <span>
+                          <span>(</span>{{YangbanImg}}</span><span>)</span> 
+                  </tab-item>
+              </tab>
+            </div> 
+          </div>
+           
+
           <!-- 楼盘头部信息 -->
           <div class="buildDetial">
               <!-- 分享图标 -->
-              <div class="share" @click="ShareClick"></div>
+              <!-- <div class="share" @click="ShareClick"></div> -->
               <!-- 标题加标签 -->
               <div class="topNmae">
                   <span class="buildName">{{buidDetial.buildname}}</span>
@@ -41,20 +106,19 @@
                   </span>
               </div>
               <!-- 查看全部房源 -->
-              <div class="allHouse" @click="allHouse">
+              <!-- <div class="allHouse" @click="allHouse">
                   <img src="../../../static/new/img/quanbufangyuan.png">
                   <span>查看全部房源</span>
-              </div>
+              </div> -->
               <div class="detial">
                   <div class="kaitime">均价
                       <span/>
                   </div>
                   <span class="ovaspan">：</span>
                   <div class="rightContent">
-                      <span class="price">{{buidDetial.averageprice}}</span>
-                      <span>元/㎡</span>
+                      <span class="price">{{buidDetial.averageprice}} 元/㎡</span>
+                      <!-- <span></span> -->
                   </div>
-
               </div>
               <div class="detial" style="width:100%;">
                   <div class="kaitime">开盘时间
@@ -75,7 +139,7 @@
                   </div>
               </div>
               <!-- --------楼盘定位---------------------------------------------- -->
-              <div class="location" @click="addressLocation"></div>
+              <!-- <div class="location" @click="addressLocation"></div> -->
               <div class="detial">
                   <div class="kaitime">地址
                       <span/>
@@ -92,80 +156,110 @@
                   <img src="../../../static/new/img/baoming.png" style="postion:absolute;right:0;top:.25rem;width:.5rem;margin-left:39%;">
               </div>
           </div>
+          <div class="buildDetialbor"></div>
           <!-- 户型信息 -->
           <div class="buildDetial">
               <div class='housTypeHeader'>
-                  <img src="../../../static/new/img/huxing2.png">
-                  <span class="types">在售户型(</span>
+                  <!-- <img src="../../../static/new/img/huxing2.png"> -->
+                  <span class="types">在售户型</span>
                   <span>{{houseTypelen}}</span>
-                  <span>)套</span>
+                  <span>套</span>
               </div>
               <!-- <scroller> -->
               <div class="housTypeImgScroll">
                   <ul>
                       <li :key="index" v-for="(item,index) in housTypeImg" @click="houseTyeImgClick(item.id)">
-                          <div class="HousTypeTop">
+                          <div class="HousTypeBottomImg">
+                              <img :src='item.housetypefilename'>
+                          </div>
+                           <div class="HousTypeTop">
                               <div class="HousTypeTopLeft">
-                                  <span>{{item.housetypecode}}</span>
-                                  <span>{{item.salearea}}</span>
+                                  <span>{{item.housetypecode}}&nbsp;&nbsp;{{item.salearea}}</span>
+                                  <span></span>
                               </div>
                               <div class="HousTypeTopRight">
                                   <span>{{item.housetypedescribe}}</span>
-                                  <span>{{item.housetypedetail}}</span>
+                                  <!-- <span>{{item.housetypedetail}}</span> -->
                               </div>
-                          </div>
-                          <div class="HousTypeBottomImg">
-                              <img :src='item.housetypefilename'>
                           </div>
                       </li>
                   </ul>
               </div>
               <!-- </scroller> -->
           </div>
+          <div class="buildDetialbor"></div>
           <div class="buildDetial">
               <!-- 楼盘基础信息 -->
-              <div class="housTypeHeader">
+              <div class="housTypeHeader housTypeHeader01">
                   <div class='housTypeHeader'>
-                      <img src="../../../static/new/img/lou.png">
+                      <!-- <img src="../../../static/new/img/lou.png"> -->
                       <span class="types">楼盘基础信息</span>
                   </div>
               </div>
-              <div class="detial" style="width:100%;">
+              <div class="details">
+                <!-- <div class="details01" style="width:49.5%;"></div> -->
+                <div class="detial details01" style="width:49.5%;">
                   <div class="kaitime">开盘时间
                       <span/>
                   </div>
                   <span class="ovaspan">：</span>
-                  <div class="rightContent">
+                  <div class="rightContent" style="width:40%">
                       <span class="priceContent">{{buidDetial.openquotationtime}}</span>
                   </div>
-              </div>
-              <div class="detial" v-if="this.buidDetial.tenementtypename !== ''">
-                  <div class="kaitime">物业类型
-                      <span/>
-                  </div>
-                  <span class="ovaspan">：</span>
-                  <div class="rightContent">
-                      <span class="priceContent">{{buidDetial.tenementtypename}}</span>
-                  </div>
-              </div>
-              <div class="detial" v-if="this.buidDetial.newbuildtype !== ''">
-                  <div class="kaitime">建筑类型
-                      <span/>
-                  </div>
-                  <span class="ovaspan">：</span>
-                  <div class="rightContent">
-                      <span class="priceContent">{{buidDetial.newbuildtype}}</span>
-                  </div>
-              </div>
-              <div class="detial" v-if="this.buidDetial.totalhouseholdnumber!== ''">
+                </div>
+                <div class="detial details01" style="width:49.5%" v-if="this.buidDetial.totalhouseholdnumber!== ''">
                   <div class="kaitime">总户数
                       <span/>
                   </div>
                   <span class="ovaspan">：</span>
-                  <div class="rightContent">
+                  <div class="rightContent" style="width:40%">
                       <span class="priceContent">{{buidDetial.totalhouseholdnumber}}</span>
                   </div>
+                </div>
               </div>
+              <div class="details">
+                <div class="detial details01" style="width:49.5%" v-if="this.buidDetial.tenementtypename !== ''">
+                  <div class="kaitime">物业类型
+                      <span/>
+                  </div>
+                  <span class="ovaspan">：</span>
+                  <div class="rightContent" style="width:40%">
+                      <span class="priceContent">{{buidDetial.tenementtypename}}</span>
+                  </div>
+                </div>
+
+                <div class="detial details01" style="width:49.5%" v-if="this.buidDetial.volumefraction !== ''">
+                  <div class="kaitime">容积率
+                      <span/>
+                  </div>
+                  <span class="ovaspan">：</span>
+                  <div class="rightContent" style="width:40%">
+                      <span class="priceContent">{{buidDetial.volumefraction }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="details">
+                <div class="detial details01" style="width:49.5%" v-if="this.buidDetial.newbuildtype !== ''">
+                  <div class="kaitime">建筑类型
+                      <span/>
+                  </div>
+                  <span class="ovaspan">：</span>
+                  <div class="rightContent" style="width:40%">
+                      <span class="priceContent">{{buidDetial.newbuildtype}}</span>
+                  </div>
+                </div>
+
+                <div class="detial details01" style="width:49.5%" v-if="this.buidDetial.greenrate !== ''">
+                  <div class="kaitime">绿化率
+                      <span/>
+                  </div>
+                  <span class="ovaspan">：</span>
+                  <div class="rightContent" style="width:40%">
+                      <span class="priceContent">{{buidDetial.greenrate}}</span>
+                  </div>
+                </div>
+              </div>
+              
               <div class="detial" v-if="this.buidDetial.carportmatching !== ''">
                   <div class="kaitime">车位配比
                       <span/>
@@ -173,24 +267,6 @@
                   <span class="ovaspan">：</span>
                   <div class="rightContent">
                       <span class="priceContent">{{buidDetial.carportmatching}}</span>
-                  </div>
-              </div>
-              <div class="detial" v-if="this.buidDetial.volumefraction !== ''">
-                  <div class="kaitime">容积率
-                      <span/>
-                  </div>
-                  <span class="ovaspan">：</span>
-                  <div class="rightContent">
-                      <span class="priceContent">{{buidDetial.volumefraction }}</span>
-                  </div>
-              </div>
-              <div class="detial" v-if="this.buidDetial.greenrate !== ''">
-                  <div class="kaitime">绿化率
-                      <span/>
-                  </div>
-                  <span class="ovaspan">：</span>
-                  <div class="rightContent">
-                      <span class="priceContent">{{buidDetial.greenrate}}</span>
                   </div>
               </div>
               <div class="detial" v-if="this.buidDetial.hardcoverstandard !== '' && this.buidDetial.hardcoverstandard !== null">
@@ -441,11 +517,11 @@
                   </div>
               </div>
               <div class="showBackBtn">
-                  <button v-show="fadeInShow" @click="showBtn">查看更多</button>
-                  <button v-show="fadeInOut" @click="outBtn">收起</button>
+                  <div v-show="fadeInShow" @click="showBtn">展开更多</div>
+                  <div v-show="fadeInOut" @click="outBtn">收起</div>
               </div>
           </div>
-
+          <div class="buildDetialbor"></div>
           <div class="lastBottom">
               <span>专享服务</span>
           </div>
@@ -523,12 +599,11 @@
         <div class="market" style="z-index:149;" v-show="market" @click="markedClick"></div>
         <!-- 收藏,预约看房 -->
         <div class="bottom">
-            <div class="collentDiv">
-                <button v-show="quitCollent" class="collent" @click="quitCollentClick">已收藏</button>
-                <button v-show="collent" class="quitCollent" @click="collentClick">收藏</button>
-            </div>
+          <div class="bottomdiv">
             <button class="yuyue" @click="appointmentClick">预约看房</button>
             <button class="dingfang" @click="onlineBooking">在线订房</button>
+          </div>
+            
         </div>
           <!-- 分享时候的底部弹出框 -->
           <div class="shareAlert" :class="{'shareAlert1':shareAlert}">
@@ -551,6 +626,8 @@
 // import swipers from '../components/Swiper';//引入轮播图组件
 import { TransferDom, Tab, TabItem } from "vux";
 import Previewer from "../components/previewer";
+import Barrage from "./Barrage";
+import headImage from '../../../static/new/img/whiteren.png';
 export default {
   name: "building_detail",
   directives: {
@@ -559,7 +636,8 @@ export default {
   components: {
     Previewer,
     Tab,
-    TabItem
+    TabItem,
+    Barrage
   },
   data() {
     return {
@@ -640,7 +718,106 @@ export default {
       itemSix: false,
       itemSeven: false,
       // 分享部分展示
-      shareAlert: false
+      shareAlert: false,
+      // 文本数据
+      barrageList: [
+        {
+          Commentstate:1,
+          Createtime:"2018-02-13T17:51:36+08:00",
+          Headurlimg:headImage,
+          Id:"65",
+          Likenumber:0,
+          Nickname:"吴航宇",
+          Ordernumber:0,
+          Uid:"o8awnwvARLDDGFUuQK75JIyHnXxw",
+          Usercomment:"加油加油",
+          like:0,
+          name:"吴航宇",
+          portrait:headImage,
+          praised:false,
+          text:"加油加油",
+          time:"2018-02-13 17:51:36",
+        },
+        {
+          Commentstate:1,
+          Createtime:"2018-02-13T13:17:44+08:00",
+          Headurlimg:headImage,
+          Id:"64",
+          Likenumber:2,
+          Nickname:"关明明",
+          Ordernumber:0,
+          Uid:"o8awnwuSOT2RCuzcX5IuxgCfwZig",
+          Usercomment:"越来越好",
+          like:2,
+          name:"关明明",
+          portrait:headImage,
+          praised:false,
+          text:"越来越好",
+          time:"2018-02-13 13:17:44",
+        },
+        {
+          Commentstate:1,
+          Createtime:"2018-02-13T11:51:30+08:00",
+          Headurlimg:headImage,
+          Id:"63",
+          Likenumber:0,
+          Nickname:"机器猫",
+          Ordernumber:0,
+          Uid:"o8awnwqkVji0Q-RYNyhdyvzpPWTw",
+          Usercomment:"一路顺风",
+          like:0,
+          name:"机器猫",
+          portrait:headImage,
+          praised:false,
+          text:"一路顺风",
+          time:"2018-02-13 11:51:30",
+        },
+        {
+          Commentstate:1,
+          Createtime:"2018-02-13T09:38:18+08:00",
+          Headurlimg:headImage,
+          Id:"61",
+          Likenumber:2,
+          Nickname:"月含香",
+          Ordernumber:0,
+          Uid:"o8awnwoqT6LBSP9yLwZCRQoyLlmM",
+          Usercomment:"人心齐泰山移！坚信越来越好！越来越好！",
+          like:2,
+          name:"月含香",
+          portrait:headImage,
+          praised:false,
+          text:"人心齐泰山移！坚信越来越好！越来越好！",
+          time:"2018-02-13 09:38:18",
+        },
+      ],
+      barList:[
+        {
+          text:"人心齐泰山移！坚信越来越好！越来越好！",
+          settime: 5,
+          num: 5,
+          dame: '1'
+        },
+         {
+          text:"dfdsfsfsdfs",
+          settime: 6,
+          num: 6,
+          dame: '2'
+        },
+         {
+          text:"越来越好！",
+          settime: 9,
+          num: 6,
+          dame: '3'
+        },
+         {
+          text:"lalalalalalalal！",
+          settime: 3,
+          num: 4,
+          dame: ''
+        }
+      ],
+      commentData: {},
+
     };
   },
   methods: {
@@ -798,7 +975,6 @@ export default {
         this.msgalert("该楼盘没有样板间");
       }
     },
-
     // 全部的点击事件
     allClick() {
       this.$router.push({
@@ -1585,7 +1761,7 @@ export default {
 @import "~vux/src/styles/center.less";
 
 .body_top {
-  margin-top: 0.6rem;
+  margin-top: 1.3rem;
   position: absolute;
   left: 0;
   top: 0;
@@ -1661,9 +1837,63 @@ export default {
 // 头部轮播图部分
 .swipertop {
   width: 100%;
-  height: 5rem;
+  box-sizing: border-box;
+  height: 5.3rem;
+  padding: .3rem .3rem 0px .3rem;
+  // margin: .3rem .3rem;
   // background: red;
   position: relative;
+}
+.swipertopabs{
+  position: absolute;
+  left: .6rem;
+  top: .6rem;
+  width: 6rem;
+  height: 2rem;
+  overflow: hidden;
+  // background: blue;
+  z-index: 3000;
+}
+.absitem{
+  width: 2.8rem;
+  height: 0.4rem;
+  border-radius: .16rem;
+  background: rgba(46, 44, 44, 0.6);
+  margin-bottom: .1rem;
+}
+.absitem img{
+  float: left;
+  margin: 0.05rem .12rem 0 .16rem;
+  width: 0.26rem;
+  height: 0.26rem;
+}
+.absitemp{
+  width: 2.2rem;
+  font-size: .24rem;
+  line-height: .4rem;
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.swipers{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.swiperpos{
+  position: absolute;
+  z-index: 10000;
+  right: .1rem;
+  top: .3rem;
+  width: 1.6rem;
+  height: 0.6rem;
+}
+.swiperpositem{
+  float: left;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: .2rem
 }
 // 头部样式
 .ImgHeader {
@@ -1746,8 +1976,8 @@ export default {
 .buildDetial {
   width: 100%;
   position: relative;
-  border-bottom: 0.25rem solid #f0f0f0;
-  position: relative;
+  padding-bottom: .4rem;
+  // border-bottom: 1px solid #666;
   .allHouse {
     position: absolute;
     right: 0;
@@ -1817,6 +2047,9 @@ export default {
       }
     }
   }
+  .details{
+    height: 0.75rem;
+  }
   .detial {
     overflow: hidden;
     // padding-left: 0.25rem;
@@ -1826,8 +2059,9 @@ export default {
       width: 1.5rem;
       text-align: justify;
       float: left;
+      color: #999;
       padding-left: 0.25rem;
-      font-size: 0.25rem; // height: 1.6rem;
+      font-size: 0.28rem; // height: 1.6rem;
       span {
         display: inline-block;
         padding-left: 100%;
@@ -1845,23 +2079,35 @@ export default {
       text-align: left;
       overflow: hidden;
       .price {
-        font-weight: 600;
-        color: #d7000f;
+        // font-weight: 600;
+        color: #000;
         font-size: 0.3rem;
       }
       .priceContent {
-        font-size: 0.25rem;
+        font-size: 0.28rem;
         display: block;
         height: 0.5rem;
+        color: #000;
         line-height: 0.5rem;
         overflow: hidden;
       }
     }
-
+    // .rightContent01{
+    //   width: 40%;
+    // }
     span {
       font-size: 0.3rem;
     }
   }
+  .details01 {
+    width: 50%;
+    float: left;
+    height: 0.75rem;
+  }
+}
+.buildDetialbor{
+  margin: 0 .3rem 0 .4rem;
+  border-bottom: 1px solid #666;
 }
 
 // 户型样式
@@ -1879,55 +2125,59 @@ export default {
   }
   .types {
     margin-left: 0.25rem;
+    color: #000;
   }
   span {
-    font-size: 0.35rem;
+    font-size: 0.32rem;
     display: block;
     float: left;
     line-height: 1.1rem;
   }
 }
-
+.housTypeHeader01{
+  margin-bottom: .1rem;
+}
 .housTypeImgScroll {
+  padding-bottom: .2rem;
   ul {
     width: 100%;
     overflow-x: auto;
     display: flex;
     li {
-      margin-left: 0.25rem;
+      margin-left: 0.3rem;
     }
   }
   .HousTypeTop {
-    width: 5rem;
-    height: 1.5rem;
+    width: 4rem;
+    height: 1rem;
     background: rgb(240, 240, 240);
     .HousTypeTopLeft {
       width: 1.5rem;
       float: left;
-      background: rgb(154, 116, 79);
+      // background: rgb(154, 116, 79);
       padding-bottom: 0.25rem;
       padding-left: 0.2rem;
       padding-top: 0.25rem;
       span {
         width: 100%;
         display: block;
-        color: #ffffff;
+        color: #666;
         font-size: 0.3rem;
         text-align: left;
       }
     }
     .HousTypeTopRight {
-      padding-left: 0.2rem;
-      float: left;
-      width: 2.5rem;
-      padding-top: 0.25rem; // background: red;
+      padding-right: 0.1rem;
+      float: right;
+      width: 2rem;
+      padding-top: 0.15rem; // background: red;
       span {
         width: 100%;
         display: block;
-        color: #333333;
+        color: #666;
         font-size: 0.275rem;
         line-height: 0.6rem;
-        text-align: left;
+        text-align: right;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
@@ -1949,18 +2199,18 @@ export default {
 .showBackBtn {
   width: 100%;
   height: 0.75rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.05rem;
   position: relative;
-  button {
+  div {
     font-size: 0.35rem;
-    border: 1px solid #e00019;
-    color: #e00019;
+    color: #666666;
     border-radius: 0.2rem;
-    display: inline-block;
+    // display: inline-block;
     width: 50%;
-    height: 100%;
+    text-align: center;
+    // height: 100%;
     line-height: 0.8rem;
-    padding-bottom: 41px;
+    // padding-bottom: 41px;
     background: #ffffff;
     position: absolute;
     left: 25%;
@@ -1977,36 +2227,37 @@ export default {
   height: 41px;
   text-align: left;
   span {
-    color: #606060;
-    font-size: 14px;
-    border-left: 4px solid #ffd273;
+    color: #000;
+    font-size: .32rem;
+    // border-left: 4px solid #ffd273;
     padding-left: 5px;
   }
 }
 
 .bottomBig {
   overflow: hidden;
-  padding: 0 0.35rem 1.5rem 0.4rem;
+  padding: 0 0.35rem .8rem 0.4rem;
   position: relative;
   .phoneNumber {
     display: block;
-    font-size: 16px;
+    font-size: .42rem;
     font-weight: bold;
-    color: rgb(84, 152, 4);
+    color:#e45044;
     text-align: left;
   }
   a {
     display: block;
-    width: 0.6rem;
-    height: 0.6rem;
-    background: url("../../../static/new/img/callPhone.png");
+    width: 0.8rem;
+    height: 0.8rem;
+    background: url("../../../static/new/img/hotphone.png");
     background-size: cover;
     position: absolute;
-    right: 0.5rem;
-    bottom: 1.5rem;
+    right: 0.6rem;
+    bottom: .8rem;
   }
   .explain {
-    font-size: 12px;
+    font-size: .26rem;
+    color: #999;
     padding-top: 3px;
   }
 }
@@ -2073,17 +2324,23 @@ export default {
 .bottom {
   -webkit-transform: translateZ(0);
   width: 100%;
-  height: 1.2rem;
+  height: 1rem;
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: .4rem;
   z-index: 10;
   background: #ffffff; // background:red;
   float: left; // border-top: 1px solid #ccc;
-  border-top: 1px solid #ccc;
+  // border-top: 1px solid #ccc;
   button {
     border: none;
     float: left;
+  }
+  .bottomdiv{
+    width: 100%;
+    height: 1rem;
+    box-sizing: border-box;
+    padding: 0 .3rem;
   }
   .collentDiv {
     width: 30%;
@@ -2114,21 +2371,24 @@ export default {
     font-size: 0.35rem;
   }
   .yuyue {
-    width: 35%;
+    width: 48%;
     height: 100%;
-    background: rgba(249, 117, 0, 0.7);
+    background: #e34e3b;
     text-align: center;
     color: #ffffff;
     font-size: 0.35rem;
+    margin-right: 3%;
+    border-radius: .1rem;
   }
   .dingfang {
-    width: 35%;
+    width: 48%;
     height: 100%;
-    background: url("../../../static/new/img/btnbj.png") no-repeat;
+    background: #999999;
     background-size: cover;
     text-align: center;
     color: #ffffff;
     font-size: 0.35rem;
+    border-radius: .1rem;
   }
 }
 
@@ -2220,6 +2480,12 @@ export default {
   z-index: 100005;
   overflow-x: auto;
 }
+.bottomTab01{
+  width: 100%;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  overflow-x: auto;
+}
 
 .box {
   padding: 15px;
@@ -2258,6 +2524,33 @@ export default {
   width: 2rem;
   text-align: center;
 }
+.danmu {
+  position: absolute;
+  left: 100%;
+  // animation: danmu 5s linear 0s 3;
+}
+.aniactive{
+  animation: danmu 5s linear 0s 3;
+}
+.danmus1{
+  top: .5rem;
+}
+.danmus2{
+  top: 1rem;
+}
+.danmus3{
+  top: 1.5rem;
+}
+@keyframes danmu {
+  from {
+    left: 100%;
+    transform: translateX(0);
+  }
+  to {
+    left: 0;
+    transform: translateX(-100%);
+  }
+}
 </style>
 <style lang =  'less'>
 .weui-cells {
@@ -2265,5 +2558,18 @@ export default {
 }
 .vux-swiper-desc {
   display: none;
+}
+.swipertop .swiper-slide img{
+  width: 100%;
+  height: 100%;
+}
+.geshi{
+  padding: 0 .3rem 0 .3rem;
+}
+.geshi /deep/ .vux-tab{
+  background: #fff;
+}
+.geshi /deep/ .vux-tab .vux-tab-item{
+  width: 1.72rem !important;
 }
 </style>

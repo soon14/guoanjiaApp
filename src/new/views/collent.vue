@@ -1,9 +1,13 @@
 <template>
        <div  class="fixContent" >
         <div :class="{'collentTop':IosTop,'collentTop1':AndroidTop,'collentWxTop':this.$store.state.showWxTitle}">
-            <div class="collent" :class="{collentBuild:flag1}" @click="consoleIndex">收藏的楼盘</div>
-            <div class="collent" :class="{collentHouseType:flag2}" @click="consoleIndex1">收藏的户型</div>
-            <div class="collent" :class="{collentRentHouse:flag3}" @click="consoleIndex3">收藏的租房</div>
+            <div class="collent" :class="{collentBuild:flag1}" @click="consoleIndex"><span>收藏的楼盘</span></div>
+            <div class="collent" :class="{collentHouseType:flag2}" @click="consoleIndex1">
+                <span :class="{'topCenter':lineFlag == 1, 'topCenterRight': lineFlag == 3, 'topCenterLeft': lineFlag == 2}" >
+                  收藏的户型
+                </span>
+              </div>
+            <div class="collent" :class="{collentRentHouse:flag3}" @click="consoleIndex3"><span>收藏的租房</span></div>
         </div>
         <div :class="{'houseResourceList':!this.$store.state.showWxTitle,'houseResourceList1':this.$store.state.showWxTitle}">
             <!--房源列表  -->
@@ -27,7 +31,7 @@
                                 建筑面积: {{item.adjunctContent}}
                             </div>
                         </div>
-                        <div class="listHouseaverage" style="color:#666666;font-weight:400;">
+                        <div class="listHouseaverage" style="color:#999999;font-size:.24rem;font-weight:400;">
                             <span>{{item.collectContent}}</span>
                         </div>
 
@@ -49,7 +53,7 @@
                     </div>
                     <div class="listHouseRightDiv">
                         <div class='listHouseRightName'>
-                            <span style="font-size:normal;">户型</span>
+                            <span>户型</span>
                             <span>{{item.collectTitle}}</span>
                         </div>
                         <div class="listHouseaverage">
@@ -78,7 +82,7 @@
                     </div>
                     <div class="listHouseRightDiv">
                         <div class='listHouseRightName'>
-                            <span style="font-size:normal;">户型</span>
+                            <span>户型</span>
                             <span>{{item.collectTitle}}</span>
                         </div>
                         <div class="listHouseaverage">
@@ -120,6 +124,7 @@ export default {
       flag1: false,
       flag2: false,
       flag3: false,
+      lineFlag:2,
       houseList: [], //收藏房源的集合
       housTypelist: false,
       apartMent: [], //收藏户型的集合
@@ -257,8 +262,6 @@ export default {
     // 楼盘列表的点击事件
     housListClick(href) {
       window.location.href = href;
-      // let buildID =   href.split('=')[1];
-      // this.$router.push({ path: "building_detial", query: { buildID: buildID } });
     },
 
     // 取消收藏的户型
@@ -293,14 +296,6 @@ export default {
     // 户型列表的点击事件
     apartMentListClick(href) {
       window.location.href = href;
-      // let onece = href.split('=');
-      // let typeid =  onece[1];
-      // typeid = typeid.substring(0,typeid.indexOf("&buildid"))
-      // let buildid = onece[2];
-      // this.$router.push({
-      //   path: "houseType",
-      //   query: { typeid: typeid, buildid: buildid }
-      // });
     },
     // 取消收藏的租房
     rentExitcollect(url, index) {
@@ -335,15 +330,6 @@ export default {
     // 租房列表的点击事件
     rentListClick(href) {
       window.location.href = href;
-      //   console.log(href);
-      //   console.log(this.getStr(href, "productType"));
-      // this.$router.push('/HouseList/houseDetail');
-      // let productType = this.getStr(href, "productType");
-      // let id = this.getStr(href, "id");
-      // this.$router.push({
-      //   path: "/HouseList/houseDetail",
-      //   query: { id: id, productType: productType }
-      // });
     },
     getStr(string, strname) {
       var reg = new RegExp("(^|&)" + strname + "=([^&]*)(&|$)", "i");
@@ -357,6 +343,7 @@ export default {
       this.flag1 = true;
       this.flag2 = false;
       this.flag3 = false;
+      this.lineFlag = 2;
       this.housTypelist = true;
       this.apartMentList = false;
       (this.rent = false),
@@ -370,6 +357,7 @@ export default {
       this.flag1 = false;
       this.flag2 = true;
       this.flag3 = false;
+      this.lineFlag = 1;
       this.housTypelist = false;
       this.apartMentList = true;
       (this.rent = false),
@@ -383,6 +371,8 @@ export default {
       this.flag1 = false;
       this.flag2 = false;
       this.flag3 = true;
+      this.lineFlag = 3;
+      console.log('1234',this.lineFlag);
       (this.rent = true), (this.housTypelist = false);
       this.apartMentList = false;
       this.post_data = {
@@ -434,148 +424,154 @@ export default {
 <style lang='less' scoped>
 @import "~vux/src/styles/1px.less";
 .collentTop {
-  width: 100%; // margin-left: 2%; // margin-top: 0.5rem;
-  // padding-top: 10px;
   position: fixed;
-  top: 60px;
-  left: 0;
+  top: 80px;
+  left: .3rem;
+  right:.3rem;
   z-index: 11;
-  height: 1.125rem;
-  background: #f5f5f5;
+  height: 0.8rem;
+  border-top:1px solid #cccccc;
+  border-bottom:1px solid #cccccc;
+  .topCenterRight{
+    padding-right: 12px;
+    padding-left: 12px;
+    border-right: none;
+    border-left: 1px solid #cccccc;
+  }
+  .topCenterLeft{
+    padding-right: 12px;
+    padding-left: 12px;
+    border-left:none;
+    border-right: 1px solid #cccccc;
+  }
+  .topCenter{
+    padding-right: 12px;
+    padding-left: 12px;
+  }
   div {
     margin-top: 0.06rem;
     width: 33%;
     float: left;
-    height: 1rem;
-    line-height: 1rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
     font-size: 0.35rem;
+    background:#eeeeee;
+    color:#999999;
   }
   .collent {
-    background: #f5f5f5;
+    // background: #f5f5f5;
   }
   .collentBuild {
-    background: url("../../../static/new/img/collentTopleft.png") no-repeat;
-    background-size: 95%;
-    background-position: center;
-    color: red;
+    color: #e34b3e;
+    background:#ffffff;
   }
   .collentHouseType {
-    background: url("../../../static/new/img/collentTopCenter.png") no-repeat;
-    background-size: 100%;
-    background-position: center;
-    color: red;
+    color: #e34b3e;
+    background:#ffffff;
   }
   .collentRentHouse {
-    background: url("../../../static/new/img/collentTopRight.png") no-repeat;
-    background-size: 95%;
-    background-position: center;
-    color: red;
+    color: #e34b3e;
+    background:#ffffff;
   }
 }
 .collentTop1 {
-  width: 100%; // margin-left: 2%; // margin-top: 0.5rem;
-  // padding-top: 10px;
   position: fixed;
   top: 47px;
-  left: 0;
+  left: 0.3rem;
+  right:0.3rem;
   z-index: 11;
-  height: 1.125rem;
-  background: #f5f5f5;
+  height: 0.8rem;
+  border-top:1px solid #cccccc;
+  border-bottom:1px solid #cccccc;
   div {
     margin-top: 0.06rem;
     width: 33%;
     float: left;
-    height: 1rem;
-    line-height: 1rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
     font-size: 0.35rem;
+    background:#eeeeee;
+    color:#999999;
   }
   .collent {
-    background: #f5f5f5;
+    // background: #f5f5f5;
   }
   .collentBuild {
-    background: url("../../../static/new/img/collentTopleft.png") no-repeat;
-    background-size: 95%;
-    background-position: center;
-    color: red;
+    color: #e34b3e;
+    background:#ffffff;
   }
   .collentHouseType {
-    background: url("../../../static/new/img/collentTopCenter.png") no-repeat;
-    background-size: 100%;
-    background-position: center;
-    color: red;
+    color: #e34b3e;
+    background:#ffffff;
   }
   .collentRentHouse {
-    background: url("../../../static/new/img/collentTopRight.png") no-repeat;
-    background-size: 95%;
-    background-position: center;
-    color: red;
+    color: #e34b3e;
+    background:#ffffff;
   }
 }
 .collentWxTop {
-  width: 100%; // margin-left: 2%; // margin-top: 0.5rem;
-  // padding-top: 10px;
   position: fixed;
   top: 0px;
-  left: 0;
+  right:.3rem;
+  left: .3rem;
   z-index: 11;
-  height: 1.125rem;
-  background: #f5f5f5;
+  height: 0.8rem;
+  border-top:1px solid #cccccc;
+  border-bottom:1px solid #cccccc;
   div {
     margin-top: 0.06rem;
     width: 33%;
     float: left;
-    height: 1rem;
-    line-height: 1rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
     font-size: 0.35rem;
+    background:#eeeeee;
+    color:#999999;
   }
   .collent {
-    background: #f5f5f5;
+    // background: #f5f5f5;
   }
   .collentBuild {
-    background: url("../../../static/new/img/collentTopleft.png") no-repeat;
-    background-size: 95%;
-    background-position: center;
-    color: red;
+    color: #e34b3e;
+    background:#ffffff;
   }
   .collentHouseType {
-    background: url("../../../static/new/img/collentTopCenter.png") no-repeat;
-    background-size: 100%;
-    background-position: center;
-    color: red;
+    color: #e34b3e;
+    background:#ffffff;
   }
   .collentRentHouse {
-    background: url("../../../static/new/img/collentTopRight.png") no-repeat;
-    background-size: 95%;
-    background-position: center;
-    color: red;
+    color: #e34b3e;
+    background:#ffffff;
   }
 }
 .listUl {
-  background: #eee;
+  // background: #eee;
 }
 
 .houseResourceList {
   width: 100%;
-  margin-top: 2.3rem;
+  margin-top: 2.6rem;
 }
 .houseResourceList1 {
   width: 100%;
-  margin-top: 1.3rem;
+  margin-top: 1rem;
 }
 .listHouseoLi {
-  padding-top: 0.25rem;
-  width: 100%;
-  height: 2rem;
+  // padding-top: 0.25rem;
+  margin-left:.3rem;
+  margin-right:.3rem;
+  height: 2.3rem;
   margin-bottom: 0.25rem;
   background: #fff;
   position: relative;
+  border-bottom:1px solid #eee;
   .exitCollect {
     position: absolute;
-    width: 20%;
-    height: 1rem;
-    background: url("../../../static/new/img/collent.png") no-repeat;
-    background-size: 50%;
-    right: 0;
+    width:.48rem;
+    height:.48rem;
+    background: url("../../../static/new/img/shoucang02.png") no-repeat;
+    background-size: 100%;
+    left:.4rem;
     top: 0.25rem;
     z-index: 10;
   }
@@ -587,47 +583,45 @@ export default {
 }
 
 .listHouseLeftImg img {
-  width: 2.125rem;
-  height: 1.7rem;
+  width: 2.8rem;
+  height: 2.1rem;
   border-radius: 5px;
   margin-left: 0.3rem;
 }
 
 .listHouseRightDiv {
-  width: 62%;
+  width: 58%;
   float: right;
   text-align: left;
   position: relative;
 }
 
 .listHouseRightName {
-  font-size: 0.4rem;
   font-weight: 400;
   line-height: 0.5rem;
-  font-size: 0.325rem;
-  font-weight: bold;
-  width: 70%;
+  font-size: 0.32rem;
+  font-weight: 500;
+  color:#000000;
+  width: 80%;
 }
 
 .listHouseaverage {
   bottom: 0;
-  color: red;
+  color: #000000;
+  font-family:'Source Han Sans CN';
   font-size: 0.3rem;
-  font-weight: bold;
   overflow: hidden;
   width: 70%;
-  height: 0.575rem;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .listHousearearegion {
-  font-size: 0.3rem;
-  width: 70%; // height: 1rem;
-  // line-height: 1rem;
+  font-family:'Source Han Sans CN';
+  font-size: 0.32rem;
+  width: 70%; 
   text-align: left;
-  font-size: 0.25rem;
-  color: red;
+  color: #000000;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -635,13 +629,12 @@ export default {
 
 .HouseaddressLocation {
   .listHouseaddress {
-    font-size: 0.3rem;
+    font-size: 0.26rem;
     float: left;
     width: 70%;
     height: 0.5rem;
     line-height: 0.5rem;
     text-align: left;
-    font-size: 0.3rem;
     color: #666666;
     overflow: hidden;
     text-overflow: ellipsis;

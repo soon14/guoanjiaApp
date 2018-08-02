@@ -451,7 +451,8 @@
 			<div class="content-img">
 				<img :src="depositImg" alt="" />
 			</div>
-			<p>{{houseName}} {{roomName}}{{roomNumber}}</p>
+			<!--<p>{{houseName}} {{roomName}}{{roomNumber}}</p>-->
+			<p>{{shareName}}</p>
 			<p> <span style="color: #f4605e;">{{rent}}</span>
 				<span style="font-size: 0.22rem;">元/月</span> </p>
 			<p >{{houseArea}}㎡&nbsp;|&nbsp;{{buildFloor}}层</p>
@@ -632,7 +633,8 @@
 	      		tradeNo:'',//订单号
 	      		androidOrIos:true,	//默认为安卓登录
 	      		isBan:false,
-	      		roomNumber:this.$route.query.roomNumber
+	      		roomNumber:this.$route.query.roomNumber,
+	      		shareName:this.$route.query.shareName
 			}
 		},
 		created() {
@@ -737,7 +739,11 @@
 					this.depositName = this.houseName;
 					this.name="0019002"
 				}else if(this.$route.query.productType == "0019003") {
-					this.depositName = this.houseName + this.roomName + this.roomNumber;
+					if(this.houseName == '东大桥店'){
+						this.depositName = this.shareName;
+					}else{
+						this.depositName = this.houseName + this.roomName + this.roomNumber;
+					}
 					this.name="0019003"
 				}
 			},
@@ -751,7 +757,8 @@
 			},
 			//APP确认支付按钮
 			wxSummitAPP(){
-				if(this.amount < 500){
+//				if(this.amount < 500){
+				if(this.amount > 500){
 					this.$vux.confirm.show({
 	                    content:"不能低于500哦~",
 	                    onCancel () {//取消执行
@@ -834,10 +841,8 @@
 									if(e.resultStatus == '9000'){
 										//按钮可以点击
 										self.msgalert('支付成功');
-										setTimeout( () => {
-											self.$router.push({path:"/MyContract/DepositContract",query:{id:self.tradeNo}});
-											self.isBan = false;
-										},500)
+										self.isBan = false;
+										self.$router.push({path:"/MyContract/DepositContract",query:{id:self.tradeNo}});										
 									}else if(e.resultStatus == "8000"){
 										//按钮可以点击
 				            			self.isBan = false;

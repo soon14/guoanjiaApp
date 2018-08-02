@@ -407,7 +407,7 @@
 				<div class="content-img">
 					<img :src="picImage" alt="" />
 				</div>
-				<p><span v-if="this.houseName">{{houseName}}</span><span v-if="this.roomName">{{roomName}}</span></p>
+				<p><span v-if="this.houseName">{{shareName}}</span><span v-if="false">{{roomName}}</span></p>
 				<p> <span style="color: #f4605e;" v-if="this.rentPrice">{{rentPrice}}</span>
 					<span style="font-size: 0.22rem;">元/月</span> </p>
 				<p><span v-if="this.area">{{area}}㎡ |</span>  <span v-if="this.houseBuildNo">{{houseBuildNo}}层</span></p>
@@ -509,6 +509,8 @@
 				picImage:"",//top图片
 				customerSourceCode:"",//约看来源
 				androidOrIos:true,	//默认为安卓登录
+				shareName:this.$route.query.shareName,
+				userId:this.$route.query.userId
 			}
 		},
 		created() {
@@ -669,8 +671,10 @@
 					remark:this.message,//留言
 					userName:this.userName,//姓名
 					phone:this.userPhone,//电话
-					sex:this.renterSex//性别0男1女
+					sex:this.renterSex,//性别0男1女
+					userId:this.userId//用户id
 				}).then((res) =>{
+					var that = this;
 					if(res.code == 0){
 						this.$router.replace({path:"/appointList/appointSuccess"})
 					}else{
@@ -679,6 +683,7 @@
 							onCancel () {//取消执行
 							},
 							onConfirm () {//确定执行
+								that.$router.push({path:"/HouseList",query:{name:"0019001"}});
 							}
 						})
 					}

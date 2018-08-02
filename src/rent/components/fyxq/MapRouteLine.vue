@@ -295,6 +295,13 @@
                         color:rgba(255, 150, 37, 0.9);
                     }
                 }
+                .path-button{
+                    float:right; 
+                    margin-right:0.25rem; 
+                    color:#d31a20; 
+                    border:1px solid #d31a20;
+                    border-radius: 0.1rem;
+                }
             }
         }
         .touchmove-css{
@@ -371,7 +378,7 @@
                     <li v-for="(item,index) in messageList" :key="index" :class="{onmessage:onMessage===index}"@click="publicMessageClick(index)">
                         <div>
                             <span style="float:left; width:75%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{item.title}}</span>
-                            <span style=" float:right; margin-right:0.2rem; color:#e24e59;" @click="navigation">开始导航</span>
+                            <x-button mini plain  class="path-button" @click.native="navigation">开始导航</x-button>
                             <span style="clear:both"></span>
                         </div>
                         <p>{{item.driveTime}}</p>
@@ -381,7 +388,7 @@
                     <li v-for="(item,index) in messageList" :key="index" :class="{onmessage:onMessage===index}"@click="driveMessageClick(index)">
                         <div>
                             <span style="float:left;">方案{{index+1}}</span> 
-                            <span style="float:right; margin-right:0.2rem; color:#e24e59;" @click="navigation">开始导航</span>
+                            <x-button mini plain class="path-button" @click.native="navigation">开始导航</x-button>
                             <span style="clear:both"></span>
                         </div>
                         <p>{{item}}</p>
@@ -391,7 +398,7 @@
                     <li v-for="(item,index) in messageList" :key="index" :class="{onmessage:onMessage===index}"@click="messageListClick(index)">
                         <div>
                             <span style="float:left;" >步行</span>
-                            <span style=" float:right; margin-right:0.2rem; color:#e24e59;" @click="navigation">开始导航</span>
+                            <x-button mini plain class="path-button" @click.native="navigation">开始导航</x-button>
                             <span style="clear:both"></span>
                         </div>
                         <p>{{item}}</p>
@@ -525,8 +532,8 @@ import myIcon2 from "../../../../static/rent/fyxq/icon/end.png";
                     if(this.textSearch !== this.areaInput){
                         this.local.search(this.areaInput);
                         this.local.setSearchCompleteCallback(results=>{
-                            if(results.zr.length!==0){
-                                this.areaList = results.zr.map((item,index)=>{
+                            if(results.Br.length!==0){
+                                this.areaList = results.Br.map((item,index)=>{
                                     if(index<=9){
                                         return item;
                                     }

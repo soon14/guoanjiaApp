@@ -119,18 +119,11 @@ export default {
               if (response.data[i].averageprice !== null) {
                 if (response.data[i].averageprice == "售价待定") {
                   response.data[i].averageprice = "售价待定";
-                } else if (
-                  response.data[i].averageprice.substr(
-                    response.data[i].averageprice.length - 2
-                  ) == "/㎡"
-                ) {
-                  response.data[i].averageprice =
-                    "¥" + response.data[i].averageprice;
                 } else if (response.data[i].averageprice == "") {
                   response.data[i].averageprice = "售价待定";
                 } else {
                   response.data[i].averageprice =
-                    "¥" + response.data[i].averageprice + "/㎡";
+                    "¥" + response.data[i].averageprice + "元/㎡";
                 }
               }
             }

@@ -22,9 +22,9 @@
        
 	    <div :class="[this.$store.state.showWxTitle ? 'HomeContentndroid' : 'HomeContent']">   
 	        <div class="banner" style="height: 3.8rem;width: 100%;"><!--轮播图-->
-	            <swiper :options="swiperOption" style="height: 3.8rem;" v-if="baseList.length > 0">
-			        <swiper-slide v-for="(item,index) in baseList" :key="index">
-			        	<img :src="item.img" alt="" @click="transformOut(index)" style="height:100%;width:100%;"/>
+	            <swiper :options="swiperOption" style="height: 3.8rem;" v-if="newBaseList.length > 0">
+			        <swiper-slide v-for="(item,index) in newBaseList" :key="index">
+			        	<img :src="item.multimefileName" alt="" @click="newTransformOut(item,index)" style="height:100%;width:100%;"/>
 			        </swiper-slide>
 			        <div class="swiper-pagination" slot="pagination"></div>
 			    </swiper>
@@ -47,7 +47,7 @@
 								<img :src="item.image" />
 							</div>
 							<div class="gatitle">
-								<p class="gatitle-one">{{item.houseName}}&nbsp;{{item.roomName}}{{item.roomNumber}}</p>
+								<p class="gatitle-one">{{item.houseName}}&nbsp;{{item.houseName=='东大桥店'?item.roomFloor: item.roomName}}{{item.roomNumber}}</p>
 								<p>￥{{item.price}}/月 </p>
 							</div>
 							<!--<div class="active5" v-if="item.active418"></div>-->
@@ -74,7 +74,7 @@
 								<!--<div class="active-gaImg" v-if="item.active418"></div>-->
 							</div>
 							<div class="gatitle">
-								<p class="gatitle-one">{{item.houseName}}&nbsp;{{item.roomName}}{{item.roomNumber}}</p>
+								<p class="gatitle-one">{{item.houseName}}&nbsp;{{item.houseName=='东大桥店'?item.roomFloor: item.roomName}}{{item.roomNumber}}</p>
 								<p>￥{{item.price}}/月</p>
 							</div>
 							
@@ -187,6 +187,16 @@ export default {
 		var self = this;
 	    return {
 	    	baseList : [ 
+	    	{
+			  url: '',
+			  img: 'https://media.guoanfamily.com/rent/static/HomePage/jiayan.jpg',
+			
+			}, 
+	    	{
+			  url: '',
+			  img: 'https://media.guoanfamily.com/rent/static/HomePage/fuli.jpg',
+			
+			}, 
 			{
 			  url: 'https://www.guoanfamily.com/staticWeb/guoanshequ/index.html',
 			  img: 'https://media.guoanfamily.com/rent/static/HomePage/dt.png',
@@ -209,6 +219,7 @@ export default {
 			  url: '/Delegation',
 			  img: 'https://media.guoanfamily.com/rent/static/HomePage/banner03.png',
 			}],
+			newBaseList:"",//轮播图接口返回数据
 	    	swiperOption: {
 		        autoplay: true,
 		        pagination: {
@@ -246,6 +257,9 @@ export default {
         if(this.isECTouch()){//判断是否是微信浏览器
 			this.wxconfig();
 		}
+        
+        //轮播图初始化数据
+        this.bannerMessage();
 	},
 	
 	methods: {
@@ -271,29 +285,69 @@ export default {
 				
 			}
 		},
+		//旧的轮播图跳转方法
 		transformOut(index){
 			let locationHref = window.location.href;
 			let locationvalue = locationHref.substr(0,locationHref.indexOf("#")+1);
 			switch(index){
 				case 0:
-				this.$router.push({path:"framePage",query:{src:'https://www.guoanfamily.com/staticWeb/guoanshequ/index.html',title:'一荐倾心',num:'1'}});
+				this.$router.push({path:"framePage",query:{src:'https://v7.rabbitpre.com/m2/aUe1ZichNh',title:'家宴'}});
 				break;
 				case 1:
-				this.$router.push({path:"/HouseList"});
+				this.$router.push({path:"framePage",query:{src:'https://v7.rabbitpre.com/m2/aUe1ZicTjS',title:'福利季'}});
 				break;
+				
 				case 2:
-				this.$router.push({path:"framePage",query:{src:'https://www.wjx.top/jq/21015457.aspx',title:'签约登记'}});
+				this.$router.push({path:"framePage",query:{src:'https://www.guoanfamily.com/staticWeb/guoanshequ/index.html',title:'一荐倾心',num:'1'}});
 				break;
 				case 3:
 				this.$router.push({path:"/HouseList"});
 				break;
 				case 4:
+				this.$router.push({path:"framePage",query:{src:'https://www.wjx.top/jq/21015457.aspx',title:'签约登记'}});
+				break;
+				case 5:
+				this.$router.push({path:"/HouseList"});
+				break;
+				case 6:
 				this.$router.push({path:"/Delegation"});
 				break;
 				default:
 				this.$router.push({path:"/Delegation"});
 				break;
 			}
+		},
+		
+		//新的轮播图跳转方法
+		newTransformOut(item,index){
+			//判断是外链还是路由跳转
+			
+			if(item.bannerType === 1){
+				//外链跳转
+				this.$router.push({path:"framePage",query:{src:item.bannerValue,title:item.name,num:item.bannerValueId}});
+			}else if(item.bannerType === 2){
+				//路由跳转
+				if(item.bannerValue.indexOf("/HouseList") != -1){
+					//console.log("应该跳转到列表");
+					this.$router.push({path:"/HouseList"});
+				}else if(item.bannerValue.indexOf("/Delegation") != -1){
+					//console.log("应该跳转到业主委托");
+					this.$router.push({path:"/Delegation"});
+				}
+			}
+		},
+		
+		//轮播图接口
+		bannerMessage(){
+	      	this.get("palmsaleapp/api/v1/banner/rentHouse/appList", {
+	        	interfaceType: "newHouse"
+	     	}).then((res) => {
+		          if (res.status == 200) {
+		          	this.newBaseList = res.data;
+		          }
+		        }
+		    )
+    
 		},
         goBack(){  //跳转个人中心
             this.$router.back(-1);

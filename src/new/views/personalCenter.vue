@@ -1,61 +1,117 @@
 <template>
-	<div  class="fixContent">
-      <div class="fixContent">
-        <div style="height:16rem;">
-        <!-- 标题 -->
+	<div  class=" personalCenter">
+     <IosorAndroid></IosorAndroid>
+      <div>
+        <div>
         <!--头部部分  -->
-        <div class="centerTop">
-            <div class="personMsg">
-                <div class="headerImg" @click="modifyinfo">
-                    <img :src="headimgurl" style="width:100%;" />
+        <div class="header">
+          <div class="title_info">
+            个人中心
+          </div>
+          <div class="user_box">
+            <div class="user_info">
+              <div class="user_img_box">
+                <div class="user_img" @click="modifyinfo">
+                  <img :src="headimgurl" />
                 </div>
-            </div>
-            <div class="custname" @click="modifyinfo">
-                <span v-show="this.$store.state.userName ==''">用户姓名</span>
-                <span>{{this.$store.state.userName}}</span>
+              </div>
 
-            </div>
-            <div class="custname1" @click="modifyinfo">
-                <div class="bigdiv" style="">
-                <span>{{this.$store.state.userPhone}}</span>
+              <div class="user_info_box">
+                <div class="name_info" v-show="isLogin"  @click="ToLogin">
+                  请登录/注册
+                  <span class="user_sign" @click.stop="singnClick">签到</span>
                 </div>
+                <div class="name_info" v-show="(!isLogin)&&usersName ==''" @click="modifyinfo">
+                  用户姓名
+                  <span class="user_sign" @click.stop="singnClick">签到</span>
+                </div>
+                <div class="name_info" v-show="(!isLogin)&&usersName!=''">
+                  <span class="user_name">
+                    {{usersName}}
+
+                  </span>
+                  <span class="user_sign" @click.stop="singnClick">签到</span>
+                </div>
+                <div class="user_phone" v-show="isLogin">
+                  <!-- v-show="isLogin" -->
+                  您的手机号我们将为您严格保密
+                </div>
+                <div class="user_phone" v-show="!isLogin">
+                  {{usersPhone}}
+                </div>
+              </div>
+              <div class="edit" @click="modifyinfo">
+
+              </div>
             </div>
-            <div class="edit" @click="singnClick"></div>
+          </div>
+          <div class="mine_box">
+            <flexbox class="mine_box_flexbox">
+              <flexbox-item>
+                <div class="mine_btn" @click="Myintegral" >
+                  <div class="mine_icon mineIntegral">
+                  </div>
+                  <div class="mine_msg ">
+                    我的积分
+                  </div>
+                  <i></i>
+                </div>
+              </flexbox-item>
+              <flexbox-item>
+                <div class="mine_btn" @click="MyCardClick">
+                  <div class="mine_icon myCards">
+                  </div>
+                  <div class="mine_msg">
+                    我的卡券
+                  </div>
+                   <i></i>
+                </div>
+              </flexbox-item>
+              <flexbox-item>
+                <div class="mine_btn" @click="tousu">
+                  <div class="mine_icon Complaint">
+                  </div>
+                  <div class="mine_msg">
+                    投诉建议
+                  </div>
+                   <i></i>
+                </div>
+              </flexbox-item>
+              <flexbox-item>
+                <div class="mine_btn" @click="collent">
+                  <div class="mine_icon Collection">
+
+                  </div>
+                  <div class="mine_msg">
+                    我的收藏
+                  </div>
+                </div>
+              </flexbox-item>
+             </flexbox>
+          </div>
         </div>
 
-        <div style="width:100%;">
-            <flexbox>
-                <flexbox-item @click.native="collent">
-                    <div class="flex-demo">
-                        <img class="personal_header" src='../../../static/new/img/collentCenter1.png' style="width:44%;"/>
-                    </div>
-                </flexbox-item>
-                <flexbox-item @click.native="tureToMeetingPlace">
-                    <div class="flex-demo">
-                        <img class="personal_header" src='../../../static/new/img/sityReservation.png' style="width:44%;"/>
-                    </div>
-                </flexbox-item>
-                <flexbox-item @click.native="tureToRestaurant">
-                    <div class="flex-demo">
-                        <img class="personal_header" src='../../../static/new/img/restService.png' style="width:44%;"/>
-                    </div>
-                </flexbox-item>
-            </flexbox>
-        </div>
-        <div style="width:100%;height:0.15rem;background:#f0f0f0;margin-top:.3rem;"></div>
         <!-- 新房部分 -->
         <div class='product'>
-            <span style="font-size:0.32rem;font-weight:500;line-height:0.86rem;margin-left:0.20rem;">新房</span>
+          <span style="font-size:0.32rem;font-weight:500;font-family: 'Source Han Sans CN';line-height:0.7rem;color:#000;margin-left:0.20rem;">新房</span>
         </div>
-        <flexbox>
-            <flexbox-item @click.native="orderList">
-                <div class="flex-demo">
-                    <img class="personal_header" style="width:60%;margin-left:20%;" src='../../../static/new/img/myorder.png' />
+        <flexbox class="new_house">
+          <flexbox-item @click.native="orderList">
+            <div class="card_box">
+              <div class="bg_box">
+                <div class="card_icon orders"></div>
+                <div class="card_name">
+                  我的订单
                 </div>
-            </flexbox-item>
-            <flexbox-item style="margin-left:0;">
-                <div class="flex-demo" style="border-right:none;" @click="appointement">
-                    <img class="personal_header" style="width:60%;margin-left:20%;" src='../../../static/new/img/approom.png' />
+              </div>
+            </div>
+          </flexbox-item>
+          <flexbox-item style="margin-left:6px;">
+            <div class="card_box">
+              <div class="bg_box">
+                <div class="card_icon builds"></div>
+                <div class="card_name">
+                  约看楼盘
                 </div>
             </flexbox-item>
             <flexbox-item style="margin-left:0">
@@ -65,111 +121,141 @@
             </flexbox-item>
             <flexbox-item></flexbox-item>
         </flexbox>
-        <div style="width:100%;height:0.15rem;background:#f0f0f0;margin-top:.3rem;"></div>
+        <div style="width:94%;height:1px;background:#f3f3f3;margin:.3rem auto 0;"></div>
         <!--租房部分-->
         <div class='product'>
-            <span style="font-size:0.32rem;font-weight:500;line-height:0.86rem;margin-left:0.20rem;">租房</span>
+          <span style="font-size:0.32rem;font-weight:500;color:#000;font-family: 'Source Han Sans CN';line-height:0.7rem;margin-left:0.20rem;">租房</span>
         </div>
-        <flexbox>
-            <flexbox-item @click.native="yuekan">
-                <div class="flex-demo">
-                    <img style="margin-left:20%;width:60%;" class="personal_img" src='../../../static/new/img/mycontract.png' />
+        <div class="ren_box">
+          <div class="rent_info" @click="yuekan">
+            <div class="card_box">
+                <div class="bg_box">
+                  <div class="card_icon showHouse"></div>
+                  <div class="card_name">
+                    约看房间
+                  </div>
                 </div>
-            </flexbox-item>
-            <flexbox-item @click.native="hetong">
-                <div class="flex-demo">
-                    <img style="margin-left:20%;width:60%;" class="personal_img"  src='../../../static/new/img/rentcontract.png' />
+              </div>
+          </div>
+          <div class="rent_info"  @click="hetong">
+            <div class="card_box">
+                <div class="bg_box">
+                  <div class="card_icon contract"></div>
+                  <div class="card_name">
+                    房租合同
+                  </div>
                 </div>
-            </flexbox-item>
-            <flexbox-item @click.native="weituo">
-                <div class="flex-demo">
-                    <img style="margin-left:20%;width:60%;"  class="personal_img" src='../../../static/new/img/Entrust.png' />
+              </div>
+          </div>
+          <div class="rent_info" @click="weituo">
+            <div class="card_box">
+                <div class="bg_box">
+                  <div class="card_icon Entrust"></div>
+                  <div class="card_name">
+                    业主委托
+                  </div>
                 </div>
-            </flexbox-item>
-            <flexbox-item @click.native="zuyue">
-                <div class="flex-demo">
-                    <img style="margin-left:20%;width:60%;" class="personal_img" src='../../../static/new/img/payrent.png' />
+              </div>
+          </div>
+          <div class="rent_info" @click="zuyue">
+            <div class="card_box">
+                <div class="bg_box">
+                  <div class="card_icon tenancy"></div>
+                  <div class="card_name">
+                    我的租约
+                  </div>
                 </div>
-            </flexbox-item>
-        </flexbox>
-        <div style="width:100%;height:0.15rem;background:#f0f0f0;margin-top:.3rem;"></div>
+              </div>
+          </div>
+        </div>
+        <div class="middle_img"></div>
         <!-- 投诉和退出部分 -->
-        <div class='product product1' style="height:1rem;" @click="Myintegral" >
-            <span>
-                <img src='../../../static/new/img/Myjifen.png' style="height:45%;margin-left:0.25rem;margin-top:.3rem;" />
-            </span>
-        </div>
-        <div class='product product1' style="height:1rem;" @click="MyCardClick">
-            <span>
-                <img src='../../../static/new/img/cardC.png' style="height:40%;margin-left:0.25rem;margin-top:.3rem;" />
-            </span>
-        </div>
-        <div class='product product1' style="height:1rem;" @click="tousu">
-            <span>
-                <img src='../../../static/new/img/jianyi.png' style="height:40%;margin-left:0.25rem;margin-top:.3rem;" />
-            </span>
-        </div>
-        <!--分享按钮-->
-        <div class='product product1' style="height:1rem;" @click="buildShare">
-            <span>
-                <img src='../../../static/new/img/gajShare.png' style="height:40%;margin-left:0.25rem;margin-top:.3rem;" />
-            </span>
-        </div>
-        <!--  -->
-        <div class='product product1' v-show="this.$store.state.ExitLoginShow"  style="height:1rem;" @click="confirm">
-            <span>
-                <img src='../../../static/new/img/exitApp.png' style="height:38%;margin-left:0.25rem;margin-top:.25rem;" />
-            </span>
-            <!-- <span style="font-size:0.32rem;line-height:1rem;margin-left:0.25rem;">退出登录</span> -->
-        </div>
+        <div class="Btn_bottom">
 
-        <div style="width:100%;height:0.15rem;background:#f0f0f0;"></div>
-        <div class="servicePhone">
-            <span>服务热线：</span>
-            <a href="tel:400-900-2225">400-900-2225</a>
+
+          <div class='product product1' style="height:1rem;" >
+              <span class="searchName">
+                服务热线
+              </span>
+              <a href="tel:400-900-2225" class="tel_box">400 900 2225</a>
+          </div>
+
+          <div class='product product1' style="height:1rem;" @click="buildShare">
+            <span class="searchName">
+              分享国安家
+            </span>
+          </div>
+          <div class='product product1' style="height:1rem;" @click="">
+            <span class="searchName">
+              关于我们
+            </span>
+          </div>
+          <!-- <div class='product product1' style="height:1rem;" @click="Toversion">
+            <span class="searchName">
+              版本信息
+            </span>
+          </div>
+          <div class='product product1' style="height:1rem;" @click="buildShare">
+            <span class="searchName">
+              检查更新
+            </span>
+          </div> -->
+          <div class='product product1' style="height:1rem;" @click="confirm">
+            <span class="searchName">
+              清除缓存
+            </span>
+          </div>
+        <!--分享按钮-->
         </div>
-        </div>
-        <div class="market" v-transfer-dom v-show="showMarket" @click="marketClick"></div>
-        <div class="singnSuccess" v-transfer-dom v-show="showSuccess" @click="marketClick">
-          <span style="color:#333333;margin-top:4.4rem;font-size:.35rem;display:block;text-align:center;">{{showText}}</span>
-          <span style="text-align:center;font-size:.6rem;margin-top:.25rem;display:block;color:rgb(254, 81, 55);font-weight:500;">{{showNum}}</span>
-          <span class="qdBtn" @click="qdBtnClick()">查看积分</span>
+      </div>
+      <div class="market" v-transfer-dom v-show="showMarket" @click="marketClick"></div>
+      <div class="singnSuccess" v-transfer-dom v-show="showSuccess" @click="marketClick">
+        <span style="color:#333333;margin-top:4.4rem;font-size:.35rem;display:block;text-align:center;overflow:hidden;">{{showText}}</span>
+        <span style="text-align:center;font-size:.6rem;margin-top:.25rem;display:block;color:rgb(254, 81, 55);font-weight:500;">{{showNum}}</span>
+        <span class="qdBtn" @click="qdBtnClick()">查看积分</span>
+      </div>
+    </div>
+
+			<!--分享的底部弹窗-->
+        	<!--遮罩层-->
+			<div class="marketShadow" v-show="marketNum" @click.stop="markedClick" v-transfer-dom>
+
+        <!-- 分享时候的底部弹出框 -->
+        <div class="shareAlert" :class="{'shareAlert1':shareAlert}">
+          <div class="shareIcon">
+              <div class="weixinBox" @click="weixinhaoyoufenxiangClick">
+                  <span>微信</span>
+              </div>
+              <div class="pengyouBox" @click="weixinFriendsClick">
+                  <span>朋友圈</span>
+              </div>
+          </div>
+          <div class="exitShare" @click="exitShareClick">取消</div>
         </div>
       </div>
 
-		<div>
-			<!--分享的底部弹窗-->
-        	<!--遮罩层-->
-			<div class="marketShadow" v-show="marketNum" @click.stop="markedClick"></div>
-			<!-- 分享时候的底部弹出框 -->
-	        <div class="shareAlert" :class="{'shareAlert1':shareAlert}">
-		        <div class="shareIcon">
-		            <div class="weixinBox" @click="weixinhaoyoufenxiangClick">
-		                <span>微信</span>
-		            </div>
-		            <div class="pengyouBox" @click="weixinFriendsClick">
-		                <span>朋友圈</span>
-		            </div>
-		        </div>
-		        <div class="exitShare" @click="exitShareClick">取消</div>
-	        </div>
 
-		</div>
+
 		<div class="righthorn" v-show="shockAlert" v-transfer-dom  @click="closeShockAlert">点击右上角进行分享</div>
 
 	</div>
 </template>
 
 <script>
+import IosorAndroid from '../components/IosorAndroid'
 import topHeader from "../../../static/new/img/topHeader.png";
 import { TransferDom } from "vux";
 export default {
   directives: {
     TransferDom
   },
+  components:{
+    IosorAndroid
+  },
   name: "personalCenter",
   data() {
     return {
+      isLogin:false,
       userName: "",
       userPhone: "",
       market: false,
@@ -199,6 +285,9 @@ export default {
       } else {
         this.$store.state.loginShow = true;
       }
+    },
+    ToLogin(){
+      this.$store.state.loginShow = true;
     },
     // 预约看房的点击事件
     appointement() {
@@ -304,7 +393,6 @@ export default {
     // 签到的点击事件
     singnClick(){
       if (this.$store.state.showWxTitle) {
-        // this.$router.push("luckdraw");
         this.onLineSign();
       } else {
         if (this.LoToken() && this.UserPhone()) {
@@ -375,7 +463,8 @@ export default {
       let me = this;
       me.$vux.confirm.show({
         title: "提示信息",
-        content: "确定退出？",
+
+        content: "您确定清除缓存并退出？",
         // 组件除show外的属性
         onCancel() {},
         onConfirm() {
@@ -393,7 +482,13 @@ export default {
           me.$store.state.userName = "";
           me.$store.state.userPhone = "";
           me.$store.state.ExitLoginShow = false,
-          me.msgalert("退出成功");
+          me.isLogin = true;
+          me.$vux.toast.show({
+            text: '退出成功',
+            type:"text",
+            width:"2em",
+          })
+
           me.$store.state.loginData = false;
           // me.$store.state.buttonGroup = 0;
           // me.$router.push("first");
@@ -401,29 +496,38 @@ export default {
       });
     },
     //关闭提示微信右上角分享的遮罩层
-	closeShockAlert(){
-		this.shockAlert = false;
-	},
+    closeShockAlert(){
+      this.shockAlert = false;
+    },
     buildShare(){
-    	if(this.$store.state.showWxTitle){
-    		//提示在右上角点击分享
-			this.shockAlert = true;
-			//console.log("提示右上角分享");
-    	}else{
-    		let setTime = setTimeout(()=>{
-		       this.marketNum = true;
-		    },200)
-     		this.shareAlert = true;
-     		this.$store.state.isShowBottom = false;
-    	}
+        if(this.$store.state.showWxTitle){
+          //提示在右上角点击分享
+        this.shockAlert = true;
+        //console.log("提示右上角分享");
+        }else{
+          let setTime = setTimeout(()=>{
+            this.shareAlert = true;
+            this.$store.state.isShowBottom = false;
+          },200)
+           this.marketNum = true;
+        }
 
-	},
+    },
+  // 检测版本
+    Toversion(){
+      if(chcp){
+        chcp.getVersionInfo((err, data)=>{
+          console.log('Application build version: ' + data.buildVersion);
+        })
+      }
+    },
     // 遮罩层的点击事件
     markedClick() {
-      	this.marketNum = false;
+      	this.$store.state.isShowBottom = true;
+
       	this.shareAlert =  false;
       	setTimeout( () =>{
-      		this.$store.state.isShowBottom = true;
+      		this.marketNum = false;
       	},500)
 
     },
@@ -475,14 +579,15 @@ export default {
         });
     },
     // 取消分享的点击事件
-	exitShareClick(){
-	    this.marketNum = false;
-	    this.shareAlert = false;
-	    setTimeout( () =>{
-	  		this.$store.state.isShowBottom = true;
-	  	},500)
-	},
-	wxconfig() {
+    exitShareClick(){
+        this.$store.state.isShowBottom = true;
+
+        this.shareAlert = false;
+        setTimeout( () =>{
+          this.marketNum = false;
+        },500)
+    },
+    wxconfig() {
          this.post("jsapi/getJsapiSignature?local_url=" + encodeURIComponent(window.location.href.split('#')[0]),
              {},{
                  interfaceType: "weichat"
@@ -509,7 +614,7 @@ export default {
         this.$wechat.onMenuShareAppMessage({
             title: "【国安家】为每个家的梦想全力以赴！", //标题
             desc: "帮您发现最优质旅居产品和高品质服务公寓产品的专业App！", //描述
-            link:"https://www.guoanfamily.com/guoanjiaApp/#/?from=true", 
+            link:"https://www.guoanfamily.com/guoanjiaApp/#/?from=true",
             imgUrl: "https://pp.myapp.com/ma_icon/0/icon_52608633_1518330452/96", //图片
             trigger: (res) => {
             // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
@@ -543,7 +648,7 @@ export default {
 	    this.$wechat.onMenuShareTimeline({
 	        title: "【国安家】为每个家的梦想全力以赴！", //标题
             desc: "帮您发现最优质旅居产品和高品质服务公寓产品的专业App！", //描述
-            link:"https://www.guoanfamily.com/guoanjiaApp/#/?from=true", 
+            link:"https://www.guoanfamily.com/guoanjiaApp/#/?from=true",
             imgUrl: "https://pp.myapp.com/ma_icon/0/icon_52608633_1518330452/96", //图片
 	        trigger: (res) => {
 	        // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
@@ -573,17 +678,41 @@ export default {
               })
             }
             });
-                this.$wechat.error(function(res) {
+              this.$wechat.error(function(res) {
         });
 
         },
 
   },
+  computed:{
+    usersName(){
+      console.log(213,this.$store.state.userName)
+      return this.$store.state.userName
+    },
+    usersPhone(){
+      console.log(2134,this.$store.state.userPhone)
+      return this.$store.state.userPhone
+    }
+  },
+  watch:{
+
+    usersPhone(){
+
+      if(this.usersPhone){
+        console.log(123,this.usersPhone)
+        this.isLogin = false;
+      }
+    }
+  },
   mounted() {
     if(!this.LoToken() && !this.UserPhone()){
+      this.isLogin = false;
       this.$store.state.userName = localStorage.getItem('userName');
       let phone = localStorage.getItem('userPhone');
       this.$store.state.userPhone = this.EnCryption('this.$store.state.userPhone',phone);
+    }else{
+       this.isLogin = true;
+
     }
     if (this.LoToken()) {
       this.$store.state.ExitLoginShow = true;
@@ -626,7 +755,7 @@ export default {
     } else {
        this.$store.state.userName = '';
     }
-  
+
 
     if(!this.$store.state.showWxTitle){
       if (!this.AndroidOrIos()) {
@@ -644,57 +773,254 @@ export default {
       this.IosTop = false;
     }
     //判断是否是微信浏览器
-	if(this.isECTouch()){
-		//调用微信config
-		this.wxconfig();
-	}
+    if(this.isECTouch()){
+      //调用微信config
+      this.wxconfig();
+    }
   }
 };
 </script>
 
 <style lang ='less' scoped>
 @import "~vux/src/styles/1px.less";
-
+.personalCenter{
+  transform: translate3d(0,0,0);
+  overflow-x: hidden;
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom:1.3rem;
+  font-size: 14px;
+  *{
+    box-sizing:border-box;
+    font-size: 14px;
+    font-family: 'Source Han Sans CN';
+  }
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
 }
-.newHouse {
-  width: 100%;
-  text-align: center;
-  font-size: 0.3rem;
-  border: 1px solid #ccc;
-  border-radius: 0.175rem;
-}
-
-.headerImg {
-  width: 1.5rem;
-  overflow: hidden;
-  height: 1.5rem;
-}
-
-.centerTop {
-  width: 100%;
-  height: 4rem;
-  /* background: #e24e59; */
-  background:url('../../../static/new/img/centerTopBj.png') no-repeat;
-  background-size: 100% 100%;
-  position: relative;
-  /* margin-top: 60px; */
-  .edit {
-    width: 2rem;
+.header{
+  height: 6rem;
+  background-color: #fff;
+  border-bottom: 8px solid #f3f3f3;
+  .title_info{
     height: 1rem;
-    background: url("../../../static/new/img/myselfInfo.png") no-repeat;
-    background-size: 100%;
-    position: absolute;
-    right: 0;
-    top: 2rem;
+    line-height: 1rem;
+    font-size: 0.48rem;
+    font-family: "Source Han Sans CN";
+    text-align: left;
+    padding-left: 0.2rem;
+    color: #000;
   }
+  .user_box{
+    height: 3.2rem;
+    padding: 0 0.2rem;
+    .user_info{
+      position: relative;
+      background: url("../../../static/new/img/personalInfo.png") center no-repeat;
+      background-size: 100% 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0.75rem 0.4rem;
+      .user_img_box{
+        box-sizing: border-box;
+        float: left;
+        padding: 0.1rem;
+        /* border:1px solid #fff; */
+        border-radius: 50%;
+        text-align: center;
+      }
+      .user_img{
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        height: 1.5rem;
+        width: 1.5rem;
+        box-sizing: border-box;
+        border-radius: 50%;
+        img{
+          height: 1.5rem;
+          width: 1.5rem;
+        }
+
+      }
+      .user_info_box{
+        min-width: 50%;
+        text-align: center;
+        padding: 0.2rem 0 0.2rem 0.2rem;
+        box-sizing: border-box;
+        float: left;
+        .name_info{
+
+          height: 0.8rem;
+          line-height: 0.82rem;
+          font-size: 0.36rem;
+          text-align: left;
+          color: #fff;
+          vertical-align: middle;
+          .user_name{
+            display: inline-block;
+            line-height: 0.82rem;
+            font-size: 0.36rem;
+            text-align: left;
+            color: #fff;
+            vertical-align: middle;
+          }
+          /* text-align: center; */
+          .user_sign{
+            vertical-align: middle;
+            display: inline-block;
+            line-height: 0.3rem;
+             font-size: 0.28rem;
+             background-color: #fff;
+             color: #e34b3e;
+             padding: 0.08rem 0.2rem;
+             border-radius: 0.4rem;
+
+
+          }
+        }
+        .user_phone{
+          width: 100%;
+          height: 0.8rem;
+          line-height: 0.4rem;
+          font-size: 0.26rem;
+          text-align: left;
+          color: #fff;
+        }
+      }
+      .edit{
+        width: 40px;
+        height: 40px;
+        background: url("../../../static/new/img/Setedit.png") center no-repeat;
+        background-size:50%;
+        position: absolute;
+        right: 3px;
+        top: 3px;
+      }
+    }
+  }
+  .mine_box{
+    height: 1.8rem;
+    box-sizing: border-box;
+    .mine_box_flexbox{
+      height: 80%;
+      padding: 0.2rem 0;
+      .mine_btn{
+
+        width: 100%;
+        position: relative;
+        .mine_icon{
+           height: 0.8rem;
+          &.mineIntegral{
+            background: url("../../../static/new/img/mineIntegral.png") center no-repeat;
+            background-size: 32%;
+          }
+          &.myCards{
+            background: url("../../../static/new/img/myCards.png") center no-repeat;
+            background-size: 32%;
+          }
+          &.Complaint{
+            background: url("../../../static/new/img/Complaint.png") center no-repeat;
+            background-size: 32%;
+          }
+          &.Collection{
+            background: url("../../../static/new/img/Collection.png") center no-repeat;
+            background-size: 32%;
+          }
+        }
+        .mine_msg{
+          height: 0.3rem;
+          font-size: 14px;
+          line-height: 0.3rem;
+          font-family: 'Source Han Sans CN';
+          text-align: center;
+          width: 100%;
+          color: #000;
+          display: block;
+        }
+        i{
+          position: absolute;
+          right: 0;
+          top: 45%;
+          height: 0.4rem;
+          width: 0;
+          border-left:1px solid #ccc;
+        }
+
+      }
+
+    }
+  }
+}
+.new_house{
+  padding: 0 0.1rem;
+  height: 1.8rem;
+  overflow: hidden;
+
+}
+.ren_box{
+  padding: 0 0.1rem;
+  height: 1.8rem;
+  overflow: hidden;
+  .rent_info{
+    width: 25%;
+    float: left;
+  }
+}
+.card_box{
+  padding: 0.1rem;
+  .bg_box{
+    width: 1.6rem;
+    height: 1.6rem;
+    background-color: #f3f3f3;
+    .card_icon{
+      height: 1rem;
+      &.orders{
+        background: url("../../../static/new/img/orders.png") center no-repeat;
+        background-size: 24%;
+      }
+      &.builds{
+        background: url("../../../static/new/img/builds.png") center no-repeat;
+        background-size: 30%;
+      }
+      &.showHouse{
+        background: url("../../../static/new/img/showHouse.png") center no-repeat;
+        background-size: 30%;
+      }
+      &.contract{
+        background: url("../../../static/new/img/contract.png") center no-repeat;
+        background-size: 28%;
+      }
+      &.Entrust{
+        background: url("../../../static/new/img/Entrust.png") center no-repeat;
+        background-size: 26%;
+      }
+      &.tenancy{
+        background: url("../../../static/new/img/tenancy.png") center no-repeat;
+        background-size: 24%;
+      }
+    }
+    .card_name{
+      height: 0.4rem;
+      font-size: 14px;
+      color: #000;
+      line-height:0.4rem;
+      text-align: center;
+    }
+  }
+}
+.middle_img{
+  height: 1.6rem;
+  width: 94%;
+  margin: 20px auto;
+  background: url("../../../static/new/img/HainanCity.png") center no-repeat;
+  background-size: 100% 100%;
 }
 .singnSuccess {
   width: 80%;
@@ -707,7 +1033,7 @@ export default {
   z-index: 151;
 }
 .qdBtn {
-  display: block;
+  position: absolute;
   background-size: 50%;
   font-size: 0.4rem;
   width: 5rem;
@@ -718,107 +1044,39 @@ export default {
   width: 50%;
   line-height: 0.9rem;
   height: 1rem;
-  margin-top: 0.1rem;
+  bottom: 1.1rem;
   border-radius: 1.5rem;
   text-align: center;
 }
-.AndroidTop {
-  width: 100%;
-  height: 4rem;
-  margin-top:0;
-  background: #e24e59;
-  border-top: 1px solid #ccc;
-  position: relative;
-  .edit {
-    width: 2rem;
-    height: 1rem;
-    background: url("../../../static/new/img/myselfInfo.png") no-repeat;
-    background-size: 100%;
-    position: absolute;
-    right: 0;
-    top: 0.5rem;
-  }
-}
-.weixinTop{
-  width: 100%;
-  height: 4rem;
-  background: #e24e59;
-  border-top: 1px solid #ccc;
-  position: relative;
-  margin-top: 0;
-}
-.quit {
-  width: 0.625rem;
-  height: 0.625rem;
-  position: absolute;
-  left: 0.5rem;
-  top: 0.25rem;
-  background: url("../../../static/new/img/quit.png") no-repeat;
-  background-size: cover;
-}
-
-.message {
-  width: 1.3rem;
-  height: 0.625rem;
-  position: absolute;
-  right: 0.5rem;
-  top: 0.25rem;
-  background: url("../../../static/new/img/information.png") no-repeat;
-  background-size: cover;
-}
-
-.personMsg {
-  width: 1.5rem;
-  position: absolute;
-  left: 0;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  right: 0;
-  margin: auto;
-}
-
-.custname {
-  width: 100%;
-  height: 0.75rem;
-  position: absolute;
-  top: 2rem;
-  text-align: center;
-  font-size: 0.32rem;
-  line-height: 0.75rem;
-  font-weight: bold;
-}
-
-.custname1 {
-  width: 100%;
-  height: 0.75rem;
-  position: absolute;
-  top: 2.25rem;
-  font-size: 0.3rem;
-  line-height: 0.75rem;
-}
-
-.bigdiv {
-  margin: 16px auto;
-  height: 100%;
-  width: 3rem;
-  .editmsg {
-    margin-right: 0.75rem;
-    width: 0.5rem;
-    height: 0.6rem;
-    display: block;
-    float: right;
-    background: url("../../../static/new/img/edit.png") no-repeat;
-    background-size: 80%;
-    background-position: center;
-  }
+.Btn_bottom {
+  padding: 0 0.2rem;
 }
 
 .product {
+  position: relative;
   width: 100%;
   height: 0.6rem;
   /* background:red; */
   line-height: 0.6rem;
   /* border-bottom: 1px solid #e6e6e6; */
+  .searchName{
+    padding: 0.1rem 0 0 0.1rem;
+    color: #000;
+    font-size: 0.34rem;
+  }
+  .tel_box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 1rem;
+    font-size:0.28rem;
+    color: #999999;
+    font-family: "Century Gothic" ;
+    text-align: right;
+    padding-right:1rem;
+  }
 }
 .product1 {
   width: 100%;
@@ -826,8 +1084,9 @@ export default {
   line-height: 0.8rem;
   border-bottom: 1px solid #e6e6e6;
   background: url("../../../static/new/img/jump.png") no-repeat right;
-  background-position: 95%;
+  background-position: 98%;
   background-size: 3%;
+
 }
 .product span {
   display: block;
@@ -836,48 +1095,13 @@ export default {
   line-height: 0.8rem;
 }
 
-.flex-demo {
-  text-align: center;
-  color: #333333;
-  background-color: #fff;
-  border-radius: 4px;
-  background-clip: padding-box;
-  border-right: 1px solid #f8f8f8;
-  border-radius: 0;
-}
 
-.personal_header {
-  width: 44%;
-  height: 30%;
-  margin-top: 0.25rem;
-  margin-left: 28%;
-}
 
-.personal_img {
-  width: 30%;
-  margin-top: 0.25rem;
-  margin-left: 0.8rem;
-}
 
-.personal_font {
-  text-align: center;
-  width: 100%;
-  font-size: 0.3rem;
-  background: #fff;
-}
 
-.servicePhone {
-  width: 100%;
-  height: 1rem;
-  line-height: 1rem;
-  text-align: center;
-  font-size: 0.32rem;
-  padding-bottom: 1.2rem;
-}
 
-.servicePhone a {
-  color: #fd9b6c;
-}
+
+
 
 .market {
   width: 100%;
@@ -981,7 +1205,7 @@ export default {
     position: fixed;
     transition: .9s;
     /*bottom: -3rem;*/
-   	bottom: -3rem;
+   	bottom: -4rem;
     background:#fff;
     border-top: 2px solid #f2f2f2;
     border-bottom: 2px solid #f2f2f2;
@@ -1024,6 +1248,7 @@ export default {
    }
 }
 .shareAlert1{
+
     transition: .9s;
     z-index: 999;
     bottom: 0rem;
@@ -1043,8 +1268,10 @@ export default {
 }
 </style>
 <style lang="less">
-.weui-dialog__hd {
-  padding-top: 0.5rem;
+.weui-dialog{
+  .weui-dialog__hd {
+    padding-top: 0rem;
+  }
 }
 .weui-dialog__btn_primary {
   color: #e40011;

@@ -43,19 +43,6 @@
     .dsply-non{
         display: none !important;
     }
-    .BackperCent {
-        margin-left: 10px;
-        width: 100px;
-        height:30px;
-        position: fixed;
-        left: 0;
-        top: 15px;
-        text-align: right;
-        background: url("../../../../static/new/img/quit.png") left center no-repeat;
-        background-size: 23%;
-        font: 400 12px/30px "微软雅黑";
-
-    }
 </style>
 
 <template>

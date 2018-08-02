@@ -332,16 +332,6 @@
 
 <template>
     <div class="house-list fixContent">
-        <!--<ga-page-header >
-            <p slot="middle">
-                <input type="text">
-            </p>
-            <p slot="right-btn">哈哈</p>
-        </ga-page-header>-->
-
-        <!--<ga-page-header title="支付确认">
-            <p slot="right-btn"></p>
-        </ga-page-header>-->
         <div :class="[androidOrIos ? 'emptyandroid' : 'emptyios']" v-if="!this.$store.state.showWxTitle"></div>
 
         <!-- 支付详情 -->
@@ -402,27 +392,22 @@
         <div class="stage">
             <div class="left">支付方式</div>
         </div>
-        <div class="own-pay">
+        <div class="own-pay" v-if="!this.isWechat">
             <img  class="imgg"  src="../../../../static/rent/fyxq/zhifubao.png"  />
             <div class="left">支付宝支付</div>
             <input ref="ali" type="radio" checked name="pay">
         </div>
         
-        <div style="background-color: #fff;width:100%;" v-if="false">
+        <div style="background-color: #fff;width:100%;" v-if="this.isWechat">
         	<div class="msg" v-if="">温馨提示：如果您的租金超过3000元，请换卡分次支付，或隔日继续支付！</div>
 
         </div>
-        <div class="wechat-pay" v-if="false">
+        <div class="wechat-pay" v-if="this.isWechat">
             <img class="imgg" src="../../../../static/rent/fyxq/wx.png"  />
             <div class="left">微信支付</div>
             <input ref="wx" type="radio" checked name="pay">
         </div>
         
-         <div class="own-pay" v-if="false">
-            <img class="imgg" src="../../../../static/rent/fyxq/icon/yifutong.png"  />
-            <div class="left">易付通支付</div>
-            <input ref="xpay" type="radio" name="pay">
-        </div>
         <!-- 确认提交 -->
         <div class="sumbit" @click="sumbitClick">
             确认支付
@@ -457,7 +442,8 @@
                 userId:"",
                 payAmount:'',	//传给宗泽支付金额
                 couponsDiscount:"",
-                discount:""
+                discount:"",
+                receiptWayCode:""  // 收款渠道
             }
         },
         components: {
@@ -467,29 +453,10 @@
             // debugger;
             this.getPayReceiptList();
             this.isWechat = this.isECTouch();//判断是否是微信浏览器
-			if(this.isWechat){
-				this.receiptWayCode = "0058005",//收款渠道，默认为微信
-	      		this.sourceCode = "0020004",//客户来源，默认为微信
-	      		this.urlId = 8885
-			}else{
-				this.receiptWayCode = "0058003",//收款渠道，网站
-	      		this.sourceCode = "0020003",//客户来源，网站
-	      		this.urlId = 8901
-			}
+			
 			this.isIosAndroid();
         },
         methods: {
-			isIosAndroid(){
-				//判断是安卓还是ios登录，定义到变量中
-				if(this.AndroidOrIos()){
-					//安卓
-					this.androidOrIos = true; 
-				}else{
-					//ios
-					this.androidOrIos = false; 
-				}
-			},
-
             //获取支付信息
             getPayReceiptList(){
                 this.post("RentContractController/getPayReceiptList",{
@@ -518,30 +485,21 @@
             },
             right() {
               this.rentMoney = parseInt(this.rentMoney) + 100;
-            //   if(this.rentMoney > this.planRent){
-            //     this.rentMoney = this.planRent;
-            //   }
             },
-            //选择微信支付
+            //支付
             sumbitClick(){
-            	if(this.$refs.ali.checked){//选中支付宝
-                    this.depositPayOrderAli();//支付宝支付接口
+            	if(this.isWechat){
+            		if(this.$refs.wx.checked){//选中微信
+		                this.depositPayOrderWechat();//微信支付接口
+		            } 
+            	}else if(this.$refs.ali.checked){//选中支付宝
+                   	this.depositPayOrderAli();//支付宝支付接口
                 }
-            	//屏蔽微信和易富通支付
-//	         	else if(this.$refs.wx.checked){//选中微信
-//	                 this.depositPayOrderWechat();//微信支付接口
-//	            } 
-//              else if (this.$refs.xpay.checked){
-//                  this.depositPayXpay();//易付通支付接口
-//              }
-
             },
             //微信支付
             depositPayOrderWechat(){
-                // let openId = this.getStorage(this.KEYS.openid);
                 let openId = "";
                 this.post("PayController/rentChargePayOrder",{
-                    // "userId":"113a7c43-9d14-460c-9642-d89940e25dbb",
                     "receiptPlanId":this.receiptPlanId,
                     "planRent":this.planRent,
                     "realReceipt":this.rentMoney,
@@ -550,41 +508,23 @@
                     "receiptWayCode":this.receiptWayCode,
                     "receiptTypeCode":"0053003",
                 }).then((res)=>{
-                    if(res.code == 0){
-                        if(this.isWechat){
-                            // let openId = this.getStorage(this.KEYS.openid);
-                            // alert(openId)
-                            let openId = this.getStorage(this.KEYS.OPENID);
-                            window.location.href="http://act.guoanfamily.com/commonPlatform/pay/wxpay.html?tradeNo="+res.data.receiptId+"&payMoney="+res.data.realReceipt+"&userID="+res.data.userId+"&nameGoods="+this.houseName+"&urlId=8885&openid="+ openId+"&receiptPlanId="+this.receiptPlanId+"&saleContractId="+this.saleContractId; //测试
-                            // window.location.href="http://act.guoanfamily.com/commonPlatform/pay/wxpay.html?tradeNo="+res.data.receiptId+"&payMoney="+res.data.realReceipt+"&userID="+res.data.userId+"&nameGoods="+this.houseName+"&urlId=8884&openid=openId;
-                        }else{
-                            var ip =returnCitySN['cip'];//获取ip地址，勿动
-                            var url = "https://www.guoanfamily.com/commonPlatform/pay/mwxpay.html";//支付路径，固定
-                            var urlId = 8901;//urlId为以后通知的id 定金 8884 租金8885
-                            var notifyURL = 'https://www.guoanfamily.com/common/wxPay/wxOrderNotify/' + urlId;//通知地址，勿动
-                            var nameGoods =this.houseName ;//商品名称
-                            var tradeNo = res.data.receiptId;//订单号
-                            var receiptPlanId = this.receiptPlanId;
-                            var saleContractId = this.saleContractId;
-                            var userId = res.data.userId;//用户id
-                            var payMoney = this.rentMoney;//支付金额
-                            var redirectUrl=encodeURIComponent("https://www.guoanfamily.com/commonPlatform/pay/returnWap.html?receiptPlanId="+receiptPlanId+"&saleContractId="+saleContractId)
-                            window.location.href=url+"?userId="+userId+"&body="+encodeURIComponent(nameGoods)+"&notifyURL="+ encodeURIComponent(notifyURL)+"&outTradeNo="+ tradeNo+"&totalFee="+payMoney * 100+"&spbillCreateIp="+ip+"&tradeType=MWEB&sceneInfo="+encodeURIComponent(JSON.stringify({"h5_info": {"type":"Wap","wap_url": "https://www.guoanfamily.com","wap_name": "国安家租房"}}))+"&redirectUrl="+redirectUrl
-
-                        }
+                    if(this.isWechat){
+                        let openId = this.getStorage(this.KEYS.OPENID);
+                        window.location.href="http://act.guoanfamily.com/commonPlatform/pay/wxpay.html?tradeNo="+res.data.receiptId+"&payMoney="+res.data.realReceipt+"&userID="+res.data.userId+"&nameGoods="+this.houseName+"&urlId=8885&openid="+ openId+"&receiptPlanId="+this.receiptPlanId+"&saleContractId="+this.saleContractId; //测试
                     }else{
-                        this.$vux.alert.show({
-                            title: '温馨提示',
-                            content: "您的租金超过3000元，请换卡分次支付，或隔日继续支付！",
-                            onShow () {
-                            // console.log('Plugin: I\'m showing')
-                            },
-                            onHide () {
-                            // console.log('Plugin: I\'m hiding')
-                            }
-                        })
+                        var ip =returnCitySN['cip'];//获取ip地址，勿动
+                        var url = "https://www.guoanfamily.com/commonPlatform/pay/mwxpay.html";//支付路径，固定
+                        var urlId = 8901;//urlId为以后通知的id 定金 8884 租金8885
+                        var notifyURL = 'https://www.guoanfamily.com/common/wxPay/wxOrderNotify/' + urlId;//通知地址，勿动
+                        var nameGoods =this.houseName ;//商品名称
+                        var tradeNo = res.data.receiptId;//订单号
+                        var receiptPlanId = this.receiptPlanId;
+                        var saleContractId = this.saleContractId;
+                        var userId = res.data.userId;//用户id
+                        var payMoney = this.rentMoney;//支付金额
+                        var redirectUrl=encodeURIComponent("https://www.guoanfamily.com/commonPlatform/pay/returnWap.html?receiptPlanId="+receiptPlanId+"&saleContractId="+saleContractId)
+                        window.location.href=url+"?userId="+userId+"&body="+encodeURIComponent(nameGoods)+"&notifyURL="+ encodeURIComponent(notifyURL)+"&outTradeNo="+ tradeNo+"&totalFee="+payMoney * 100+"&spbillCreateIp="+ip+"&tradeType=MWEB&sceneInfo="+encodeURIComponent(JSON.stringify({"h5_info": {"type":"Wap","wap_url": "https://www.guoanfamily.com","wap_name": "国安家租房"}}))+"&redirectUrl="+redirectUrl
                     }
-
                 })
             },
             //支付宝支付
@@ -597,7 +537,7 @@
                     "openId":"",                  
                     "receiptSubjectCode":"0057001",                 
                     "receiptWayCode":this.receiptWayCode,  //收款渠道               
-                    "receiptTypeCode":"0053004",   
+                    "receiptTypeCode":"0053004",   //收款方式
                 }).then((res => {
                     if(res.code == 0){
                         self.receiptId = res.data.receiptId;
@@ -622,7 +562,6 @@
                                 let payInfo= response.data.data;
                                 let platform =  localStorage.getItem('platform');
 								if(platform == null || platform =='null' || platform == undefined){
-                                    // this.wxSummitMstation();
                                     let otherParams = escape("&receiptId="+res.data.receiptId+"&saleContractId="+this.saleContractId+"&receiptPlanId="+this.receiptPlanId);
                                     window.location.href="http://act.guoanfamily.com/common/AlipayController/toPay/8901?tradeNo="+res.data.receiptId+"&payMoney="+res.data.realReceipt+"&nameGoods="+self.houseName+"&userId="+res.data.userId+"&otherParams="+otherParams;
 								}else{
@@ -649,50 +588,45 @@
 
                 }))
             },
+            isIosAndroid(){
+				//判断用户的来源和收款渠道
+				var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                    //微信
+					this.receiptWayCode = "0058005";
+					//console.log("微信");
+                } else if(!window.location.host.indexOf("m.zufang.guoanfamily.com") === -1){
+                	//在m站中打开
+                	this.receiptWayCode = "0058004";
+					//console.log("m站");
+                } else if(this.CheckAndroiIos()){
+                	//安卓APP
+                	this.receiptWayCode = "0058007";
+					//console.log("安卓APP");
+                }else{
+                	//IOS APP
+                	this.receiptWayCode = "0058008";
+					//console.log("ios APP");
+                }
+			},
+			CheckAndroiIos(){
+				//安卓返回true,ios返回false
+	            let u = navigator.userAgent;
+	            let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	            let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+	            if (isAndroid === true && isiOS === false) {
+	                return true;
+	            }
+	            if (isAndroid === false && isiOS === true) {
+	                return false;
+	            }
+			},
             msgalert(msg) {
 				this.$vux.toast.show({
 					text: msg,
 					type: "text"
 				});
-			},
-            //易付通
-            depositPayXpay(){
-                var self = this;
-                this.post("PayController/rentChargePayOrder",{
-                    "receiptPlanId":this.receiptPlanId,             
-                    "planRent":this.planRent,               
-                    "realReceipt":this.rentMoney,            
-                    "openId":"",                  
-                    "receiptSubjectCode":"0057001",                 
-                    "receiptWayCode":this.receiptWayCode,  //收款渠道               
-                    "receiptTypeCode":"0053008"
-                }).then((res => {
-                    self.userId = res.data.userId;
-                    if(res.code == 0){
-                        self.receiptId = res.data.receiptId;
-                        var otherParams = "&receiptId="+self.receiptId+"&saleContractId="+self.saleContractId+"&receiptPlanId="+self.receiptPlanId;
-
-                        var data={
-                          "tradeNo":self.receiptId,//订单号
-                          "payMoney":self.rentMoney,//支付金额
-                          "nameGoods":'正式环境测试支付',//商品名称
-                          // "infoOrder":'客户',//支付信息(可不传)
-                          // "userName":"刘树雨",//用户名（可不传）
-                          "urlId":"8886",//支付渠道id 定金8884 租金8885
-                          "platform":'agenthouse',//支付平台
-                          // "receiptPlanId":self.receiptPlanId,//待定
-                          "userID":self.userId,
-                          "otherParams":otherParams
-                        };
-                        this.post("YFWebController/toYFPay",data,{interfaceType: "pay"}).then((res)=>{
-                            window.location.href=res.data;
-                        })
-                    }
-                }));
-            },
-            loadData(){
-
-            },
+			}
         }
     }
 </script>

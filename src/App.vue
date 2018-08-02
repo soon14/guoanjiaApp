@@ -1,5 +1,5 @@
 <template>
-    <div id="app" v-wechat-title="$route.meta.title">
+    <div id="app" v-wechat-title="title">
         <view-box ref="viewBox">
             <div v-show="!this.$store.state.showWxTitle">
                 <ga-page-header slot="header" :title="title" :needBack="showBack" v-if="watchTitle"></ga-page-header>

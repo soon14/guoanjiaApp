@@ -4,7 +4,7 @@ export default class {
         }
         // 测试全局地址
         // Utils = "http://ntest.guoanfamily.com/"
-        //    Utils =  "http://172.16.43.166:8002/";
+        //    Utils =  "http://172.16.40.120:8002/";
         //    Utils =  "http://192.168.1.104:8002/";
         //    Utils =  "http://192.168.1.108:8002/";
         //    Utils =  "http://172.16.43.166:8002/";

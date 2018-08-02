@@ -4,23 +4,21 @@
 		    <div class="earnestShow-slide">
 		    	<div class="earnestShow-item" v-for="(item,index) in roomList" :key="index" @click="toRoomDetail(item)">
 		    		<img class="background-img" :src="item.image" />
-		    		<div class="shadow"></div>
 		    		<div class="earnestShow-item-top">
 		    			<div class="item-top">
-		    				<p class="earnestShow-item-top-title">{{item.houseName}}{{item.roomName}}{{item.roomNumber}}</p>
+		    				<!--<p class="earnestShow-item-top-title">{{item.houseName}}{{item.roomName}}{{item.roomNumber}}</p>
 			    			<div class="earnestShow-item-top-tags">
 			    				<span v-for="(tag,tagindex) in item.tagsArr" :key="tagindex">{{tag}}</span>
-			    			</div>
-			    			<!--<div class="earnestShow-item-top-wash">
-			    				{{item.roomNo}}室{{item.livingNo}}厅{{item.restRoomNo}}卫
 			    			</div>-->
 		    			</div>
 		    			<div class="item-bottom">
-			    			￥{{item.price}}/月
-			    			<!--<img class="bottom-img" src="../../../../static/rent/arrow.png" alt="" />-->
+		    				<p class="houseRoomName">{{item.houseName}}{{item.roomName}}{{item.roomNumber}}</p>
+			    			<p class="house-room-price">
+			    				<span class="house-room-price-one">{{item.price ? item.price :'等待上架'}}</span>
+			    				<span class="house-room-price-two" v-if="item.price">/月</span>
+			    			</p>
 			    		</div>
 		    		</div>
-		    		
 		   		</div>
 		    </div>
         </div>
@@ -55,22 +53,11 @@ export default {
   	mounted(){
   		this.getHomePageDetail();
   	},
-//	updated(){
-//		//如果页面没有请求成功数据，则再次请求接口。最多三次
-//		for(var i=0;i<3;i++){
-//  		if(this.roomList.length == 0){
-//  			this.getHomePageDetail();
-//  		}else{
-//  			i = 4;
-//  			console.log(i);
-//  		}
-//  	}
-//	},
   	methods: {
 		//获取首页数据
 		getHomePageDetail(){
 	        this.post('common/homePage',{
-	        	"size":'20'
+	        	"size":'5'
 	        })
 	        .then((res) =>{
                 this.roomList = res.data.roomList.filter(item => {
@@ -90,8 +77,6 @@ export default {
 	        		this.roomList = this.roomList.reverse();
 	        	}
 	        })
-	        
-	       
 		},
 		toRoomDetail(item){//跳转到该房间详情
 	        this.$router.push({path:"/HouseList/houseDetail",query:{id:item.id,productType:item.productType}})
@@ -104,24 +89,27 @@ export default {
 @import '~vux/src/styles/1px.less';
 @import '~vux/src/styles/center.less';
 .earnestShow{
-	width: 96%;
-	margin-left:2%;
-    height: 4.01rem;
+	// width: 100%;
+	// padding-left:3%;
+	margin-left:.3rem;
+	margin-right:.3rem;
+   	height:3.9rem;
     overflow-x: scroll;
+    box-sizing:border-box;
+    background:white;
     .earnestShow-slide{
-    	width:17.4rem;
-		height: 3.92rem;
+    	width:11.4rem;
+		height: 3.45rem;
+		background:white;
+		padding:0.1rem 0;
     	.earnestShow-item{
-	    	width:3.28rem;
-	    	height:3.92rem;
+	    	width:2.4rem;
+	    	height:3.45rem;
 	    	background:#ffffff;
-	    	margin-left: 0.25rem;
+	    	margin-left: 0.4rem;
 	    	float: left;
 	    	position: relative;
 	    	border-radius: 0.1rem;
-			/*box-shadow:0.03rem 0.03rem 0.03rem 0.03rem #d9d9d9;*/
-			
-   			box-shadow: 5px 5px 5px #f4f4f4;
 			.earnestShow-item-top{
 			  	width: 100%;
 			  	height: 100%;
@@ -129,7 +117,7 @@ export default {
 	    		z-index:2;
 	    		.item-top{
 	    			width:100%;
-	    			height:2.86rem;
+	    			height:2.6rem;
 				  	box-sizing: border-box;
 				  	padding-top: 0.6rem;
 	    			.earnestShow-item-top-title{
@@ -168,27 +156,44 @@ export default {
 	    		}
 			  	.item-bottom{
 			  		width: 100%;
-			  		height: 1.06rem;
-			  		font-size: 0.24rem;
-			  		color: #D7000F;
-			  		text-align: center;
-			  		line-height: 1.06rem;
-			  		vertical-align:middle;
-			  		.bottom-img{
-			  			height: 0.24rem;
-			  			display: inline-block;
-			  			margin-left: 0.1rem;
+				    height: 0.85rem;
+				    font-size: 0.24rem;
+				    color: #D7000F;
+				    text-align: center;
+				    line-height: 0.85rem;
+				    vertical-align: middle;
+			  		.houseRoomName{
+			  			font-size: 0.2rem;
+			  			color: #999999;
+			  			height: 0.3rem;
+			  			line-height: 0.3rem;
+			  			text-align: left;
+			  		}
+			  		.house-room-price{
+			  			height: 0.5rem;
+			  			text-align: left;
+			  			line-height:0.5rem ;
+			  		}
+			  		.house-room-price-one{
+			  			font-size: 0.3rem;
+			  			color: black;
+			  			font-size:.3rem;
+						font-family:'Source Han Sans CN';		
+			  		}
+			  		.house-room-price-two{
+			  			font-size: 0.2rem;
+						  color: #999999;
+						  font-family:'Source Han Sans CN';
 			  		}
 			  	}
 			  	
 			}
 	    	.background-img{
-	    		width: 3.28rem;
-	    		height: 2.86rem;
+	    		width: 2.40rem;
+	    		height: 2.4rem;
 	    		display: block;
 	    		position: absolute;
-	    		border-top-left-radius: 0.1rem;
-	    		border-top-right-radius: 0.1rem;
+	    		border-radius: 0.1rem;
 	    		top: 0;
 	    		left: 0;
 	    		z-index:1;

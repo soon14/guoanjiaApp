@@ -101,7 +101,7 @@ export default {
   methods: {
     //  列表加载方法
     CardCouponsListLoad() {
-      this.get("/cash/getCash", { interfaceType: "collect" }).then(
+      this.get("cash/getCash", { interfaceType: "collect" }).then(
         response => {
           if(response.code == 200){
             if (response.data.length>0) {

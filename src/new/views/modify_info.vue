@@ -3,17 +3,20 @@
     <div  class="fixContent" >
             <!-- 标题 -->
         <div :class="{'body_top':IosTop,'body_tops':AndroidTop,'wx_top':wxTop}">
-        <div :class="{'topHead':wxTop2,'topHead1':wxTop1}" @click="ImgLoad">
+          <!-- <div class="personhead">
+            我的资料
+          </div> -->
+        <!-- <div :class="{'topHead':wxTop2,'topHead1':wxTop1}" @click="ImgLoad">
             <span class="test">头像</span>
             <span class="spanImage">
                 <img :src="headimgurl">
             </span>
-        </div>
+        </div> -->
         <div class="name">
             <div class="labelStyle">
-                <x-input class="leftName" title="姓　　名　" name="username" v-model='username' placeholder="请输入姓名"></x-input>
+                <x-input text-align="left" class="leftName" title="姓　　名　" name="username" v-model='username' placeholder="请输入姓名"></x-input>
             </div>
-            <div class="labelStyle" style="border-bottom:1px solid #e6e6e6;">
+            <div class="labelStyle">
                 <x-input class="leftName" title="手机号码　" :show-clear='false' name="mobile" v-model="mobile" disabled='disabled' placeholder="请输入手机号码" keyboard="number" ></x-input>
             </div>
             <div class="labelStyle">
@@ -25,7 +28,7 @@
                 <x-input class="leftName" title="详细地址　" name="address" v-model="address" placeholder="请输入详细地址"></x-input>
             </div>
             <div class="labelStyle">
-                <x-input class="leftName" title="身份证号码" name="idCard" v-model="idCard" placeholder="请输入身份证号码"></x-input>
+                <x-input class="leftName" title="身份证号" name="idCard" v-model="idCard" placeholder="请输入身份证号码"></x-input>
             </div>
             <div class="labelStyle">
                 <x-input class="leftName" title="银行名称　" name="openingBank" v-model="openingBank" placeholder="请输入开户行名称"></x-input>
@@ -296,6 +299,15 @@ export default {
 </script>
 
  <style lang="less" scoped>
+.personhead{
+  font-size: .42rem;
+  padding-left: .4rem;
+  color: #e34b3e;
+  line-height: .42rem;
+  text-align: left;
+  margin-bottom: 1.05rem;
+
+}
 .body_top {
   margin-top: 90px;
 }
@@ -305,7 +317,9 @@ export default {
 .wx_top {
   margin-top: 0px;
 }
-
+.name /deep/ .weui-cell {
+  padding-left: 0;
+}
 .topHead {
   width: 94%;
   height: 1.15rem;
@@ -362,9 +376,11 @@ export default {
 }
 
 .name {
-  width: 94%;
+  box-sizing: border-box;
+  width: 100%;
   margin-top: 0.25rem;
-  margin-left: 3%;
+  padding-left: .5rem;
+  padding-right: .3rem;
   overflow: hidden;
   line-height: 0.6rem;
   font-size: 0.35rem; // background: red;
@@ -414,21 +430,25 @@ export default {
 }
 
 .bottomDiv {
-  position: fixed; // background: red;
-  left: 0;
-  bottom: 0;
+  // position: fixed; // background: red;
+  margin-top: .6rem;
+  box-sizing: border-box;
+  padding: 0 .3rem;
+  // left: 0;
+  // bottom: 0;
   width: 100%;
-  height: 1.1rem;
+  height: .9rem;
   font-size: 0.3rem;
   z-index: 10;
 }
 
 .immeditBookingPay {
-  background: url("../../../static/new/img/btnbj.png") no-repeat !important;
+  background: #e34b3e;
   background-size: 100% !important;
-  font-size: 0.4rem !important;
-  line-height: 1.1rem;
+  font-size: 0.32rem !important;
+  line-height: .9rem;
   margin-top: 0;
+  border-radius: .1rem;
 }
 </style>
 <style lang = 'less'>
@@ -438,7 +458,10 @@ export default {
       width: 2.5rem;
       /* background:red; */
       text-align: left;
-      color: #333333;
+      color: #333333 !important;
+    }
+    .vux-cell-box::before{
+      border-top:0;
     }
     .weui-label::before {
       /* content: "*"; */
@@ -453,15 +476,28 @@ export default {
       text-align: left;
       color: #333333;
     }
-    .weui-select {
+    /* .weui-select {
       padding-left: 0.7rem;
-    }
+    } */
     .weui-label::before {
       /* content: "*"; */
       position: absolute;
-      color: #333333;
+      color: #333333 !important;
       left: 5px;
     }
+  }
+}
+.labelStyle /deep/ .weui-cell_access{
+  padding-left: 0rem !important;
+}
+.labelStyle /deep/ .weui-label{
+  width: 6em !important;
+  color: #333 !important;
+}
+.labelStyle /deep/ .vux-popup-picker-select{
+  text-align:left !important;
+  .vux-cell-placeholder{
+    float: left;
   }
 }
 </style>

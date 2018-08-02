@@ -54,126 +54,138 @@
 <script>
 // 传参判断是否显示,是否增加class更改css样式,在buildDetial里面判断跳转
 export default {
-  props: [
-    "child",
-    "fjStatus"
-    ],
+  props: ["child", "fjStatus"],
   // components: {addLocation},
   data() {
     return {
-      list: [],//楼盘数据
-      listArr: [],//楼盘筛选数据
-      obj: {},//要传的参数
+      list: [], //楼盘数据
+      listArr: [], //楼盘筛选数据
+      obj: {}, //要传的参数
       //showmin:true,//控制标签的显示隐藏
       showMap: false,
-      addLocation: '',
+      addLocation: "",
       market: false,
       shareImg: false,
       shareTitle: "", //标题
       shareDesc: "", //描述
       shareLink: "", //连接地址指打开分享时页面地址
-      shareLeftImg: "",//分享图片地址
-      showTop:false,
-      showTop1:false,
-    }
+      shareLeftImg: "", //分享图片地址
+      showTop: false,
+      showTop1: false
+    };
   },
   methods: {
     // 页面数据加载
     onLoade() {
-      this.get('palmsaleapp/api/v1/build/buildLitsAppm?averagepriceList=&typeList=&areaList=&tenementtypeList=&buildtagList=&hardcoverstandardList=&porttype',  {interfaceType: "newHouse"}).then(response => {
-        if (response.status == 200) {
-          // console.log(response);
-          //  console.log(this.$store.state.buildListLocation);
-          // 进行图片路径的拼接
-          for (let i = 0; i < response.data.length; i++) {
-            // response.data[i].firstpicture = this.ImgSrc + response.data[i].firstpicture;
-            response.data[i].firstpicture = this.concatFileUrl(response.data[i].firstpicture);
-            this.$store.state.buildListLocation.push(response.data[i].address);
+      this.get(
+        "palmsaleapp/api/v1/build/buildLitsAppm?averagepriceList=&typeList=&areaList=&tenementtypeList=&buildtagList=&hardcoverstandardList=&porttype",
+        { interfaceType: "newHouse" }
+      ).then(
+        response => {
+          if (response.status == 200) {
+            // console.log(response);
             //  console.log(this.$store.state.buildListLocation);
-            if (response.data[i].averageprice !== null) {
-              if (response.data[i].averageprice == '售价待定') {
-                response.data[i].averageprice = '售价待定'
-              } else if (response.data[i].averageprice.substr(response.data[i].averageprice.length - 2) == '/㎡') {
-                response.data[i].averageprice = "¥" + response.data[i].averageprice;
-              } else if (response.data[i].averageprice == '') {
-                response.data[i].averageprice = '售价待定'
-              } else {
-                response.data[i].averageprice = "¥" + response.data[i].averageprice + "/㎡";
+            // 进行图片路径的拼接
+            for (let i = 0; i < response.data.length; i++) {
+              // response.data[i].firstpicture = this.ImgSrc + response.data[i].firstpicture;
+              response.data[i].firstpicture = this.concatFileUrl(
+                response.data[i].firstpicture
+              );
+              this.$store.state.buildListLocation.push(
+                response.data[i].address
+              );
+              //  console.log(this.$store.state.buildListLocation);
+              if (response.data[i].averageprice !== null) {
+                if (response.data[i].averageprice == "售价待定") {
+                  response.data[i].averageprice = "售价待定";
+                } else if (response.data[i].averageprice == "") {
+                  response.data[i].averageprice = "售价待定";
+                } else {
+                  response.data[i].averageprice =
+                    "¥" + response.data[i].averageprice + "元/㎡";
+                }
               }
             }
-
+            this.list = response.data;
+            this.listArr = response.data;
+            this.obj = {
+              list: this.list,
+              listArr: this.listArr
+            };
           }
-          this.list = response.data;
-          this.listArr = response.data;
-          this.obj = {
-            list: this.list,
-            listArr: this.listArr
-          }
+        },
+        response => {
+          this.showalert(response.msg);
         }
-      }, response => {
-        this.showalert(response.msg);
-      });
+      );
     },
     // 楼盘列表的点击事件
     buildDetial(id) {
       if (this.fjStatus) {
-        this.$router.push({ path: 'housingPriceInfo', query: { buildID: id } })
-        return
+        this.$router.push({ path: "housingPriceInfo", query: { buildID: id } });
+        return;
       }
-      this.$router.push({ path: 'building_detial', query: { buildID: id } })
+      this.$router.push({ path: "building_detial", query: { buildID: id } });
     },
-    // 地址的点击事件 
+    // 地址的点击事件
     buildLocation(val) {
-
       // console.log(val);
       this.addLocation = this.$store.state.buildListLocation[val];
       // console.log(this.addLocation);
-      this.$router.push({ path: 'map', query: { address: this.addLocation } })
+      this.$router.push({ path: "map", query: { address: this.addLocation } });
     },
     // 分享按钮的点击事件
     buildShare(item) {
       this.market = true;
       this.shareImg = true;
-      if (item.buildname == '晋唐海湾') {
-        this.shareLink = "http://act.guoanfamily.com/microHBrochure/jintang.html";
+      if (item.buildname == "晋唐海湾") {
+        this.shareLink =
+          "http://act.guoanfamily.com/microHBrochure/jintang.html";
         this.shareTitle = "晋唐海湾";
         this.shareDesc = "晋唐海湾";
         this.shareLeftImg = item.firstpicture;
         this.onLoadWx();
-      } else if (item.buildname == '北海第一城') {
-        this.shareLink = "http://act.guoanfamily.com/microHBrochure/northSea.html";
+      } else if (item.buildname == "北海第一城") {
+        this.shareLink =
+          "http://act.guoanfamily.com/microHBrochure/northSea.html";
         this.shareTitle = "中信国安 · 北海第一城";
         this.shareDesc = "中信国安 · 北海第一城";
         this.shareLeftImg = item.firstpicture;
         this.onLoadWx();
-      } else if (item.buildname == '山海龙城') {
-        this.shareLink = "http://act.guoanfamily.com/microHBrochure/shanhailongcheng.html";
+      } else if (item.buildname == "山海龙城") {
+        this.shareLink =
+          "http://act.guoanfamily.com/microHBrochure/shanhailongcheng.html";
         this.shareTitle = "山海龙城";
         this.shareDesc = "山海龙城";
         this.shareLeftImg = item.firstpicture;
         this.onLoadWx();
-      } else if (item.buildname == '峨眉国安公馆') {
-        this.shareLink = "http://act.guoanfamily.com/microHBrochure/gongguan.html";
+      } else if (item.buildname == "峨眉国安公馆") {
+        this.shareLink =
+          "http://act.guoanfamily.com/microHBrochure/gongguan.html";
         this.shareTitle = "峨眉国安公馆";
         this.shareDesc = "峨眉国安公馆";
         this.shareLeftImg = item.firstpicture;
         this.onLoadWx();
-      }else if (item.buildname == '华亚欢乐城') {
+      } else if (item.buildname == "华亚欢乐城") {
         // this.shareLink = "http://act.guoanfamily.com/microHBrochure/gongguan.html";
-        this.shareLink = "http://act.guoanfamily.com/microHBrochure/huaya.html?";
+        this.shareLink =
+          "http://act.guoanfamily.com/microHBrochure/huaya.html?";
         this.shareTitle = "华亚欢乐城";
         this.shareDesc = "华亚欢乐城";
         this.shareLeftImg = item.firstpicture;
         this.onLoadWx();
-      }else if (item.buildname == '平海·美龄湾') {
+      } else if (item.buildname == "平海·美龄湾") {
         // this.shareLink = "http://act.guoanfamily.com/microHBrochure/gongguan.html";
-        this.shareLink = "http://act.guoanfamily.com/microHBrochure/meilingwan.html";
+        this.shareLink =
+          "http://act.guoanfamily.com/microHBrochure/meilingwan.html";
         this.shareTitle = "平海·美龄湾";
         this.shareDesc = "平海·美龄湾";
         this.shareLeftImg = item.firstpicture;
         this.onLoadWx();
       } else {
-        this.shareLink = "http://www.guoanfamily.com/newHouseTest/?from=singlemessage&isappinstalled=0#/building_detial?buildID=" + item.id;
+        this.shareLink =
+          "http://www.guoanfamily.com/newHouseTest/?from=singlemessage&isappinstalled=0#/building_detial?buildID=" +
+          item.id;
         this.shareTitle = item.buildname;
         this.shareDesc = item.buildname;
         this.shareLeftImg = item.firstpicture;
@@ -181,9 +193,9 @@ export default {
       }
     },
     // 立即订房的点击事件
-    immRevertion(item){
+    immRevertion(item) {
       // console.log(item);
-      this.$router.push({path:'house_resource',query:{buildid:item}})
+      this.$router.push({ path: "house_resource", query: { buildid: item } });
     },
     // onLoadWx() {
     //   this.post('openweixin/jsapi/getJsapiSignature?local_url=' + encodeURIComponent(location.href.split('#')[0]),
@@ -262,7 +274,7 @@ export default {
       this.shows = false;
       this.market = false;
       this.shareImg = false;
-    },
+    }
     // 用于处理下拉刷新和一直加载的事件
     // refresh() {
 
@@ -272,29 +284,33 @@ export default {
   created() {
     this.onLoade();
     // 微信环境，APP环境判断
-    if(this.$store.state.showWxTitle){
+    if (this.$store.state.showWxTitle) {
       this.showTop1 = true;
-      this.showTop =  false;
-    }else if(!this.$store.state.showWxTitle && this.$route.path == '/housingPrice'){
+      this.showTop = false;
+    } else if (
+      !this.$store.state.showWxTitle &&
+      this.$route.path == "/housingPrice"
+    ) {
       this.showTop1 = false;
-      this.showTop =  true;
-    }else if(!this.$store.state.showWxTitle && this.$route.path !== '/housingPrice'){
+      this.showTop = true;
+    } else if (
+      !this.$store.state.showWxTitle &&
+      this.$route.path !== "/housingPrice"
+    ) {
       this.showTop1 = true;
-      this.showTop =  false;
+      this.showTop = false;
     }
   },
   // 监听
   watch: {
     list() {
-      this.$emit('receive', this.obj);
+      this.$emit("receive", this.obj);
     },
     child() {
       this.list = this.child;
-    },
-
-
+    }
   }
-}
+};
 </script>
 <style lang='less'>
 ul li {
@@ -305,22 +321,24 @@ ul li {
   width: 98%; // height: 4rem;
   float: left;
   position: relative; // padding-bottom: .3rem;
-  margin-top: .25rem;
+  margin-top: 0.25rem;
   border-bottom: 1px solid #ccc;
 }
-.listDiv{
-  padding-top:2.3rem;padding-bottom:.1rem;
+.listDiv {
+  padding-top: 2.3rem;
+  padding-bottom: 0.1rem;
 }
-.listDiv1{
-  padding-top: 1rem;padding-bottom: .1rem;
+.listDiv1 {
+  padding-top: 1rem;
+  padding-bottom: 0.1rem;
 }
 .listoLi .shareBtn {
   position: absolute;
-  right: .1rem;
-  top: -.3rem;
+  right: 0.1rem;
+  top: -0.3rem;
   width: 1.25rem;
-  height: .75rem;
-  background: url('../../../static/new/img/shares.png') no-repeat;
+  height: 0.75rem;
+  background: url("../../../static/new/img/shares.png") no-repeat;
   background-position: right;
   background-size: 40%;
 }
@@ -329,9 +347,9 @@ ul li {
   width: 1rem;
   height: 1rem;
   position: absolute;
-  right: .1rem;
-  bottom: .1rem;
-  background: url('../../../static/new/img/imRevertion.png') no-repeat;
+  right: 0.1rem;
+  bottom: 0.1rem;
+  background: url("../../../static/new/img/imRevertion.png") no-repeat;
   background-position: right;
   background-size: 75%;
 }
@@ -393,8 +411,8 @@ ul li {
     font-size: 0.3rem;
     float: left;
     width: 50%;
-    height: .5rem;
-    line-height: .5rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
     text-align: left;
     font-size: 0.25rem;
     color: #666666;
@@ -403,11 +421,11 @@ ul li {
     white-space: nowrap;
   }
   .fjStyle {
-    float:none;
+    float: none;
   }
   .addLocation {
     width: 30%; // float: right;
-    background: url('../../../static/new/img/dingwei.png') no-repeat;
+    background: url("../../../static/new/img/dingwei.png") no-repeat;
     background-size: 23%;
     background-position: center;
     height: 1rem;
@@ -440,7 +458,7 @@ ul li {
 }
 
 .priceMargin {
-  margin-top: .25rem;
+  margin-top: 0.25rem;
 }
 
 .map {
@@ -473,15 +491,14 @@ ul li {
   width: 100%;
   font-size: 0.65rem;
   text-align: center;
-  height: .8rem; // background: red;
+  height: 0.8rem; // background: red;
   color: #ffffff;
   position: fixed;
   z-index: 151;
   left: 0;
   top: 0;
-  line-height: .75rem;
+  line-height: 0.75rem;
   font-weight: 500;
-  margin-top:3.5rem;
+  margin-top: 3.5rem;
 }
-
 </style>

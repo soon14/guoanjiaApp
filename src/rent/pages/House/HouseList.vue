@@ -19,10 +19,10 @@
     .regloin{
         position: absolute;
         width: 100%;
-        top:1.05rem;
+        top:1.2rem;
         z-index: 2;
         opacity: 1;
-        background-color: $greyColor;
+        background-color: $titleColor;
         font-size:$mostFontSize;
     }
     .regloinlists{
@@ -31,7 +31,7 @@
         top:2.1rem;
         z-index: 2;
         opacity: 1;
-        background-color: $greyColor;
+        background-color: $titleColor;
         font-size:$mostFontSize;
         height: 70%;
         .buttons{
@@ -39,64 +39,67 @@
             top:70%;
             transform: translate(0, 1.1rem);
             left:0px;
-            padding:0.3rem 0rem;
+            // padding:0.3rem 0rem;
             width: 100%;
-            height: 0.8rem;
+            height: 0.9rem;
             .subMit{
-                width: 50%;
-                height: 100%;
-                border-radius: 0.15rem;
-                background-color: $mineColor;
-                font-size:$reminderFontSize;
-                border:1px solid $mineColor;
+                width: 4.4rem;
+                height: 0.9rem;
+                line-height: 0.9rem;
+                background: url("../../../../static/rent/house-list/submit-button.png") no-repeat;
+                background-size: 100%;
+                font-size:$titleFontSize;
                 color:$titleColor;
                 float:left;
-                // margin-left:1.64rem;
                 box-sizing: border-box;
+                margin-left: 0.3rem;
+                border: none;
             }
             .exit{
                 // margin-left:1.04rem;
-                width: 50%;
-                height: 100%;
-                border-radius: 0.15rem;
-                font-size:$reminderFontSize;
-                background-color:$greyColor;
-                border:1px solid $mineColor;
-                color:$mineColor;
+                width: 2.3rem;
+                height: 0.9rem;
+                line-height: 0.9rem;
+                font-size:$titleFontSize;
+                // background-color:$greyColor;
+                background: url("../../../../static/rent/house-list/exit-button.png") no-repeat;
+                background-size: 100%;
+                color:$titleColor;
                 box-sizing: border-box;
+                border: none;
             }
         }  
     }
     .iosregloin{
-        top:1rem;
+        top:1.02rem;
     }
     .iosfiltrate{
         top:2rem;
     }
     .input-search{
-        fill: #fff;
+        fill: #999;
         position: absolute;
         top:0.3rem;
-        left:1.4rem;
+        left:0.24rem;
     }
     .map-icon{
         position: absolute;
-        top: 0.3rem;
-        right:0.2rem;
-        width: 0.5rem;
-        height: 0.5rem;
+        top: 0.72rem;
+        right:0.35rem;
+        width: 0.24rem;
+        height: 0.29rem;
         background:url("../../../../static/rent/HomePage/mapsearchhouse.png") no-repeat;
         background-size: 100%;
     }
     .ios-icon{
-        top:0.55rem;
+        top:0.72rem;
     }
     .wex-icon{
         right: 0.4rem;
-        top:0.3rem;
+        top:0.5rem;
     }
     .iosinputsearch{
-        top:0.55rem;
+        top:0.62rem;
     }
     .wexcssBtn{
     	top:0.35rem;
@@ -122,21 +125,24 @@
             .flex-demo {
                 text-align: center;
                 background-clip: padding-box;
-                color: #333333;
+                color: #666;
                 position: relative;
+                font-size: 0.28rem;
             }
             .open-icon {
                 display: inline-block;
                 position: absolute;
-                width: 30%;
-                top: 24%;
+                width: 0.1rem;
+                top: 45%;
+                left: 1.4rem;
             }
 
             .stop-icon {
                 display: inline-block;
                 position: absolute;
-                width: 30%;
-                top: 15%;
+                width: 0.1rem;
+                top: 43%;
+                left: 1.4rem;
             }
             .isnewhouse{
                 top:25%;
@@ -145,7 +151,10 @@
             .long-string{
                 position: absolute;
                 left: 2rem;
-                top:0rem;
+                top:0.1rem;
+                width: 1px;
+                height: 0.5rem;
+                background-color: #eee;
                 display: none;
             }
             .notnewhouse{
@@ -223,37 +232,39 @@
         }
         .table-view{
             background: white;
-            /*.table-view-list{
+            .table-view-list{
             	box-sizing: border-box;
-            	padding: 0.1rem 0.1rem 0.15rem 0.1rem;
+            	padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+                border-bottom: 1px solid #eee;
             	.list-top{
             		width: 100%;
-            		height: 3.2rem;
+            		height: 2.8rem;
             		.imgOne{
-            			width: 70%;
+            			width: 4.7rem;
             			height: 100%;
             			float: left;
             			position:relative;
             			img{
             				width: 100%;
             				height: 100%;
+                            border-radius: 0.15rem;
             			}
             			.houseMoney{
             				position: absolute;
-            				left: 0;
-            				top: 80%;
-            				width: 1.4rem;
-            				height: 0.5rem;
-            				background: #e24e51;
+            				left: 0.2rem;
+            				top: 10%;
+            				width: 1.8rem;
+            				height: 0.6rem;
+            				background: rgba(0,0,0,0.3);
         					line-height: 0.5rem;
         					text-align: center;
             				color:white;
-            				font-weight: 700;
+            				// font-weight: 700;
             				box-sizing: border-box;
-            				padding-top: 0.02rem;
+            				padding-top: 0.05rem;
             				padding-left: 0.06rem;
             				.houseMoneyCHN{
-        						font-size: 0.13rem;
+        						font-size: 0.18rem;
         						float: left;
         						margin-top: 0.04rem;
             				}
@@ -264,20 +275,21 @@
             			}
             		}
             		.imgRight{
-            			width: 28%;
-            			float: right;
+            			width: 1.8rem;
+            			float: left;
             			height: 100%;
-            			
+            			margin-left: 0.2rem;
             			.imgTwo,.imgThree{
             				width: 100%;
-            				height: 48%;
+            				height: 1.3rem;
             				img{
             					width: 100%;
             					height: 100%;
+                                border-radius: 0.06rem;
             				}
             			}
             			.imgThree{
-            				margin-top: 7%;
+            				margin-top: 0.2rem;
             				position: relative;
             				.imgShadow{
             					width: 100%;
@@ -298,13 +310,13 @@
             	.list-bottom{
             		width: 100%;
             		box-sizing: border-box;
-            		padding-top: 0.1rem;
+            		padding-top: 0.2rem;
             		.list-bottom-left{
             			width: 50%;
             			height: 0.4rem;
             			float: left;
-            			font-size: 0.3rem;
-            			color: black;
+            			font-size: 0.32rem;
+            			color: #000;
             			overflow:hidden; 
 				        text-overflow:ellipsis;
 						white-space:nowrap;
@@ -320,192 +332,198 @@
             		}
             		.bottom-label{
             			width: 100%;
+                        margin-top: 0.05rem;
             			.bottom-label-list{
             				height: 0.4rem;
             				padding: 0 0.1rem;
             				display: block;
             				float: left;
-            				color: #888;
+            				color: #999;
             				text-align: center;
             				line-height: 0.4rem;
             				font-size: 0.26rem;
-            				margin-top: 0.1rem;
+            				margin-top: 0.15rem;
             				border-radius: 0.05rem;
-            				margin-left: 0.2rem;
+                            background-color: #f5f5f5;
+            				margin-left: 0.1rem;
+                            &:nth-child(1){
+                                margin-left: 0rem;
+                            }
             			}
             		}
             	}
-            }*/
-            
-            
-            
-            
-            
-            .table-view-cell{
-                background-color: $titleColor;
-                position: relative;
-                width: 100%;
-                height: 2.11rem;
-                // border-bottom: 1px solid #ccc;
-                padding: 0.2rem 0 0.2rem 0.2rem;
-                box-shadow: 0rem 0rem 0.1rem #ccc;
-                .house-top{
-                    width: 100%;
-                    height: 100%;
-	                .house-object{
-	                    float: left;
-	                    width: 2.86rem;
-                        height: 2.1rem;
-                        position: relative;
-	                    .pull-left{
-	                        display: inline-block;
-	                        width: 2.86rem;
-	                    	height: 2.1rem;
-	                    	border-radius: 0.1rem;
-                        }
-                        .abbr{
-                            position: absolute;
-                            top:0.3rem;
-                            left:0.3rem;
-                            width: 1rem;
-                            height: 0.4rem;
-                            background:url("../../../../static/rent/house-list/3D.png") no-repeat;
-                            background-size: 100%;
-                        }
-                        .active4{
-                            width: 0.5rem;
-                            height: 0.5rem;
-                            position: absolute;
-                            top: 0.2rem;
-                            right: 0.3rem;
-                            background: url("../../../../static/rent/house-list/active418.png") no-repeat;
-                            background-size: 100%;
-                        }
-	                }
-                }
-                .house-body{
-                    float: right;
-                    width: 4.07rem;
-                    font-size:$titleFontSize;
-                    margin:0.05rem 0.3rem 0 0;
-                    .headline{
-                    	font-size: 0.3rem;
-                        span{
-                            display:inline-block;
-                            width: 80%;
-                            overflow: hidden;
-                            text-overflow:ellipsis;
-                            white-space: nowrap;
-                        }
-                        .abbr3d{
-                            position: absolute;
-                            top:0.3rem;
-                            right:0.5rem;
-                            width: 0.5rem;
-                            height: 0.3rem;
-                            background:url("../../../../static/rent/house-list/head3d.png") no-repeat;
-                            background-size: 100%;
-                            // text-align: center;
-                            // line-height: 0.48rem;
-                            // background-color: $partColor;
-                            // color: #fff;
-                            // border-radius: 0.1rem;
-                        }
-                    }
-                    .headline,.house-desc,.house-label,.area{
-                        text-align: left;
-                        margin-bottom:0.05rem;
-                    }
-                    .house-desc,.house-label{
-                        font-size:0.2rem;
-                    }
-                    .house-desc{
-                    	margin-top: 0.12rem;
-                    	font-size: 0.25rem;
-                        .houseproducttype{
-                            display:inline-block;
-                            width: 0.45rem;
-                            height: 0.45rem;
-                            background:url("../../../../static/rent/house-list/joint.png") no-repeat;
-                            background-size: 100%;
-                            vertical-align: middle;
-                        }
-                        .houseentire{
-                            display:inline-block;
-                            width: 0.45rem;
-                            height: 0.45rem;
-                            background:url("../../../../static/rent/house-list/entire.png") no-repeat;
-                            background-size: 100%;
-                            vertical-align: middle;
-                        }
-                        .househome{
-                            display:inline-block;
-                            width: 0.45rem;
-                            height: 0.45rem;
-                            background:url("../../../../static/rent/house-list/home.png") no-repeat;
-                            background-size: 100%;
-                            vertical-align: middle;
-                        }
-                    }
-                    .bedroom{
-                        color:$mostColor;
-                        margin-right:0.3rem;
-                    }
-                    .area{
-                        color:$mostColor;
-                        font-size:0.25rem;
-                    }
-                    .house-label{
-                        width: 100%;
-                        margin-top:0.12rem;
-                        .label{
-                            width: 29%;
-                            height: 0.45rem;
-                            text-align: center;
-                            float: left;
-                            display:block;
-                            margin-right:0.15rem;
-                            line-height: 0.45rem;
-                            border-radius:0.05rem;
-                            overflow: hidden;
-                            text-overflow:ellipsis;
-                            white-space: nowrap;
-                            padding: 0 0.05rem;
-                            box-sizing: border-box;
-                        }
-                        @mixin color($bgColor){
-                            border: 1px solid $bgColor;
-                            color: $bgColor;
-                        }
-                        @for $i from 1 through 3{
-							.label:nth-child(3n+#{$i}){
-								@include color(nth($ColorClass,$i));
-							}
-						}
-                        
-                    }
-                    .trash{
-                        position: absolute;
-                        bottom:0.7rem;
-                        right: 0.3rem;
-                        img{
-                            width: 0.4rem;
-                            height: 0.4rem;
-                        }
-                    }
-                }
-                .house-bottom{
-                    height: 20%;
-                    font-size: $mostFontSize;
-                    .money-month{
-                    	margin-top: 0.12rem;
-                        text-align: left;
-                        .money{
-                            color:$partColor;
-                        }
-                    }
-                }
             }
+            
+            
+            
+            
+            // 单个图片的
+            // .table-view-cell{
+            //     background-color: $titleColor;
+            //     position: relative;
+            //     width: 100%;
+            //     height: 2.11rem;
+            //     // border-bottom: 1px solid #ccc;
+            //     padding: 0.2rem 0 0.2rem 0.2rem;
+            //     box-shadow: 0rem 0rem 0.1rem #ccc;
+            //     .house-top{
+            //         width: 100%;
+            //         height: 100%;
+	        //         .house-object{
+	        //             float: left;
+	        //             width: 2.86rem;
+            //             height: 2.1rem;
+            //             position: relative;
+	        //             .pull-left{
+	        //                 display: inline-block;
+	        //                 width: 2.86rem;
+	        //             	height: 2.1rem;
+	        //             	border-radius: 0.1rem;
+            //             }
+            //             .abbr{
+            //                 position: absolute;
+            //                 top:0.3rem;
+            //                 left:0.3rem;
+            //                 width: 1rem;
+            //                 height: 0.4rem;
+            //                 background:url("../../../../static/rent/house-list/3D.png") no-repeat;
+            //                 background-size: 100%;
+            //             }
+            //             .active4{
+            //                 width: 0.5rem;
+            //                 height: 0.5rem;
+            //                 position: absolute;
+            //                 top: 0.2rem;
+            //                 right: 0.3rem;
+            //                 background: url("../../../../static/rent/house-list/active418.png") no-repeat;
+            //                 background-size: 100%;
+            //             }
+	        //         }
+            //     }
+            //     .house-body{
+            //         float: right;
+            //         width: 4.07rem;
+            //         font-size:$titleFontSize;
+            //         margin:0.05rem 0.3rem 0 0;
+            //         .headline{
+            //         	font-size: 0.3rem;
+            //             span{
+            //                 display:inline-block;
+            //                 width: 80%;
+            //                 overflow: hidden;
+            //                 text-overflow:ellipsis;
+            //                 white-space: nowrap;
+            //             }
+            //             .abbr3d{
+            //                 position: absolute;
+            //                 top:0.3rem;
+            //                 right:0.5rem;
+            //                 width: 0.5rem;
+            //                 height: 0.3rem;
+            //                 background:url("../../../../static/rent/house-list/head3d.png") no-repeat;
+            //                 background-size: 100%;
+            //                 // text-align: center;
+            //                 // line-height: 0.48rem;
+            //                 // background-color: $partColor;
+            //                 // color: #fff;
+            //                 // border-radius: 0.1rem;
+            //             }
+            //         }
+            //         .headline,.house-desc,.house-label,.area{
+            //             text-align: left;
+            //             margin-bottom:0.05rem;
+            //         }
+            //         .house-desc,.house-label{
+            //             font-size:0.2rem;
+            //         }
+            //         .house-desc{
+            //         	margin-top: 0.12rem;
+            //         	font-size: 0.25rem;
+            //             .houseproducttype{
+            //                 display:inline-block;
+            //                 width: 0.45rem;
+            //                 height: 0.45rem;
+            //                 background:url("../../../../static/rent/house-list/joint.png") no-repeat;
+            //                 background-size: 100%;
+            //                 vertical-align: middle;
+            //             }
+            //             .houseentire{
+            //                 display:inline-block;
+            //                 width: 0.45rem;
+            //                 height: 0.45rem;
+            //                 background:url("../../../../static/rent/house-list/entire.png") no-repeat;
+            //                 background-size: 100%;
+            //                 vertical-align: middle;
+            //             }
+            //             .househome{
+            //                 display:inline-block;
+            //                 width: 0.45rem;
+            //                 height: 0.45rem;
+            //                 background:url("../../../../static/rent/house-list/home.png") no-repeat;
+            //                 background-size: 100%;
+            //                 vertical-align: middle;
+            //             }
+            //         }
+            //         .bedroom{
+            //             color:$mostColor;
+            //             margin-right:0.3rem;
+            //         }
+            //         .area{
+            //             color:$mostColor;
+            //             font-size:0.25rem;
+            //         }
+            //         .house-label{
+            //             width: 100%;
+            //             margin-top:0.12rem;
+            //             .label{
+            //                 width: 29%;
+            //                 height: 0.45rem;
+            //                 text-align: center;
+            //                 float: left;
+            //                 display:block;
+            //                 margin-right:0.15rem;
+            //                 line-height: 0.45rem;
+            //                 border-radius:0.05rem;
+            //                 overflow: hidden;
+            //                 text-overflow:ellipsis;
+            //                 white-space: nowrap;
+            //                 padding: 0 0.05rem;
+            //                 box-sizing: border-box;
+            //             }
+            //             @mixin color($bgColor){
+            //                 border: 1px solid $bgColor;
+            //                 color: $bgColor;
+            //             }
+            //             @for $i from 1 through 3{
+			// 				.label:nth-child(3n+#{$i}){
+			// 					@include color(nth($ColorClass,$i));
+			// 				}
+			// 			}
+                        
+            //         }
+            //         .trash{
+            //             position: absolute;
+            //             bottom:0.7rem;
+            //             right: 0.3rem;
+            //             img{
+            //                 width: 0.4rem;
+            //                 height: 0.4rem;
+            //             }
+            //         }
+            //     }
+            //     .house-bottom{
+            //         height: 20%;
+            //         font-size: $mostFontSize;
+            //         .money-month{
+            //         	margin-top: 0.12rem;
+            //             text-align: left;
+            //             .money{
+            //                 color:$partColor;
+            //             }
+            //         }
+            //     }
+            // }
+            // 单个图片的样式结束
            
         }
     }
@@ -575,7 +593,7 @@
         }
     }
    //头部样式
-    $topheight: 1.1rem;
+    $topheight: 0.81rem;
     $btnSize: 0.42rem;
 
     .header{
@@ -585,7 +603,7 @@
         height: 1.3rem;
         /*border-bottom: $baseBorder;*/
         z-index: 100;
-        background: $baseColor;
+        background: $titleColor;
     }
     .iosheader{
         height:1.1rem;
@@ -593,14 +611,15 @@
 
     .back-btn{
         float: left;
-        height: 1.1rem;
-        width: 1rem;
-        background: url("../../../../static/rent/icon-back-btn.png") no-repeat center;
-        background-size: $btnSize;
+        height: 0.32rem;
+        width: 0.20rem;
+        background: url("../../../../static/rent/icon-back.png") no-repeat center;
+        background-size: 100%;
         display: block;
+        margin-left: 0.3rem;
     }
     .iosbackbtn{
-        height:1.5rem;
+        height:1.6rem;
     }
     .middle{
         text-align: center;
@@ -622,7 +641,7 @@
         }
         .header-search{
             top:0.3rem;
-            padding-left:0.6rem;
+            padding-left:0.85rem;
         }
         .iosheadersearch{
             top:0.55rem;
@@ -646,19 +665,19 @@
         height: 1.1rem;
     }
      ::-webkit-input-placeholder {
-        color: #ffffff;
+        color: #999;
     }
 
     :-moz-placeholder {
-        color: #ffffff;
+        color: #999;
     }
 
     ::-moz-placeholder {
-        color: #ffffff;
+        color: #999;
     }
 
     :-ms-input-placeholder {
-        color: #ffffff;
+        color: #999;
     }
     .fade-mark-enter-active, .fade-mark-leave-active {
         transition: opacity 0  ;
@@ -682,17 +701,17 @@
 		<div><downLoad></downLoad></div>
 		
         <div class="header" :class="{iosheader:isWex}">
-        	<div style="width: 1rem;height: 1.1rem;float: left;">
-        		<span class="back-btn" @click="back" :class="{iosbackbtn:!isAndrion}" v-if="!this.$store.state.showWxTitle"></span>
+        	<div style="width: 1rem;height: 1.1rem;float: left;" @click="back">
+        		<span class="back-btn"  :class="{iosbackbtn:!isAndrion}" v-if="!this.$store.state.showWxTitle"></span>
         	</div>
 
             <div class="middle" :class="{wexmiddle:isWex}">
                 <input type="text" class="header-search" placeholder="请输入您想住的区域或小区" @click="searchChange" v-model="headerSearch" :class="{iosheadersearch:!isAndrion,wexcss:isWex}" >
+                <x-icon type="ios-search" size="25" class="input-search"  @click="searchChange" :class="{iosinputsearch:!isAndrion,wexcssBtn:isWex}" ></x-icon>
             </div>
 
-            <div class="right-part" :class="{wexpart:isWex}">
-                <x-icon type="ios-search" size="25" class="input-search"  @click="searchChange" :class="{iosinputsearch:!isAndrion,wexcssBtn:isWex}" ></x-icon>
-                <i class="map-icon" :class="{'ios-icon':!isAndrion,'wex-icon':isWex}" @click="toMapSearch"></i>
+            <div class="right-part" :class="{wexpart:isWex}" @click="toMapSearch">
+                <i class="map-icon" :class="{'ios-icon':!isAndrion,'wex-icon':isWex}" ></i>
             </div>
         </div>
          <div class="type-search" :class="{wextypesearch:isWex}">
@@ -702,7 +721,7 @@
                                 <span :class="{regionarea:regionClass}">区域</span>
                                 <img class="open-icon" v-if="region" :src="openUrl" :class="{isnewhouse:isnewhouse}"/>
                                 <img class="stop-icon" v-if="!region" :src="stopUrl" :class="{isnewhouse:isnewhouse}"/>
-                                <span class="long-string" :class="{notnewhouse:isonLinerent}">|</span>
+                                <span class="long-string" :class="{notnewhouse:isonLinerent}"></span>
                         </div>
                     </flexbox-item>
                     <flexbox-item>
@@ -710,7 +729,7 @@
                                 <span :class="{regionarea:subwayClass}">地铁</span>
                                 <img class="open-icon" v-if="subway" :src="openUrl" :class="{isnewhouse:isnewhouse}"/>
                                 <img class="stop-icon" v-if="!subway" :src="stopUrl" :class="{isnewhouse:isnewhouse}" />
-                                <span class="long-string" :class="{notnewhouse:isonLinerent}">|</span>
+                                <span class="long-string" :class="{notnewhouse:isonLinerent}"></span>
                         </div>
                     </flexbox-item>
                     <flexbox-item>
@@ -718,7 +737,7 @@
                                 <span :class="{regionarea:priceClass}">价格</span>
                                 <img class="open-icon" v-if="price" :src="openUrl" :class="{isnewhouse:isnewhouse}"/>
                                 <img class="stop-icon" v-if="!price" :src="stopUrl" :class="{isnewhouse:isnewhouse}"/>
-                                <span class="long-string" :class="{notnewhouse:isonLinerent}">|</span>
+                                <span class="long-string" :class="{notnewhouse:isonLinerent}"></span>
                         </div>
                     </flexbox-item>
                     <flexbox-item>
@@ -761,7 +780,7 @@
                 >
                         <div class="list-item" :class="{ioslistitem:!isAndrion,wexlist:isWex}">
                             <ul class="table-view">
-                                <li class="table-view-cell" v-for="item in HouseLists" :key="item.id" @click="goHouseDetail(item.id,item.productType,item.active418)">
+                                <!-- <li class="table-view-cell" v-for="item in HouseLists" :key="item.id" @click="goHouseDetail(item.id,item.productType,item.active418)">
                                     <div class="house-top">
                                         <div class="house-object">
                                             <img class="pull-left" :src="item.image || noDetailImg ">
@@ -769,13 +788,12 @@
                                         </div>
                                         <div class="house-body">
                                             <div class="headline">
-                                                <span>{{item.houseName}}&nbsp;{{item.roomName}}{{item.roomNumber || ""}}</span>                                            
+                                                <span>{{item.houseName}}&nbsp;{{item.houseName==="东大桥店"?item.roomFloor : item.roomName}}&nbsp;{{item.roomNumber || ""}}</span>                                            
                                                 <i class="abbr3d" v-if="item.lookUrl"></i>
                                             </div>
                                             <div class="house-desc">
                                                 <span class="bedroom">{{item.buildNo}}号楼-{{item.roomName}}</span>
-                                            	<span calss="floor">{{item.buildFloor}}层|{{item.userArea}}㎡</span>
-                                                <!-- <span :class="{houseproducttype:item.productType==='0019001',houseentire:item.productType==='0019002',househome:item.productType==='0019003'}"></span> -->
+                                            	<span calss="floor">{{item.houseName==="东大桥店"?item.roomFloor : item.buildFloor}}层|{{item.userArea}}㎡</span>
                                             </div>
 											<div class="house-bottom">
                                                 <p class="money-month">
@@ -788,24 +806,24 @@
                                             </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li> -->
                                 
                                 
-                                <!--<li class="table-view-list" v-for="item in HouseLists" :key="item.id" @click="goHouseDetail(item.id,item.productType)">
+                                <li class="table-view-list" v-for="item in HouseLists" :key="item.id" @click="goHouseDetail(item.id,item.productType)">
                                 	<div class="list-top">
                                 		<div class="imgOne">
                                 			<img class="pull-left" :src="item.image || noDetailImg ">
                                 			<div class="houseMoney">
-                                				<div class="houseMoneyCHN">￥</div><div class="houseMoneyNum">{{item.price}}</div><div class="houseMoneyCHN">/月</div>
+                                				<div class="houseMoneyCHN"></div><div class="houseMoneyNum">{{item.price}}</div><div>&nbsp;元&nbsp;/&nbsp;月</div>
                                 			</div>
                                 		</div>
                                 		<div class="imgRight">
                                 			<div class="imgTwo">
-                                				<img class="pull-left" :src="item.attachImage[0] || noDetailImg ">
+                                				<img class="pull-left" :src="concatFileUrl(item.attachImage[0]) || noDetailImg ">
                                 			</div>
                                 			<div class="imgThree">
-                                				<img class="pull-left" :src="item.attachImage[1] || noDetailImg ">
-                                				<div class="imgShadow">{{item.attachImageLength < 0 ?'':item.attachImageLength}} <span style="font-size: 0.35rem;">+</span></div>
+                                				<img class="pull-left" :src="concatFileUrl(item.attachImage[1]) || noDetailImg ">
+                                				<!-- <div class="imgShadow">{{item.attachImageLength < 0 ?'':item.attachImageLength}} <span style="font-size: 0.35rem;">+</span></div> -->
                                 			</div>
                                 		</div>
                                 	</div>
@@ -814,7 +832,7 @@
                                 			{{item.houseName}}&nbsp;{{item.roomName}}{{item.roomNumber || ""}}
                                 		</div>
                                 		<div class="list-bottom-right">
-                                			{{item.buildNo}}号楼-{{item.roomName}}&nbsp;&nbsp;&nbsp;{{item.buildFloor}}层 - {{item.userArea}}㎡
+                                			{{item.buildNo}}号楼&nbsp;{{item.roomName}}&nbsp;&nbsp;&nbsp;{{item.buildFloor}}层/{{item.userArea}}㎡
                                 		</div>
                                 		<div style="clear: both;"></div>
                                 		<div class="bottom-label">
@@ -822,7 +840,7 @@
                                 			<div style="clear: both;"></div>
                                 		</div>
                                 	</div>
-                                </li>-->
+                                </li>
                                
                             </ul>
                            <div class="on-phone" v-if="isPhone"><p style="margin:10px 0px;">--------已经到最后了--------</p><p><a href="tel:400-900-2225" class="phone">400-900-2225</a></p>试试拨打热线告诉我们你的租房需求!</div>
@@ -874,8 +892,8 @@
     import PriceList from '../../components/HouseList/PriceList.vue';
     import openUrl1 from "../../../../static/new/img/stop.png";
     import stopUrl1 from "../../../../static/new/img/open.png";
-    import openUrl from "../../../../static/rent/img/open.png";
-    import stopUrl from "../../../../static/rent/img/stop.png";
+    import openUrl from "../../../../static/rent/img/open1.png";
+    import stopUrl from "../../../../static/rent/img/stop1.png";
     //列表
     import houseList from "../../../../static/rent/img/house-list.png";
     import trash    from "../../../../static/rent/img/clear.png";
@@ -909,16 +927,17 @@
                     stationsId: "",
                     priceMax: "",
                     priceMin: "",
-                    textSearch: "",
+                    textSearch: this.$route.query.textSearch,
                     size: 10,
                     userAreaMin:"",
                     userAreaMax:"",
                     lookUrl:false,
                     roommateConstellation:"",  //星座
                     orientation:"",
-                    roommateSex:"",
+                    roommateSex:this.$route.query.roommateSex,
                     hasIndieRestRoom:"",   //独卫
                     hasVeranda:"",    //独阳
+                    active418:this.$route.query.active418,
                 },
 
                 openUrl:openUrl,
@@ -1423,7 +1442,6 @@
             },
             //获取房源列表
             getHouseList(){
-                console.log(this.HouseListData)
                 this.loadings = true;
                 let Url = "HouseInfoController/getHouseList";
                 let req = Object.assign({}, this.HouseListData);

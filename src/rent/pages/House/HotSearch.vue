@@ -3,41 +3,42 @@
     .hot-search{
         position: relative;
         height: 100%;
-        background-color:$greyColor;
+        background-color:$titleColor;
         .header-search{
-            width: 4.66rem;
+            width: 5.8rem;
             padding-left:0.7rem;
             color:$titleColor;
             left:0rem;
             top:0.3rem;
+            height: 0.6rem;
         }
         .iosheadersearch{
             top:0.55rem;
         }
         .wexcss{
             width: 5.9rem;
-            left:-1rem;
+            left:-0.5rem;
             top: 0.3rem;
         }
         .input-search{
             position: absolute;
-            fill: #fff;
-            top: 0.3rem;
-            left: 1.3rem;
+            fill: #999;
+            top:0.3rem;
+            left:0.9rem;
             width: 0.6rem;
             height: 0.5rem;
         }
         .iosinputsearch{
-            top:0.55rem;
+            top:0.6rem;
         }
         .wexicon{
-            left: 0.3rem;
-            top: 0.31rem;
+            left: 0.45rem;
+            top: 0.35rem;
         }
         .search-click{
             position: absolute;
             top:0.3rem;
-            right:0.45rem;
+            right:0.05rem;
             width: 0.8rem;
             height: 0.5rem;
             padding:0rem;
@@ -48,17 +49,18 @@
             // background: $greyColor;
         }
         .iossearchclick{
-            top:0.55rem;
+            top:0.63rem;
         }
         .wexsearch{
-            top:0.3rem;
+            top:0.35rem;
+            right: 0.25rem;
         }
         .voice{
             display:inline-block;
             width: 0.5rem;
             height: 0.52rem;
-            top:0.21rem;
-            right:0.25rem;
+            top:0.5rem;
+            right:0.2rem;
             position: absolute;
         }
         .hot-list{
@@ -69,33 +71,37 @@
             overflow: hidden;
             .header-hot{
                 width: 100%;
-                color:$unselectedColor;
+                color:#000;
                 margin-top:0.56rem;
-                text-align:center;
+                text-align: left;
+                padding-left: 0.4rem;
                 font-size:$titleFontSize;
+                font-size: $littleFontSize;
             }
             .history-search{
                 width: 100%;
-                color:$unselectedColor;
+                color:#000;
                 margin-top:0.8rem;
-                text-align:center;
-                font-size:$titleFontSize;
+                text-align: left;
+                padding-left: 0.4rem;
+                font-size: $littleFontSize;
             }
                 .hot-ul{
                     padding:0.4rem 0rem 0rem 0.4rem;
                     height: auto;
                     overflow: hidden;
                 .area-list{
-                    width: 2.08rem;
-                    height: 0.55rem;
-                    margin-right:0.22rem;
+                    width: auto;
+                    height: 0.48rem;
+                    margin-right:0.2rem;
                     margin-bottom:0.18rem;
-                    border-radius:0.2rem;
+                    padding: 0.1rem 0.24rem ;
+                    // border-radius:0.2rem;
                     text-align: center;
-                    line-height: 0.63rem;
+                    line-height: 0.48rem;
                     background-color: $titleColor;
-                    color:$indicativeColor;
-                    border:0.02rem solid $indicativeColor;
+                    color:#666;
+                    border:0.02rem solid #ccc;
                     float: left;
                     font-size:$mostFontSize;
                 }
@@ -138,8 +144,8 @@
             position: relative;
             .clear-img{
                 // display:inline-block;
-                width: 0.32rem;
-                height: 0.4rem;
+                width: 0.3rem;
+                height: 0.3rem;
             }
         }
         .voice-round{
@@ -236,6 +242,21 @@
 .outheight{
 	height: 1.1rem;
 }
+ ::-webkit-input-placeholder {
+        color: #999;
+    }
+
+    :-moz-placeholder {
+        color: #999;
+    }
+
+    ::-moz-placeholder {
+        color: #999;
+    }
+
+    :-ms-input-placeholder {
+        color: #999;
+    }
 </style>
 <template>
     <div class="hot-search">
@@ -247,16 +268,17 @@
             <p slot="right-btn">
                 <x-icon type="ios-search" size="30" class="input-search" :class="{iosinputsearch:!isAndrion,wexicon:isWex}"></x-icon>
                 <x-button class="search-click" @click.native="onSearch" mini :class="{iossearchclick:!isAndrion,wexsearch:isWex}">搜索</x-button>
+                <img :src="voice" class="voice" @click="voiceClick" v-if="isVoice">
             </p>
         </ga-page-header>
         <div class="hot-list" :class="{ioshotlist:!isAndrion}">
-            <div class="header-hot">————热门搜索————</div>
+            <div class="header-hot">热门搜索</div>
             <ul class="hot-ul">
                 <li v-for="item in HotSearchList" :key="item.index" class="area-list" @click.once="HotSearchClick(item)">
                         {{item}}
                 </li>
             </ul>
-            <div class="history-search">————历史搜索————</div>
+            <div class="history-search">搜索历史</div>
             <ul class="history-ul" :class="{ioshistoryul:!isAndrion}">
             	
                 <li v-for="item in hotAllList" :key="item.index" class="history-area-list" @click.once="HistorySearchClick(item)">
@@ -303,12 +325,12 @@ export default {
                 allSearchLog:"",
                 // userId:"",
                 clearImg:{
-                    backgroundImage: "url(" + require('../../../../static/rent/img/clear.png') + ")",
+                    backgroundImage: "url(" + require('../../../../static/rent/img/clear1.png') + ")",
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "112%",
+                    backgroundSize: "100%",
                     position: "absolute",
                     left: "2.45rem",
-                    top: "0.3rem",
+                    top: "0.38rem",
                 },
                 source : true,
                 isAndrion:true,

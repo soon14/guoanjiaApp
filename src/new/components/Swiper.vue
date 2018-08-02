@@ -17,6 +17,7 @@ export default {
       swiperOption: {
         loop: true,
         autoplay: true,
+        disableOnInteraction:false,
         pagination: {
           el: ".swiper-pagination"
         }
@@ -35,6 +36,7 @@ export default {
       this.buildid = this.demo06_list[index].id;
     },
     justep(item) {
+      console.log(item);
         if(item.type == 2){
           // this.$router.push({ path: "building_detial", query: { buildID: item.valueId } });
           this.$router.push({path:item.value})
@@ -48,8 +50,8 @@ export default {
         }else if(item.type == 3){
           let locationHref = window.location.href;
 			    let locationvalue = locationHref.substr(0,locationHref.indexOf("#")+1);
-          this.$router.push({path:item.value,query:{src:'https://www.guoanfamily.com/activity418wap/index2.html?locationvalue='+locationvalue,title:'418特惠节',num:'2'}});
-           
+          let title =  item.name;
+          this.$router.push({path:'/framePage',query:{src:'https://www.group.citic/html/brand_launch/',title:title}});
         }else{
           this.$router.push({path:item.value});
           this.$store.state.buttonGroup = 3;
@@ -65,7 +67,7 @@ export default {
       }).then(
         response => {
           if (response.status == 200) {
-            // console.log(response)
+            console.log(response)
             this.baseList = response.data;
             // console.log(this.baseList);
             this.urlList = this.baseList.map((item, index) => ({
@@ -74,6 +76,7 @@ export default {
               type:item.bannerType,
               value:item.bannerValue,
               valueId:item.bannerValueId,
+              name:item.name,
             }));
             // console.log(this.urlList);
             // this.demo06_list = this.urlList;

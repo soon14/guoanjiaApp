@@ -70,13 +70,33 @@
   text-align: left;
   padding: 0.25rem 0.05rem 0.25rem;
   padding-left: 0.2rem;
+  position: relative;
   .TrendTitle {
     line-height: 1rem;
     border-bottom: 1px solid #f0f0f0;
   }
+  .dabox{
+  	width: 6rem;
+  	overflow: hidden;
+  	position: absolute!important;
+    top: 1.67rem;
+    left: 0.83rem;
+    overflow: hidden;
+    height: 300px;
+    z-index: 100;
+  }
   #ecBox {
     width: 100%;
     height: 300px;
+    padding-top: 0.4rem
+  }
+  #ecBox1 {
+    width: 200%;
+    height: 300px;
+    position: absolute;
+    left: 0;
+    z-index: 999;
+    transition: all .2s 
   }
   .yearYes {
     display: inline-block;
@@ -97,6 +117,7 @@
     margin-left: 0.5rem;
     color: #666;
     background: #e6e6e6;
+    -webkit-transform:transition3d(0,0,0)
   }
 }
 </style>
@@ -133,9 +154,14 @@
         </div>
         <div class="priceTrend">
             <p class="TrendTitle twentySix colorThree">价格及走势</p>
-            <div id="ecBox">
-
+            <div class="dabox">
+	            	<div id="ecBox1" ref="davox">
+	
+		            </div>
             </div>
+            <div id="ecBox">
+		
+		        </div>
             <div class="twelve colorThree">
                 近{{recentYears}}年：
                 <span
@@ -167,6 +193,7 @@ export default {
   components: {},
   data() {
     return {
+    	scroll: '',
       AndroidTop: false,
       IosTop: false,
       wxTop: false,
@@ -187,12 +214,14 @@ export default {
       recentYears:"1",//近几年
       starts:30,
       ends:70,
+      cityname:'',
+      province:'',
     };
   },
   mounted() {
     this.buildID = this.$route.query.buildID;
     this.dataLoad();
-    this.ecLoad();
+    
     if (!this.$store.state.showWxTitle) {
       if (!this.AndroidOrIos()) {
         this.AndroidTop = false;
@@ -208,20 +237,87 @@ export default {
       this.AndroidTop = false;
       this.IosTop = false;
     }
+    
+    //缓冲运动
     var that = this
-    var timer = setInterval(function(){
-   		that.setupdata()
-   		if(that.ecOption.baseOption.dataZoom[0].end ==90){
-   			clearInterval(timer)
-   		}
-    },150)
-},
+    function sport(obj,target){
+			clearInterval(timer);
+			//设置速度
+			timer = setInterval(function(){
+				let speed = (target - obj.offsetLeft) / 4; 
+				speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+				//检测停止(匀速运动的停止条件 )
+				if(obj.offsetLeft <-200){
+					clearInterval(timer);
+//						that.ecOption1.baseOption.dataZoom=[{
+//				            type: 'inside',
+//				            realtime: true,
+//				            start: 0,
+//				            end: 30,
+//				            filterMode:"empty",
+//				           interval:5
+//				        }
+//					    ]
+//	    			var myChart1 = that.$echarts.init(document.getElementById("ecBox1"));
+//	      		myChart1.setOption(that.ecOption1);
+//	      		var oDabox1 = that.$refs.davox
+//						oDabox1.style.width = "100%"
+				}else{
+					obj.style.left = obj.offsetLeft - speed + "px";
+				}
+				//console.log("cur:" + obj.offsetLeft + "\ntarget:" + target + "\nspeed:" + speed);
+			},100)
+		}
+    let timer = null;
+    
+    var oDabox = document.getElementById("ecBox1")
+    var client = 0
+    document.getElementsByClassName("fixContent")[0].onscroll = function(){
+			console.log(oDabox.offsetTop)
+		}
+    	sport(oDabox,2);
+			oDabox.ontouchstart = function(evt){
+			 	let e = evt || window.event;
+				var disXs = e.zrX;
+//				var disY = e.offsetY;
+
+				document.ontouchmove = function(evt){
+					let e = evt || window.event;
+					var disXe = e.zrX;
+					var temppxre = disXs - disXe ;
+					var tempsource = 20
+					if(Math.abs(temppxre) > 15){
+						tempsource = 10;
+					}
+					
+					if(Math.abs(temppxre) > tempsource){
+						disXs = disXe;
+						tempsource = 20;
+						var movexpram = parseInt(oDabox.style.left.replace("px","")) - temppxre;
+						if(movexpram > 0){
+							movexpram = -2;
+						}
+						if(movexpram < -230){
+							movexpram = -230;
+						}
+						oDabox.style.left = movexpram + "px";
+					}
+					
+
+					
+//					oDabox.style.top = e.pageY - disY + "px";
+				}
+			}
+	},
   created() {},
   methods: {
+  	menu:function(){
+	    this.scroll = document.body.scrollTop || document.documentElement.scrollTop;
+	    console.log(this.scroll)
+   	},
     dataLoad: function() {
       this.get(
-        "palmsaleapp/api/v1/build/buildBaseInfoiIdApp?id=" + this.buildID,
-        { interfaceType: "newHouse" }
+        "palmsaleapp/api/v1/build/buildBaseInfoiIdApp?id=" + this.buildID,{ interfaceType: "newHouse" }
       ).then(response => {
         if (response && response.status == 200) {
           let bannerImgList = response.data.buildPictureList || [];
@@ -237,15 +333,18 @@ export default {
           this.buildTag = (response.data.buildtag || "").split(",");
           this.averagePrice = response.data.averageprice || "";
           this.launchTime = response.data.launchtime || "";
+          this.cityname = response.data.city || "";
+          this.province = response.data.province || "";
         }
+      }).then(()=>{
+      	this.ecLoad();
       });
+      
     },
     ecLoad: function() {
     	var that = this
       // utils.ajaxFn(utils.prefix + "/api/v1/buildfloorbook/BuildBaseFloorBookController/buildPriceMovements","get",{buildid:this.params.id},priceTrendFn);
-      this.get(
-        "palmsaleapp/api/v1/buildfloorbook/BuildBaseFloorBookController/buildPriceMovements?buildid=" +
-          this.buildID,
+      this.get("palmsaleapp/api/v1/buildfloorbook/BuildBaseFloorBookController/buildPriceMovements?buildid=" +this.buildID,
         { interfaceType: "newHouse" }
       ).then(data => {
         var xqTrend = []; //房价走势
@@ -264,49 +363,85 @@ export default {
         var currentYear = currentTime.getFullYear();
         var currentMonth = currentTime.getMonth() + 1;
         var sanMonth = []
-        var mI = null;
-        currentMonth !== 12 ? (currentYear -= 1) : (currentMonth = 0);
-        for (var i = currentMonth + 1; i <= currentMonth + 12; i++) {
-          mI = i;
-          if (i === 13 && currentMonth !== 12) {
-            currentYear += 1;
-          }
-          if (i >= 13 && currentMonth !== 12) {
-            mI -= 12;
-          }
-          oneYearX.push(currentYear + "-" + mI);
-        }
-				for(var p=0;p<15;p++){
+        console.log(this.cityname,this.province)
+        
+//      var mI = null;
+//      currentMonth !== 12 ? (currentYear -= 1) : (currentMonth = 0);
+//      for (var i = currentMonth + 1; i <= currentMonth + 12; i++) {
+//        mI = i;
+//        if (i === 13 && currentMonth !== 12) {
+//          currentYear += 1;
+//        }
+//        if (i >= 13 && currentMonth !== 12) {
+//          mI -= 12;
+//        }
+//        oneYearX.push(currentYear + "-" + mI);
+//      }
+
+
+				//原来
+//				var sanslics = data.data["三年"]["区域走势"].reverse().slice(0,34)
+//				var sanRevers = sanslics.reverse()
+//				for(var p=0;p<data.data["三年"]["区域走势"].length;p++){
+//					sanMonth.push(sanRevers[p].month)
+//				}
+				for(var p=0;p<data.data["三年"]["区域走势"].length;p++){
 					sanMonth.push(data.data["三年"]["区域走势"][p].month)
 				}
 				//console.log(sanMonth);
+				//console.log(sanMonth[sanMonth.length-1].substr(0,4)-3);
+				//console.log(sanMonth[sanMonth.length-1].substr(4,));
+				//console.log(sanMonth[sanMonth.length-1].substr(0,4)-3 + sanMonth[sanMonth.length-1].substr(4,))
+//				var falseMoth = sanMonth[sanMonth.length-1].substr(0,4)-3 + sanMonth[sanMonth.length-1].substr(4,)
+//				
+//				var falseArray = ["2015-01", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09", "2015-10", "2015-11", "2015-12", "2016-01", "2016-02", "2016-03","2016-04", "2016-05","2016-07", "2016-08", "2016-09", "2016-10", "2016-11", "2016-12"]
+//				//console.log(falseMoth)
+//				var falseArrays = falseArray.indexOf(falseMoth,0)
+//				var arrays = falseArray.splice(falseArrays+2,)
+//				//console.log(arrays)
+//				//console.log("这是第几个"+falseArrays)
+//				sanMonth = arrays.concat(sanMonth)
+//				//console.log(sanMonth)
+				var arrpushs = []
+				let sanMonths = sanMonth.reverse()
+						for(var q=0;q<sanMonth.length/3;q++){
+							var ass = 3*q;
+							arrpushs.push(sanMonths[ass])
+						}
+//						console.log(arrpushs)
+						sanMonth = arrpushs.reverse()
+						console.log(sanMonth)
         if (data.data) {
           if (data.data["一年"]) {
             if (data.data["一年"]["房价走势"]) {
               var fjTrend = data.data["一年"]["房价走势"];
+              var RASwitch = true;
+              var invertedOrder = null;
               for (var i = 0; i < fjTrend.length; i++) {
               		xqTrend.push(fjTrend[i].buildprice);
+              		invertedOrder = fjTrend.length - 1 - i;
+                	if (RASwitch && fjTrend[invertedOrder].buildprice != 0) {
+                  RASwitch = false;
+                  this.referenceAverageprice =
+                    fjTrend[invertedOrder].buildprice;
+                }
               }
             }
+            
             if (data.data["一年"]["商圈走势"]) {
               var fjTrends = data.data["一年"]["商圈走势"];
               for (var i = 0; i < fjTrends.length; i++) {
               		businessArea.push(fjTrends[i].buildprice);
+              		
               }
             }
             if (data.data["一年"]["区域走势"]) {
               var qyTrend = data.data["一年"]["区域走势"];
-              var RASwitch = true;
-              var invertedOrder = null;
               for (var k = 0; k < qyTrend.length; k++) {
                 areaTrend.push(qyTrend[k].buildprice);
-                invertedOrder = qyTrend.length - 1 - k;
-                if (RASwitch && qyTrend[invertedOrder].buildprice != 0) {
-                  RASwitch = false;
-                  this.referenceAverageprice =
-                    qyTrend[invertedOrder].buildprice;
-                }
+                oneYearX.push(qyTrend[k].month)
               }
+              oneYearX.push("")
             }
             var xqMax = Math.max.apply(null, xqTrend);
             var areaMax = Math.max.apply(null, areaTrend);
@@ -377,31 +512,32 @@ export default {
 							
 						return tempgetmin;
 						}
-					  function trimSpace(array){  
-     					for(var i = 0 ;i<array.length;i++){  
-		             if(array[i] == "" || typeof(array[i]) == "undefined"){  
-                      array.splice(i,1);  
-                      i= i-1;  
-				          }  
-						  }  
-						   return array;  
-						}  
-						xqTrend	 = trimSpace(xqTrend)
-						areaTrend = trimSpace(areaTrend)
-						businessArea =	trimSpace(businessArea)
-            var xqMax = Math.max.apply(null, xqTrend);
-            var areaMax = Math.max.apply(null, areaTrend);
-            var businessMax = Math.max.apply(null, businessArea);
+
+						function delezero(arrs){
+					  	var arrNew  =[]
+					  	for(var  i in arrs){
+									if(!(arrs[i] == "" || typeof(arrs[i]) == "undefined")){
+									arrNew.push(arrs[i]);
+								}
+							}
+								return arrNew
+					  }
+					  
+						//areaTrend = trimSpace(areaTrend)
+						//businessArea =	trimSpace(businessArea)
+            var xqMax = Math.max.apply(null, delezero(xqTrend));
+            var areaMax = Math.max.apply(null, delezero(areaTrend));
+            var businessMax = Math.max.apply(null, delezero(businessArea));
             
-            var xqMin = Math.min.apply(null, xqTrend);
-            var areaMin = Math.min.apply(null, areaTrend);
-            var businessMin = Math.min.apply(null, businessArea);
+            var xqMin = Math.min.apply(null, delezero(xqTrend));
+            var areaMin = Math.min.apply(null, delezero(areaTrend));
+            var businessMin = Math.min.apply(null,delezero(businessArea));
             
             if(businessMin =="-Infinity"){
             	 oneYearMin = getMin(xqMin,areaMin,businessMax);
             	 //console.log(xqMin,areaMin,businessMin);
             }else{
-            	oneYearMin = getMin(xqMin,areaMin);
+            	oneYearMin = getMin(xqMin,areaMin,businessMin);
             	//console.log(xqMin,areaMin);
               //console.log(oneYearMin);
             	
@@ -444,14 +580,67 @@ export default {
               		xqTrend3.push(fjTrend3[i].buildprice);
               }
             }
-
+						//console.log(xqTrend3)
+//						var arrpush = []
+//						for(var q=0;q<xqTrend3.length/3;q++){
+//							var ass = 3*q;
+//							arrpush.push(xqTrend3[ass])
+//						}
+						//console.log(arrpush)
+//						xqTrend3 = arrpush
+						var reversexqTrend3 = xqTrend3.reverse()
+						var arrpush = []
+						for(var q=0;q<reversexqTrend3.length/3;q++){
+							var ass = 3*q;
+							arrpush.push(reversexqTrend3[ass])
+						}
+						//console.log(arrpush)
+						xqTrend3 = arrpush.reverse()
+						//console.log(xqTrend3)
+						var splitAttr = []
+						for(var op=0;op<sanMonth.length;op++){
+							splitAttr.push(sanMonth[op].substr(0,4))
+						}
+						//console.log(splitAttr.lastIndexOf("2016"))
+						var quantity = splitAttr.lastIndexOf("2015")
+						for(var po=0;po<quantity+1;po++){
+							//xqTrend3.unshift("0")
+						}
+						
             if (data.data["三年"]["区域走势"]) {
               var qyTrend3 = data.data["三年"]["区域走势"];
               for (var i = 0; i < qyTrend3.length; i++) {
               		areaTrend3.push(qyTrend3[i].buildprice);
               }
+              sanMonth.push("")
             }
-            
+            //区域走势分3段
+            var reversexqTrend3 = areaTrend3.reverse()
+						var arrpushz = []
+						for(var qw=0;qw<reversexqTrend3.length/3;qw++){
+							var assw = 3*qw;
+							arrpushz.push(reversexqTrend3[assw])
+						}
+						//console.log(arrpushz)
+						areaTrend3 = arrpushz.reverse()
+						//console.log(areaTrend3)
+						for(var pow=0;pow<quantity+1;pow++){
+							//areaTrend3.unshift("0")
+						}
+						//商圈走势分3段
+						var reversebusinessArea3 = businessArea3.reverse()
+						var arrpushe = []
+						for(var qe=0;qe<reversebusinessArea3.length/3;qe++){
+							var asse = 3*qe;
+							arrpushe.push(reversebusinessArea3[asse])
+						}
+						//console.log(arrpushz)
+						businessArea3 = arrpushe.reverse()
+						//console.log(businessArea3)
+						for(var poe=0;poe<quantity+1;poe++){
+							//businessArea3.unshift("0")
+						}
+
             function getMax(a,b,c)
 						{
 							var tempgetmax = 0;
@@ -469,7 +658,7 @@ export default {
 						}
 						function getMin(a,b,c)
 						{
-							var tempgetmin = 0;
+							var tempgetmin = a;
 							if(a>0){
 								tempgetmin = tempgetmin<a?tempgetmin:a
 							}
@@ -481,41 +670,38 @@ export default {
 							}
 						return tempgetmin;
 						}
-            function trimSpace(array){  
-     					for(var i = 0 ;i<array.length;i++){  
-		             if(array[i] == "" || typeof(array[i]) == "undefined"){  
-                      array.splice(i,1);  
-                      i= i-1;  
-				          }  
-						  }  
-						   return array;  
-						} 
-						
-            xqTrend3	 = trimSpace(xqTrend3)
-						areaTrend3 = trimSpace(areaTrend3)
-						businessArea3 =	trimSpace(businessArea3)
-            var xqMax3 = Math.max.apply(null, xqTrend3);
-            var areaMax3 = Math.max.apply(null, areaTrend3);
-            var businessMax3 = Math.min.apply(null, businessArea3);
+						function delezero(arrs){
+					  	var arrNew  =[]
+					  	for(var  i in arrs){
+									if(!(arrs[i] == "" || typeof(arrs[i]) == "undefined")){
+									arrNew.push(arrs[i]);
+								}
+							}
+								return arrNew
+					  }						
+
+            var xqMax3 = Math.max.apply(null, delezero(xqTrend3));
+            var areaMax3 = Math.max.apply(null, delezero(areaTrend3));
+            var businessMax3 = Math.min.apply(null, delezero(businessArea3));
             
-            var xqMin3 = Math.min.apply(null, xqTrend3);
-            var areaMin3 = Math.min.apply(null, areaTrend3);
-            var businessMin3 = Math.min.apply(null, businessArea3);
+            var xqMin3 = Math.min.apply(null, delezero(xqTrend3));
+            var areaMin3 = Math.min.apply(null, delezero(areaTrend3));
+            var businessMin3 = Math.min.apply(null, delezero(businessArea3));
             
             //console.log(xqMin3,areaMin3,businessMin3)
-            if(businessMin3=="-Infinity"){
-            	 threeYearMax = getMax(xqMax3,areaMax3);
-            }else{
-            	
-            	 threeYearMin = getMin(xqMin3,areaMin3,businessMin3);
-            }
-            
-            
-            if(businessMax3 == "Infinity"){
-            	threeYearMax = getMin(xqMin3,areaMin3);
-            }else{
-            	threeYearMax = getMin(xqMin3,areaMin3,businessMax3);
-            }
+//          if(businessMin3=="-Infinity"){
+//          	 threeYearMin = getMax(xqMin3,areaMin3);
+//          }else{
+//          	
+//          	 threeYearMin = getMin(xqMin3,areaMin3,businessMin3);
+//          }
+//          
+//          
+//          if(businessMax3 == "Infinity"){
+//          	threeYearMax = getMin(xqMin3,areaMin3);
+//          }else{
+//          	threeYearMax = getMin(xqMin3,areaMin3,businessMax3);
+//          }
             
             var temp3 = 10000;
             if (xqMax3.length > 6 || areaMax3.length > 6) {
@@ -548,16 +734,52 @@ export default {
             var areaMax3 = Math.max.apply(null, areaTrend3);
             var businessMax3 = Math.min.apply(null, businessArea3);
             
-            var xqMin3 = Math.min.apply(null, xqTrend3);
-            var areaMin3 = Math.min.apply(null, areaTrend3);
-            var businessMin3 = Math.min.apply(null, businessArea3);
-            
+//          var xqMin3 = Math.min.apply(null, xqTrend3);
+//          var areaMin3 = Math.min.apply(null, areaTrend3);
+//          var businessMin3 = Math.min.apply(null, businessArea3);
+//
+            var xqMin3 = getminvalue(xqTrend3);
+            var areaMin3 = getminvalue(areaTrend3);
+            var businessMin3 = getminvalue(businessArea3);
+            var city
             xqMax3 > areaMax3
               ? (threeYearMax = xqMax3)
               : (threeYearMax = areaMax3);
-            (xqMin < areaMin)&& (xqMin!=0)&& (xqMin>0.1)? (threeYearMin = xqMin) : ((areaMin>0.1)?(threeYearMin = areaMin-0.1):(threeYearMin = areaMin+0.2));
-            //console.log(threeYearMin)
+
+            threeYearMin = 0;
+            if(xqMin3 > 0){
+            	threeYearMin = xqMin3;
+            }
+            if(areaMin3 > 0){
+            	if(threeYearMin > 0){
+            		threeYearMin = areaMin3<threeYearMin?areaMin3:threeYearMin;
+            	}else{
+            		threeYearMin = areaMin3;
+            	}
+            }
+            if(businessMin3 > 0){
+            	if(threeYearMin > 0){
+            		threeYearMin = businessMin3<threeYearMin?businessMin3:threeYearMin;
+            	}else{
+            		threeYearMin = businessMin3;
+            	}
+            }
           }
+        }
+        //獲取數組的最小值
+        function getminvalue(listgetminstr){
+        	var minval = 0;
+        	for(var rzi= 0; rzi<listgetminstr.length; rzi++){
+        		if(listgetminstr[rzi] > 0 ){
+        			var tempvalzri = parseFloat(listgetminstr[rzi]);
+        			if(minval > 0 && tempvalzri > 0){
+        				minval = minval< tempvalzri? minval:tempvalzri;
+        			}else if (tempvalzri > 0){
+        				minval = tempvalzri;
+        			}
+        		}
+        	}
+        	return minval;
         }
         function toDecimal2(x) {
           var f = parseFloat(x);
@@ -614,13 +836,15 @@ export default {
 				            type: 'inside',
 				            realtime: true,
 				            start: 0,
-				            end: 60,
+				            end: 30,
 				            filterMode:"empty",
+				           interval:5
 				        }
 					    ],
             xAxis: {
               data: [],
               name: "",
+              interval:5
             }
             /*yAxis: {
         //		        	data:["1","2","3","4","5","6","7","8","9","10","11","12"],//['2','4','6','8','10','12'],
@@ -656,21 +880,13 @@ export default {
               },
               legend: {
                 //图例,先去掉商圈价格
-                data: ["小区价格", "区域价格","商圈价格"]
+                data: ["本小区", this.cityname,this.province]
+              },
+              grid:{
+              	left:30
               },
               xAxis: {
-              	type : 'category',
-                data: oneYearX,
-                name: "月份",
-                boundaryGap: false,
-                nameGap: 5,
-                interval: 1,
-                minInterval: 1,
-                axisTick: {
-                  //坐标轴刻度相关设置
-                  inside: true, //刻度朝内
-                  alignWithLabel: true //刻度对齐
-                },
+              	show:false,
               },
               yAxis: {
                 //data:[(oneYearMax/3).toFixed(2),(oneYearMax/3*2).toFixed(2),(oneYearMax).toFixed(2)],
@@ -690,6 +906,99 @@ export default {
                   formatter: function(value, index) {
                     return toDecimal2(value);
                   }
+                },
+                
+                //	        	axisLine:{
+                //			          lineStyle:{
+                //			              color:'yellow',
+                //			          }
+                //			    }
+              },
+              series: [
+                {
+                  name: "本小区",
+                  type: "line",
+                  symbolSize: 6,
+                  smooth: true,
+                  itemStyle : 
+                  {
+		                normal : {  
+		                    lineStyle:{  
+		                       width:1,
+		                    }  
+		                }  
+		           		},
+                },
+                {
+                  name: this.province,
+                  type: "line",
+                  symbolSize: 6,
+                  smooth: true,
+                  itemStyle : 
+                  {
+		                normal : {  
+		                    lineStyle:{  
+		                       width: 1,
+		                    }  
+		                }  
+		           		},
+                } ,{
+		                name: this.cityname,
+		                type: "line",
+	                  symbolSize: 6,
+	                  smooth: true,
+	                  itemStyle : 
+                  {
+		                normal : {  
+		                    lineStyle:{  
+		                       width: 1,
+		                    }  
+		                }  
+		           		},
+                   }
+              ],
+              textStyle: {
+                //能控制全局的字体
+                color: "#000",
+                fontSize: 10
+              }
+            },
+            {
+              title: {
+                text: ""
+              },
+              tooltip: { trigger: 'axis',},
+              legend: {
+                //先去掉商圈价格
+                data: ["本小区", this.cityname,this.province]
+              },
+              xAxis: {
+                data: sanMonth, //暂时定为三年，可能需要改为月份
+                nameGap: 5,
+                axisTick: {
+                  inside: true, //刻度朝内
+                  alignWithLabel: true
+                },
+                 interval:5
+              },
+              yAxis: {
+               	//data:[(oneYearMax/3).toFixed(2),(oneYearMax/3*2).toFixed(2),(oneYearMax).toFixed(2)],
+                name: "成交参考单价(万元/㎡)",
+                nameGap: 10, //轴标题距离
+                axisTick: {
+                  inside: true, //刻度朝内
+                  alignWithLabel: true //刻度对齐
+                },
+                type: "value",
+                //				            minInterval: 3,//坐标轴最小间隔大小。
+                interval:  Math.round(((Math.round(threeYearMax*10)-Math.round(Math.floor(threeYearMin*10-1)))+2)/3)/10,
+                //				            gridIndex: 0,
+                min: Math.floor(threeYearMin*10-1)/10,
+                max: Math.round(((Math.round(threeYearMax*10)-Math.round(Math.floor(threeYearMin*10-1)))+2)/3)*3/10 + (Math.floor(threeYearMin*10-1)/10),
+                axisLabel: {
+                  formatter: function(value, index) {
+                    return toDecimal2(value);
+                  }
                 }
                 //	        	axisLine:{
                 //			          lineStyle:{
@@ -699,7 +1008,124 @@ export default {
               },
               series: [
                 {
-                  name: "小区价格",
+                  name: "本小区",
+                  type: "line",
+                },
+                {
+                  name: this.province,
+                  type: "line",
+                },{
+                    name: this.cityname,
+                    type: 'line',
+                }
+              ],
+              textStyle: {
+                color: "#000",
+                fontSize: 10
+              }
+            }
+          ]
+        };
+        
+        
+        
+        //上层图
+      this.ecOption1 = {
+          baseOption: {
+            //共用配置写在baseOption里面，变量写在options里面  每一个对象是一组数据。可以认为options里面的数据会将baseOption里面的数据覆盖,且options里面的每一组配置都要一致，可以默认值但必须要有配置。
+            timeline: {
+              axisType: "category", //类目轴
+              show: false,
+              data: ["1年", "3年"],
+              currentIndex: 0 //显示第几个
+            },
+
+            
+            
+            /*yAxis: {
+        //		        	data:["1","2","3","4","5","6","7","8","9","10","11","12"],//['2','4','6','8','10','12'],
+                            name:"成交参考单价(万元)",
+                            nameGap:10,//轴标题距离
+                            axisTick:{
+                                inside:true,//刻度朝内
+                                alignWithLabel:true//刻度对齐
+                            },
+                            type:'value',
+                            minInterval: 4,//坐标轴最小间隔大小。
+                            interval:4,
+                            gridIndex: 0,
+                            min: 0,
+                            max: 12
+            //	        	axisLine:{
+            //			          lineStyle:{
+            //			              color:'yellow',
+            //			          }
+            //			    }
+                        }*/
+          },
+          options: [
+            {
+              title: {
+                text: ""
+              },
+              tooltip: {
+					        trigger: 'axis',
+					       
+					    },
+              grid: {
+                left: 50
+              },
+              legend: {
+                //图例,先去掉商圈价格
+              },
+              grid:{
+              	left:3
+              },
+              xAxis: {
+              	type : 'category',
+                data: oneYearX,
+                boundaryGap: false,
+                nameGap: 5,
+                interval: 7,
+                minInterval: 1,
+                axisTick: {
+                  //坐标轴刻度相关设置
+                  inside: true, //刻度朝内
+                  alignWithLabel: true //刻度对齐
+                },
+                axisLabel:{interval:0,rotate:-45,fontSize:9},
+                interval:5
+              },
+              yAxis: {
+              	show:false,
+                //data:[(oneYearMax/3).toFixed(2),(oneYearMax/3*2).toFixed(2),(oneYearMax).toFixed(2)],
+                name: "成交参考单价(万元/㎡)",
+                nameGap: 10, //轴标题距离
+                axisTick: {
+                  inside: true, //刻度朝内
+                  alignWithLabel: true //刻度对齐
+                },
+                type: "value",
+                //				            minInterval: 3,//坐标轴最小间隔大小。
+                interval: Math.round(((Math.round(oneYearMax*10)-Math.round(Math.floor(oneYearMin*10-1)))+2)/3)/10,
+                //				            gridIndex: 0, Math.round(oneYearMax*10)
+                min: Math.floor(oneYearMin*10-1)/10,
+                max: Math.round(((Math.round(oneYearMax*10)-Math.round(Math.floor(oneYearMin*10-1)))+2)/3)*3/10 + (Math.floor(oneYearMin*10-1)/10),
+                axisLabel: {
+                  formatter: function(value, index) {
+                    return toDecimal2(value);
+                  }
+                },
+                
+                //	        	axisLine:{
+                //			          lineStyle:{
+                //			              color:'yellow',
+                //			          }
+                //			    }
+              },
+              series: [
+                {
+                  name: "本小区",
                   type: "line",
                   symbolSize: 6,
                   data: xqTrend,
@@ -714,7 +1140,7 @@ export default {
 		           		},
                 },
                 {
-                  name: "区域价格",
+                  name: this.province,
                   type: "line",
                   symbolSize: 6,
                   data: areaTrend,
@@ -728,7 +1154,7 @@ export default {
 		                }  
 		           		},
                 } ,{
-		                name: '商圈价格',
+		                name: this.cityname,
 		                type: "line",
 	                  symbolSize: 6,
 	                  data: businessArea,
@@ -756,16 +1182,15 @@ export default {
               tooltip: { trigger: 'axis',},
               legend: {
                 //先去掉商圈价格
-                data: ["小区价格", "区域价格","商圈价格"]
               },
               xAxis: {
                 data: sanMonth, //暂时定为三年，可能需要改为月份
-                name: "月份",
                 nameGap: 5,
                 axisTick: {
                   inside: true, //刻度朝内
                   alignWithLabel: true
-                }
+                },
+                 interval:5
               },
               yAxis: {
                	//data:[(oneYearMax/3).toFixed(2),(oneYearMax/3*2).toFixed(2),(oneYearMax).toFixed(2)],
@@ -794,16 +1219,16 @@ export default {
               },
               series: [
                 {
-                  name: "小区价格",
+                  name: "本小区",
                   type: "line",
                   data: xqTrend3
                 },
                 {
-                  name: "区域价格",
+                   name: this.province,
                   type: "line",
                   data: areaTrend3
                 },{
-                    name: '商圈价格',
+                    name: this.cityname,
                     type: 'line',
                     data: businessArea3
                 }
@@ -815,29 +1240,43 @@ export default {
             }
           ]
         };
+        
+        
         var myChart = this.$echarts.init(document.getElementById("ecBox"));
         myChart.setOption(this.ecOption);
+        
+        var myChart1 = this.$echarts.init(document.getElementById("ecBox1"));
+        myChart1.setOption(this.ecOption1);
       });
     },
     yearThree: function() {
     		this.ecOption.baseOption.timeline.currentIndex = 1;
+    		this.ecOption1.baseOption.timeline.currentIndex = 1;
 	      var myChart = this.$echarts.init(document.getElementById("ecBox"));
 	      myChart.setOption(this.ecOption);
+	      
+	      var myChart1 = this.$echarts.init(document.getElementById("ecBox1"));
+	      myChart1.setOption(this.ecOption1);
+	      
 	      this.classYearTab = false;
 	      this.recentYears = "3"
     },
     yearOne: function() {
 	      this.ecOption.baseOption.timeline.currentIndex = 0;
+	      this.ecOption1.baseOption.timeline.currentIndex = 0;
 	      var myChart = this.$echarts.init(document.getElementById("ecBox"));
 	      myChart.setOption(this.ecOption);
+	      
+	      var myChart1 = this.$echarts.init(document.getElementById("ecBox1"));
+	      myChart1.setOption(this.ecOption1);
 	      this.classYearTab = true;
 	      this.recentYears = "1"
 	      
     },
     setupdata:function(){
     	var myChart = this.$echarts.init(document.getElementById("ecBox"));
-	    	console.log(this.ecOption.baseOption.dataZoom[0].start++)
-	    	this.ecOption.baseOption.dataZoom[0].start = this.ecOption.baseOption.dataZoom[0].start+1;
+	    	//console.log(this.ecOption.baseOption.dataZoom[0].start++)
+	    	this.ecOption.baseOption.dataZoom[0].start = this.ecOption.baseOption.dataZoom[0].start+2;
 	    	this.ecOption.baseOption.dataZoom[0].end = this.ecOption.baseOption.dataZoom[0].end+2
 	    	myChart.setOption(this.ecOption)
     }

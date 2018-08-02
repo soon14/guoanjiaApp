@@ -3,26 +3,29 @@
           <!-- 头部 -->
         <div class="loginTop" ref="loginTop" :style="{'height':loginBox+'px'}"  >
           <div class="close">
-            <!-- <img src="../../../static/new/img/cloase1.png" alt="" @click="logoTitleClick"> -->
+            <img class="img1" src="../../../static/new/img/cloase1.png" alt="" @click="logoTitleClick">
           </div>
         </div>
         <div class="loginCenter" ref="loginCenter" :style="{'height':centerBox+'px'}">
+            
             <div class="inputBox">
               <div class="close2">
-                <!-- <img src="../../../static/new/img/cloase2.png" alt=""> -->
+                <img class="img0" src="../../../static/new/img/cloase2.png" alt="">
+                <img class="img2" :src="faceImg" alt="">
               </div>              
               <div class="box">
                 <div class="inputTel animated" :class="{flipInX:isanimated}">
                   <div class="inio">
                     <img src="../../../static/new/img/loginPhone.png" alt="">
                   </div>
-                  <input type="number" v-model.number="phoneNumber" maxlength="11" @input="handleTel" placeholder="请输入手机号码" id="inputBlur" @click="phoneClick">
+                  <input type="number" v-model.number="phoneNumber" maxlength="11" @input="handleTel" placeholder="请输入手机号码" id="inputBlur" @click="phoneClick('1')">
                 </div>
+                <div class="henggang"></div>
                 <div class="inputVerify animated" :class="{flipInX:isanimated}">
                   <div class="inio">
                     <img src="../../../static/new/img/loginSuo.png" alt="">
                   </div>
-                  <input type="number" v-model.number="vistionCode" maxlength="6" @input="authCodeInput" placeholder="请输入验证码" id="inputBlur2" @click="phoneClick">
+                  <input type="number" v-model.number="vistionCode" maxlength="6" @input="authCodeInput" placeholder="请输入验证码" id="inputBlur2" @click="phoneClick('2')">
                   <div v-if="issecond === 1" class="second" @click="processButton001">获取验证码</div>
                   <div v-else-if="issecond === 2" class="secondTwo animated flipInY">{{timesCount}}</div>
                 </div>
@@ -43,7 +46,30 @@
 </template>
 
 <script>
-// import { XInput, XButton} from 'vux'
+import face00 from '../../../static/rent/login/00.png';
+import face01 from '../../../static/rent/login/01.png';
+import face02 from '../../../static/rent/login/02.png';
+import face03 from '../../../static/rent/login/03.png';
+import face04 from '../../../static/rent/login/04.png';
+import face05 from '../../../static/rent/login/05.png';
+import face06 from '../../../static/rent/login/06.png';
+import face07 from '../../../static/rent/login/07.png';
+import face08 from '../../../static/rent/login/08.png';
+import face09 from '../../../static/rent/login/09.png';
+import face10 from '../../../static/rent/login/10.png';
+import face11 from '../../../static/rent/login/11.png';
+import face12 from '../../../static/rent/login/12.png';
+//解决安卓软键盘遮挡问题
+// alert(navigator.appVersion);
+if(/Android [4-8]/.test(navigator.appVersion)) {
+   window.addEventListener("resize", function() {
+      if(document.activeElement.tagName=="INPUT" || document.activeElement.tagName=="TEXTAREA") {
+         window.setTimeout(function() {
+            document.activeElement.scrollIntoViewIfNeeded();
+         },0);
+      }
+   })
+}
 export default {
   name: "login",
   data() {
@@ -62,38 +88,74 @@ export default {
       shdeModel:"",//弹窗提示话术
       loginBox:"",//动态调整top高度，保证安卓软键盘不变形
       centerBox:"",//动态调整center高度，保证安卓软键盘不变形
+       RegistrationID:"",//极光推送的id
+       faceImg:face00,//变换表情
     };
   },
   methods: {
     //调节安卓软键盘问题
-    phoneClick(){
-      let bodyHeight = window.document.documentElement.clientHeight || document.body.clientHeight;
+    phoneClick(e) {
+      this.phoneNumber=this.phoneNumber;
+      if(e == '1'){
+        this.faceImg=face00;
+      }else if(e == '2'){
+        this.faceImg=face12;
+      }
+      let bodyHeight =
+        window.document.documentElement.clientHeight ||
+        document.body.clientHeight;
       let topHeight = this.$refs.loginTop.offsetHeight;
       let centerHeight = this.$refs.loginCenter.offsetHeight;
       this.loginBox = topHeight;
       this.centerBox = centerHeight;
     },
     //实时判断电话号
-    handleTel(e){
-      if(!/^\d+$/.test(e.target.value)){
-          this.isshades = true;
-          this.shdeModel="电话号码有误,请重新输入";
-          this.phoneNumber = "";
-          this.hiddenShade();//两秒自动关闭弹出层
-          return false;
+    handleTel(e) {
+      var tel = null;
+      var faceLength = e.target.value.length;
+      if (!/^\d+$/.test(e.target.value)) {
+        this.isshades = true;
+        this.shdeModel = "电话号码有误,请重新输入";
+        this.phoneNumber = "";
+        this.hiddenShade(); //两秒自动关闭弹出层
+        return false;
       }
-      if(e.target.value.length == 11){
-        const tel = e.target.value;        
-        if (!/^1[3|4|5|7|8][0-9]\d{8}$/.test(tel)) {          
+      if(faceLength == 1){
+        this.faceImg=face01;
+      }else if(faceLength == 2){
+        this.faceImg=face02;
+      }else if(faceLength == 3){
+        this.faceImg=face03;
+      }else if(faceLength == 4){
+        this.faceImg=face04;
+      }else if(faceLength == 5){
+        this.faceImg=face05;
+      }else if(faceLength == 6){
+        this.faceImg=face06;
+      }else if(faceLength == 7){
+        this.faceImg=face07;
+      }else if(faceLength == 8){
+        this.faceImg=face08;
+      }else if(faceLength == 9){
+        this.faceImg=face09;
+      }else if(faceLength == 10){
+        this.faceImg=face10;
+      }else if (faceLength == 11) {
+        tel = e.target.value;
+        this.faceImg=face11;
+        if (!/^1[3|4|5|7|8][0-9]\d{8}$/.test(tel)) {
           this.isshades = true;
-          this.shdeModel="电话号码有误,请重新输入";
+          this.shdeModel = "电话号码有误,请重新输入";
           this.phoneNumber = "";
-          this.hiddenShade();//两秒自动关闭弹出层
-          return false;
-        }else{
+          this.hiddenShade(); //两秒自动关闭弹出层          
+          return false;          
+        } else {
           let input = document.getElementById("inputBlur");
           input.blur();
-        }        
+        }
+      }else if(faceLength > 11){
+        const slicePhone = String(this.phoneNumber).slice(0,11);
+        this.phoneNumber = slicePhone;
       }
     },
     //弹出层两秒自动关闭
@@ -109,6 +171,7 @@ export default {
     //实时判断验证码
     authCodeInput(e){
       if(!/^\d+$/.test(e.target.value)){
+        this.faceImg=face13;
           this.isshades = true;
           this.shdeModel="验证码有误,请重新输入";
           this.vistionCode = "";
@@ -242,6 +305,12 @@ export default {
                   "userInfroMap",
                   JSON.stringify(response.data.userInfo)
                 ); //将客户的基本信息，收藏的楼盘放入localstorage
+                // 获取极光推送的id 判断有没有值，没有调用推送接口，有了直接调用保存接口
+                // let inObj  = response.data.userInfo.infoByUserIdList;
+                // this.RegistrationID = inObj.RegistrationID;
+                // if(this.notEmpty(this.RegistrationID)){
+                  this.RegistrationIDfn();
+                // }
                 this.$router.push("/");
               }, 700);      
             }
@@ -290,6 +359,7 @@ export default {
                 ); //将客户的基本信息，收藏的楼盘放入localstorage
               }, 700);
             } else {
+              this.faceImg=face13;
               this.isshades = true;
               this.shdeModel=response.msg;
               this.vistionCode = "";
@@ -308,7 +378,49 @@ export default {
     logoTitleClick() {
       this.$store.state.loginShow = false;
     },
-    
+    // 获取极光推送的id
+    RegistrationIDfn() {
+      window.JPush.getRegistrationID((rId)=> {
+        // console.log("JPushPlugin:registrationID is " + rId);
+        // this.RegistrationID =  rId;
+          this.saveReg(rId);
+      });
+    },
+    // 保存推送id接口
+    saveReg(rId){
+      let platform = localStorage.getItem('platform');
+      if (platform == null || platform == 'null' || platform == 'undefined') {
+          var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
+          if (ua.match(/MicroMessenger/i) == "micromessenger") {
+              platform = 'weixin';
+          } else {
+              platform = 'webPage';
+          }
+      }
+      let deviceType = null;
+      if(platform == 'iOS'){
+        deviceType = 1;
+      }else{
+         deviceType = 0;
+      }
+      // let platform = 'IOS';
+      // this.RegistrationID = '12343';
+      // let url = 'userInfoController/unionSaveJpushID?RegistrationID=' + rId + '&Platform=' + platform;
+      let url  = '/agenthouseCutomer/OwnerController/updOwnerByToken';
+      let post_data = {
+        deviceType:deviceType,
+        registerId:rId,
+      }
+      this.post(url,post_data,{interfaceType: "tongji"}).then(response => {
+        if(response.code == 200){
+          console.log('保存成功');
+        }
+      },
+        response => {
+          this.showalert(response.msg);
+        }
+      );
+    }
   },
   created(){
   },
@@ -355,7 +467,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import "../../rent/style/animate.min.css";//引入效果css
+@import "../../rent/style/animate.min.css"; //引入效果css
 @import "~vux/src/styles/1px.less";
 html,
 body {
@@ -364,48 +476,51 @@ body {
   height: 100%;
   overflow: hidden;
 }
-.login_top{
-  height: 100%;
-}
 .loginTop {
   width: 100%;
   height: 30%;
-  background: url("https://img.guoanfamily.com/www/loginTop.jpg") no-repeat center;
+  background: url("https://media.guoanfamily.com/www/loginTop.jpg") no-repeat
+    center;
   background-size: 100% 100%;
-  position:relative;
-  .close{
+  position: relative;
+  .close {
     width: 100%;
-    height: 42%;
+    height: 48%;
     position: absolute;
     bottom: 0;
-    img{
-      height:30px;
-      width:28px;
+    .img1 {
+      height: 30px;
+      width: 28px;
       position: absolute;
-      right:14.5%;
-      bottom:-16%;
+      right: 14.5%;
+      bottom: -16%;
       z-index: 10;
-    }
+    }    
   }
 }
-
 .loginCenter {
   width: 100%;
-  height: 70%;
+  height: 70%;  
   .inputBox {
     width: 100%;
-    height: 50%;
+    height: 56%;
     overflow: hidden;
-    .close2{
-      width:100%;
-      height:25%;
+    .close2 {
+      width: 100%;
+      height: 39%;
       position: relative;
-      img{
-        width:2px;
-        height:100%;
-        right:18%;
+      overflow:hidden;
+      .img0 {
+        width: 2px;
+        height: 100%;
+        right: 18%;
         position: absolute;
         z-index: 0;
+      }
+      .img2{
+        width:1.4rem;
+        height:1.4rem;
+        margin:0.25rem auto;
       }
     }
     .box {
@@ -413,7 +528,9 @@ body {
       height: 2.4rem;
       margin-left: 10%;
       border-radius: 10px;
-      border:solid 1px #D8D8D8;
+      margin-top:1%;
+      border: solid 1px #d8d8d8;
+      position: relative;
       .inio {
         width: 20%;
         height: 100%;
@@ -430,17 +547,24 @@ body {
           bottom: 0;
         }
       }
+      .henggang{
+        width:100%;
+        height: 1px;
+        background:#d8d8d8;
+        position: absolute;
+        top:1.2rem;
+        z-index: 1000;
+      }
       .inputTel {
         width: 100%;
         height: 1.2rem;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
-        border-bottom: 1px solid #D8D8D8;
         -webkit-animation-duration: 1.4s; //动画持续时间
-        -webkit-animation-delay: 0.4s;//动画延迟时间
+        -webkit-animation-delay: 0.4s; //动画延迟时间
         input {
           width: 80%;
-          height: 1.18rem;
+          height: 1.15rem;
           border: none;
           text-indent: 10px;
           font-size: 14px;
@@ -459,7 +583,7 @@ body {
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         -webkit-animation-duration: 1.4s; //动画持续时间
-        -webkit-animation-delay: 0.8s;//动画延迟时间
+        -webkit-animation-delay: 0.8s; //动画延迟时间
         input {
           width: 37%;
           height: 1.17rem;
@@ -478,18 +602,18 @@ body {
           width: 33%;
           height: 100%;
           float: right;
-          font-size:14px;
-          line-height:1.2rem;
-          overflow:hidden;
+          font-size: 14px;
+          line-height: 1.2rem;
+          overflow: hidden;
         }
-        .secondTwo{
+        .secondTwo {
           width: 35%;
           height: 98%;
           float: right;
-          font-size:14px;
-          line-height:1.1rem;
-          overflow:hidden;
-          background:#F3F3F3;
+          font-size: 14px;
+          line-height: 1.1rem;
+          overflow: hidden;
+          background: #f3f3f3;
           border-bottom-right-radius: 10px;
           text-align: center;
         }
@@ -498,101 +622,102 @@ body {
   }
   .buttonBox {
     width: 100%;
-    height: 25%;
+    height: 14%;
+    margin-top:2%;
     position: relative;
-    .button{
-      width:80%;
-      height:1rem;
-      background:#C9151D;
+    .button {
+      width: 80%;
+      height: 1rem;
+      background: #c9151d;
       border-radius: 50px;
       position: absolute;
-      margin:auto;
-      left:0;
-      top:0;
-      right:0;
-      bottom:0;
-      text-align:center;
-      line-height:1rem;
+      margin: auto;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      line-height: 1rem;
       font-size: 14px;
-      color:#fff;
-      letter-spacing: 4px;      
-      transition-property:width;//表示对那个属性进行变化
-      transition-duration:0.5s;/*表示动画的持续时间*/
-      transition-timing-function:ease-in;/*表示动画的播放方式由快到慢*/
-      transition-delay:0s;/*表示动画的延时时间*/
-      -webkit-animation-duration: 1.4s; //动画持续时间
-      -webkit-animation-delay: 1s;//动画延迟时间
+      color: #fff;
+      letter-spacing: 4px;
+      transition-property: width; //表示对那个属性进行变化
+      transition-duration: 0.5s; /*表示动画的持续时间*/
+      transition-timing-function: ease-in; /*表示动画的播放方式由快到慢*/
+      transition-delay: 0s; /*表示动画的延时时间*/
+      animation-duration: 1.4s; //动画持续时间
+      animation-delay: 1s; //动画延迟时间
     }
-    .wrapper{
-      width:10%;
+    .wrapper {
+      width: 10%;
     }
-    .wrapper2{
-      width:80%;
+    .wrapper2 {
+      width: 80%;
     }
-    img{
-      width:1.2rem;
-      height:1.2rem;
+    img {
+      width: 1.2rem;
+      height: 1.2rem;
       position: absolute;
-      margin:auto;
-      left:0;
-      top:0;
-      right:0;
-      bottom:0;
+      margin: auto;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
     }
   }
   .telBox {
     width: 100%;
-    height: 25%;
+    height: 15%;
     position: relative;
-    a{
+    a {
       position: absolute;
-      margin:auto;
-      left:0;
-      right:0;
-      top:0;
-      bottom:0;
+      margin: auto;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
       text-align: center;
-      color:#CE5606;
+      color: #ce5606;
       letter-spacing: 1px;
       line-height: 2rem;
-      font-size:16px;
+      font-size: 16px;
       -webkit-animation-duration: 1.4s; //动画持续时间
-      -webkit-animation-delay: 1s;//动画延迟时间
-      span{
-        color:#202020;
+      -webkit-animation-delay: 1s; //动画延迟时间
+      span {
+        color: #202020;
       }
     }
   }
 }
-.shade{
+.shade {
   width: 3.6rem;
   height: 1.2rem;
-  background:rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.7);
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   z-index: 999;
-  margin:auto;
-  left:0;
-  top:0;
-  right:0;
-  bottom:0;
+  margin: auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   border-radius: 10px;
-    p{
-      font-size:14px;
-      text-align: center;
-      width: 90%;
-      height:auto;
-      overflow: hidden;
-      color:#fff;
-      margin:auto;
-      left:0;
-      right:0;
-      top:0;
-      bottom:0;
-      word-wrap: break-word;
-      word-break: break-all;
-      margin-top:0.3rem;
-    }
+  p {
+    font-size: 14px;
+    text-align: center;
+    width: 90%;
+    height: auto;
+    overflow: hidden;
+    color: #fff;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-top: 0.3rem;
+  }
 }
 </style>

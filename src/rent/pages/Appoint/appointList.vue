@@ -283,8 +283,8 @@
 	}
 	.noneItem-bottom span:nth-of-type(3){
 		float: right;
-		color: #659ed3;
-		border: 2px solid #659ed3;
+		color: #d1cfd0;
+		border: 2px solid #d1cfd0;
 		box-sizing: border-box;
 		padding: 0.03rem;
 		border-radius: 0.05rem;
@@ -297,8 +297,8 @@
 	}
 	.noneItem-bottom span:last-child{
 		float: right;
-		color: #659ed3;
-		border: 2px solid #659ed3;
+		color: #eb1314;
+		border: 2px solid #eb1314;
 		box-sizing: border-box;
 		padding: 0.03rem;
 		border-radius: 0.05rem;
@@ -410,7 +410,7 @@
 										<span>元/月</span>
 										<span  @click="onShow(item.id)">取消约看</span>
 										<span></span>
-										<span id="bounceUp" class="mapLink"  @click="mapLink(item)">查看路线</span>										
+										<span class="mapLink"  @click="mapLink(item)">查看路线</span>										
 									</div>
 								</div>
 							</div>

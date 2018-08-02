@@ -19,31 +19,29 @@ let def = {
 
 let dev = {
   DEV: true,
-  // INTERFACE_NEW1: "http://172.16.43.166:8002/palmsaleapp/api/v1",
-  // INTERFACE_NEW1: "http://ntest.guoanfamily.com/palmsaleapp/api/v1",
-  INTERFACE_NEW: "https://www.guoanfamily.com/",
+   INTERFACE_NEW: "https://www.guoanfamily.com/",
+ //INTERFACE_NEW: "http://172.16.40.120:8003/",
+  // INTERFACE_NEW: "http://ntest.guoanfamily.com/",
+
   INTERFACE_RENT: "https://www.guoanfamily.com/agenthouseCutomer/",
   UPLOAD_IMAGE: `https://www.guoanfamily.com/agenthouseWeb/CommonController/uploadFile`,
-  IMAGE_PATH: "https://media.guoanfamily.com/",
+  IMAGE_PATH: "https://img.guoanfamily.com/",
   WECHAT_AUTH: false,
 
   //个人中心后台接口
-  //COLLECT: "https://www.guoanfamily.com/user/",
   COLLECT: "https://www.guoanfamily.com/user/",
+  // 推送后台接口
+  tuisong:"https://www.guoanfamily.com",
   // 我的积分后台接口
-  // intergral: 'http://rtest.guoanfamily.com/',
   intergral: 'https://www.guoanfamily.com/',
   // 抽奖后台接口
   luckdraw: 'https://www.guoanfamily.com/',
-  // luckdraw: 'http://ntest.guoanfamily.com/',
-  
-  // COLLECT: "http://ntest.guoanfamily.com/user/",
+  tongji:'https://www.guoanfamily.com',
   // 餐厅接口
   metRest: "https://www.guoanfamily.com/",
   // metRest: "http://ntest.guoanfamily.com/",
   //个人中心登录页面地址
   LOGIN_PAGE_URL: function() {
-      // return `http://ntest.guoanfamily.com/newHouseTest/#/login?domain=${encodeURIComponent(window.location.href)}`
       return `https://www.guoanfamily.com/guoanjia/#/login?domain=${encodeURIComponent(window.location.href)}`
   },
 };
@@ -52,13 +50,14 @@ let prod = {
   DEV: false,
   INTERFACE_NEW: "https://www.guoanfamily.com/",
   // INTERFACE_NEW: "http://ntest.guoanfamily.com/",
-  // INTERFACE_NEW: "http://172.16.40.120:8002/",
+
   INTERFACE_RENT: "https://www.guoanfamily.com/agenthouseCutomer/",
   UPLOAD_IMAGE: `https://www.guoanfamily.com/agenthouseWeb/CommonController/uploadFile`,
-  IMAGE_PATH: "https://media.guoanfamily.com/",
+  IMAGE_PATH: "https://img.guoanfamily.com/",
   // 个人中心后台接口个人中心后台接口
   COLLECT: "https://www.guoanfamily.com/user/",
-  // COLLECT: "http://ntest.guoanfamily.com/user/",
+    // 推送后台接口
+  tuisong:"https://www.guoanfamily.com",
   // 会议接口
   metRest: "https://www.guoanfamily.com/",
   SUPERNATANT: 'https://www.guoanfamily.com/guoanjiaApp/#/HouseList/houseDetail?',
@@ -67,14 +66,9 @@ let prod = {
   // intergral: 'http://rtest.guoanfamily.com/',
    // 抽奖后台接口
   luckdraw: 'https://www.guoanfamily.com/',
-  // luckdraw: 'http://ntest.guoanfamily.com/',
-  // INTERFACE: "http://172.16.4.12:8084/agenthouseCutomer/",
-  // UPLOAD_IMAGE: `http://172.16.4.12:8082/agenthouseWeb/CommonController/uploadFile`,
-  // // IMAGE_PATH: "http://172.16.4.12:8088/upload_image/",
-  // IMAGE_PATH: "https://media.guoanfamily.com/",
+  tongji:'https://www.guoanfamily.com',
   WECHAT_AUTH: true,
-  // COLLECT: "http://ntest.guoanfamily.com/user/",
-  // metRest: "http://ntest.guoanfamily.com/",
+
   //个人中心登录页面地址
   LOGIN_PAGE_URL: function() {
       return `https://www.guoanfamily.com/guoanjia/#/login?domain=${encodeURIComponent(window.location.href)}`

@@ -5,7 +5,6 @@
             <!-- <div style="width:100%;height:.125rem;background:#ccc;"></div> -->
             <div class="topName" style="border-bottom:none;">
                 <div class="topNameLeft" >
-                    <!-- <span class="leftImg1"></span> -->
                     <span style="border-left:5px solid #da1618;marign-left:10px;display:block;font-weight:600;">入会信息</span>
                 </div>
             </div>
@@ -334,22 +333,6 @@ body {
       float: left;
       line-height: 0.8rem;
       padding-left: 10px;
-    }
-    .leftImg {
-      width: 1rem;
-      height: 100%;
-      line-height: 1rem;
-      background: url("../../../static/new/img/membership1.png") no-repeat;
-      background-size: 50%;
-      background-position: center;
-    }
-    .leftImg1 {
-      width: 1rem;
-      height: 100%;
-      line-height: 1rem;
-      background: url("../../../static/new/img/membeship.png") no-repeat;
-      background-size: 50%;
-      background-position: center;
     }
   }
   .topNameRight {

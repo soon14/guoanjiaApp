@@ -190,19 +190,20 @@ a.active {
 .header-search {
     position: absolute;
     top: 0.2rem;
-    left: 0.2rem;
-    width: 5.2rem;
-    height: 0.52rem;
-    background-color: #e24e59;
-    border: 1px solid #fff;
+    left: 0rem;
+    width: 5.8rem;
+    height: 0.6rem;
+    background-color: #f7f7f7;
+    border: 1px solid #f7f7f7;
     font-size: 0.24rem;
-    padding-left: 0.1rem;
-    color: #fff;
+    padding-left: 0.73rem;
+    color: #999999;
+    border-radius: 0.3rem;
 }
 
 .right-btn {
     position: relative;
     .input-search.vux-x-icon {
-        fill: #fff;
+        fill: #999;
     }
 }

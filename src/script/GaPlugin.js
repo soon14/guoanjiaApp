@@ -2,13 +2,17 @@
  * Created by Administrator on 2017/4/10 0010.
  */
 
-import { config } from '../config';
+import {
+    config
+} from '../config';
 import Bottom from '../new/components/buttonGroup'; //底部导航
 import PageHeader from '../rent/components/public/PageHeader'; //公共头部
 import LoadingTip from '../rent/components/public/LoadingTip';
 import echarts from 'echarts'
 import store from '../store/new/index';
-import { debug } from 'util';
+import {
+    debug
+} from 'util';
 
 //保存所有的广播事件
 window.EVENT_STORAGE = window.EVENT_STORAGE === undefined ? {} : window.EVENT_STORAGE;
@@ -49,7 +53,7 @@ export default class {
         /**
          * 扩展时间对象，增加Format方法
          */
-        (function() {
+        (function () {
             /*对Date的扩展，将 Date 转化为指定格式的String
              月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
              年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
@@ -57,7 +61,7 @@ export default class {
              (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
              (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
              支持时间格式化*/
-            Date.prototype.Format = function(fmt) { //author: meizz
+            Date.prototype.Format = function (fmt) { //author: meizz
                 let o = {
                     "M+": this.getMonth() + 1, //月份
                     "d+": this.getDate(), //日
@@ -84,7 +88,7 @@ export default class {
 
     /*------------------添加vue过滤器------------------*/
     installFilter(Vue) {
-        Vue.filter('date-time-filter', function(time) {
+        Vue.filter('date-time-filter', function (time) {
             if (!time) {
                 return "";
             }
@@ -209,27 +213,52 @@ export default class {
          * @param opinion
          * @returns {Promise.<TResult>}
          */
-        Vue.prototype.get = function(url, opinion = {
+        Vue.prototype.get = function (url, opinion = {
             interfaceType: ""
         }) {
-
+            let UUID = this.uuidFn();
             let requestUrl;
             let Authorization = "";
-            let platform =  localStorage.getItem('platform');
-            if(platform == null || platform == 'null' || platform == 'undefined'){
+            let platform = localStorage.getItem('platform');
+            if (platform == null || platform == 'null' || platform == 'undefined') {
                 var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
                 if (ua.match(/MicroMessenger/i) == "micromessenger") {
                     platform = 'weixin';
-                }else{
+                } else {
                     platform = 'webPage';
                 }
             }
+            var tid =  this.getCookid('Tid');//获取cookie
+            // console.log('---------------------',tid)
+            var Tid = 'Tid';
+            var onTid = '';
+            // 判断有没有值
+            if (this.notEmpty(tid)) {
+                tid =  this.uuidFn();
+                onTid =  Tid;
+               this.setCookie(Tid,tid);
+            }else{
+                onTid =  tid;
+            }
+            fetch(`https://www.guoanfamily.com/tongji/save/reportMethodRecord`, {
+                method: 'post',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": Authorization
+                },
+                body: new Blob([JSON.stringify({
+                    id: UUID,
+                    tid:onTid,
+                    platform: platform,
+                    req_method:url.split('?')[0]
+                }, {
+                    interfaceType: "tongji"
+                })], {
+                    type: 'application/json'
+                }),
+            })
             _hmt.push(['_trackEvent', platform, url]);
             switch (opinion.interfaceType) {
-                case "newhouse":
-                    requestUrl = config.INTERFACE_NEW1 + url;
-                    Authorization = Vue.prototype.getStorage(Vue.prototype.KEYS.USER_TOKEN);
-                    break;
                 case "newHouse":
                     requestUrl = config.INTERFACE_NEW + url;
                     Authorization = Vue.prototype.getStorage(Vue.prototype.KEYS.USER_TOKEN);
@@ -238,11 +267,19 @@ export default class {
                     requestUrl = config.COLLECT + url;
                     Authorization = Vue.prototype.getStorage(Vue.prototype.KEYS.USER_TOKEN);
                     break;
+                case "tuisong":
+                    requestUrl = config.COLLECT + url;
+                    Authorization = Vue.prototype.getStorage(Vue.prototype.KEYS.USER_TOKEN);
+                    break;
                 case "intergral":
                     requestUrl = config.intergral + url;
                     Authorization = Vue.prototype.getStorage(Vue.prototype.KEYS.USER_TOKEN);
                     break;
                 case "luckdraw":
+                    requestUrl = config.luckdraw + url;
+                    Authorization = Vue.prototype.getStorage(Vue.prototype.KEYS.USER_TOKEN);
+                    break;
+                case "tongji":
                     requestUrl = config.luckdraw + url;
                     Authorization = Vue.prototype.getStorage(Vue.prototype.KEYS.USER_TOKEN);
                     break;
@@ -258,19 +295,16 @@ export default class {
             }
             return fetch(requestUrl, {
                 method: 'get',
-                headers: { "Content-Type": "application/json", "Authorization": Authorization },
-            }).then(function(response) {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": Authorization
+                },
+            }).then(function (response) {
 
                 return response.json();
-            }).then(function(res) {
-                // console.log('this',store);
-                // console.group(`请求接口：${url}`);
-                // console.log("响应结果：", JSON.parse(JSON.stringify(res)));
-                // console.groupEnd();
-                if(res.status == 130001){
+            }).then(function (res) {
+                if (res.status == 130001) {
                     //判断是否有standbyToken
-                    // console.log(res.code);
-                    // let standbyToken = this.getStorage(this.KEYS.USER_STAND_BY_TOKEN);
                     let standbyToken = localStorage.getItem('standbyToken');
                     if (!standbyToken) {
                         //如果没有刷新token则跳转到登录
@@ -282,11 +316,7 @@ export default class {
                         return Vue.prototype.get(`userLoginController/unionloginByToken?standbyToken=${standbyToken}`, {
                             interfaceType: "collect"
                         }).then(res => {
-                            // console.log('res',res);
                             //保存登录信息
-                            // this.setStorage(this.KEYS.USER_STAND_BY_TOKEN, res.data.standbyToken);
-                            // this.setStorage(this.KEYS.USER_TOKEN, res.data.token);
-                            // localStorage.setItem(this.KEYS.USER_INFO_MAP, JSON.stringify(res.data.userInfo)) //将客户的基本信息，收藏的楼盘放入localstorage
                             localStorage.setItem('standbyToken', res.data.standbyToken);
                             localStorage.setItem('token', res.data.token)
                             localStorage.setItem('userInfroMap', JSON.stringify(res.data.userInfo));
@@ -294,7 +324,7 @@ export default class {
                             //localStorage.setItem('token', res.data.token); //将用户token存入本地
                             //localStorage.setItem('standbyToken', res.data.standbyToken) //将用户备用token存入本地
                             localStorage.setItem('userName', res.data.userName) //如果有姓名，则存入localStorage
-
+                            this.RegistrationIDfn();
                             return Vue.prototype.get(url, opinion);
                         })
 
@@ -337,7 +367,7 @@ export default class {
                                 //localStorage.setItem('token', res.data.token); //将用户token存入本地
                                 //localStorage.setItem('standbyToken', res.data.standbyToken) //将用户备用token存入本地
                                 localStorage.setItem('userName', res.data.userName) //如果有姓名，则存入localStorage
-
+                                    this.RegistrationIDfn();
                                 return Vue.prototype.get(url, opinion);
                             })
 
@@ -352,9 +382,8 @@ export default class {
                         return res;
                 }
 
-            }).catch(function(e) {
+            }).catch(function (e) {
                 console.error(e);
-
             })
         };
 
@@ -364,15 +393,18 @@ export default class {
 
             return fetch(url, {
                 method: 'get',
-                headers: { "Content-Type": "application/json", "Authorization": Authorization },
-            }).then(function(response) {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": Authorization
+                },
+            }).then(function (response) {
                 return response.json();
-            }).then(function(res) {
+            }).then(function (res) {
                 // console.group(`请求接口：${url}`);
                 // console.log("响应结果：", JSON.parse(JSON.stringify(res)));
                 // console.groupEnd();
                 return res;
-            }).catch(function(e) {
+            }).catch(function (e) {
                 console.error(e);
             })
         };
@@ -383,29 +415,57 @@ export default class {
          * @param opinion
          * @returns {Promise.<TResult>}
          */
-        Vue.prototype.post = function(url, data = {}, opinion = {
+        Vue.prototype.post = function (url, data = {}, opinion = {
             interfaceType: ""
         }) {
-
+            let UUID = this.uuidFn();
             let requestUrl;
             let Authorization = this.getStorage(this.KEYS.USER_TOKEN);
-            let platform =  localStorage.getItem('platform');
-            if(platform == null || platform == 'null' || platform == 'undefined'){
+            let platform = localStorage.getItem('platform');
+            if (platform == null || platform == 'null' || platform == 'undefined') {
                 var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
                 if (ua.match(/MicroMessenger/i) == "micromessenger") {
                     // console.log('weixin');
                     platform = 'weixin';
-                }else{
+                } else {
                     // console.log('webPage');
                     platform = 'webPage';
                 }
             }
+            var tid =  this.getCookid('Tid');//获取cookie
+            // console.log('---------------------',tid)
+            var Tid = 'Tid';
+            var onTid = '';
+            // 判断有没有值
+            if (this.notEmpty(tid)) {
+                tid =  this.uuidFn();
+                onTid =  Tid;
+               this.setCookie(Tid,tid);
+            }else{
+                onTid =  tid;
+            }
+            fetch(`https://www.guoanfamily.com/tongji/save/reportMethodRecord`, {
+                method: 'post',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": Authorization
+                },
+                body: new Blob([JSON.stringify({
+                    id: UUID,
+                    tid:onTid,
+                    platform: platform,
+                    req_method:url.split('?')[0]
+                })], {
+                    type: 'application/json'
+                }),
+            })
+
             // console.log('xixi',url.split('?')[0])
             _hmt.push(['_trackEvent', platform, url.split('?')[0]]);
             switch (opinion.interfaceType) {
-                case "newhouse":
-                    requestUrl = config.INTERFACE_NEW1 + url;
-                    break;
+                // case "newhouse":
+                //     requestUrl = config.INTERFACE_NEW1 + url;
+                //     break;
                 case "newHouse":
                     requestUrl = config.INTERFACE_NEW + url;
                     break;
@@ -415,10 +475,16 @@ export default class {
                 case "collect":
                     requestUrl = config.COLLECT + url;
                     break;
+                case "tuisong":
+                    requestUrl = config.COLLECT + url;
+                    break;
                 case "intergral":
                     requestUrl = config.intergral + url;
                     break;
                 case "luckdraw":
+                    requestUrl = config.luckdraw + url;
+                    break;
+                case "tongji":
                     requestUrl = config.luckdraw + url;
                     break;
                 case "metorRest":
@@ -435,19 +501,18 @@ export default class {
 
             return fetch(requestUrl, {
                 method: 'post',
-                headers: { "Content-Type": "application/json", "Authorization": Authorization },
-                body: new Blob([JSON.stringify(data)], { type: 'application/json' }),
-            }).then(function(response) {
-                return response.json();
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": Authorization
+                },
+                body: new Blob([JSON.stringify(data)], {
+                    type: 'application/json'
+                }),
+            }).then(function (response) {
+                return response.json()
             }).then((res) => {
-                // console.group(`请求接口：${url}`);
-                // console.log("求情参数：", data);
-                // console.log("响应结果：", JSON.parse(JSON.stringify(res)));
-                // console.groupEnd();
-                if(res.status == 130001){
+                if (res.status == 130001) {
                     //判断是否有standbyToken
-                    // console.log(res.code);
-                    // let standbyToken = this.getStorage(this.KEYS.USER_STAND_BY_TOKEN);
                     let standbyToken = localStorage.getItem('standbyToken');
                     if (!standbyToken) {
                         //如果没有刷新token则跳转到登录
@@ -461,17 +526,14 @@ export default class {
                         }).then(res => {
                             // console.log('res',res);
                             //保存登录信息
-                            // this.setStorage(this.KEYS.USER_STAND_BY_TOKEN, res.data.standbyToken);
-                            // this.setStorage(this.KEYS.USER_TOKEN, res.data.token);
-                            // localStorage.setItem(this.KEYS.USER_INFO_MAP, JSON.stringify(res.data.userInfo)) //将客户的基本信息，收藏的楼盘放入localstorage
                             localStorage.setItem('standbyToken', res.data.standbyToken);
                             localStorage.setItem('token', res.data.token)
                             localStorage.setItem('userInfroMap', JSON.stringify(res.data.userInfo));
                             localStorage.setItem('userPhone', res.data.phoneNum); //将用户电话存入本地
-                            //localStorage.setItem('token', res.data.token); //将用户token存入本地
-                            //localStorage.setItem('standbyToken', res.data.standbyToken) //将用户备用token存入本地
                             localStorage.setItem('userName', res.data.userName) //如果有姓名，则存入localStorage
-
+                             // 获取极光推送的id 判断有没有值，没有调用推送接口，有了直接调用保存接口
+                             
+                                 this.RegistrationIDfn();
                             return Vue.prototype.get(url, opinion);
                         })
 
@@ -504,17 +566,13 @@ export default class {
                                 interfaceType: "collect"
                             }).then(res => {
                                 //保存登录信息
-                                // this.setStorage(this.KEYS.USER_STAND_BY_TOKEN, res.data.standbyToken);
-                                // this.setStorage(this.KEYS.USER_TOKEN, res.data.token);
-                                // localStorage.setItem(this.KEYS.USER_INFO_MAP, JSON.stringify(res.data.userInfo)) //将客户的基本信息，收藏的楼盘放入localstorage
                                 localStorage.setItem('standbyToken', res.data.standbyToken);
                                 localStorage.setItem('token', res.data.token);
                                 localStorage.setItem('userInfroMap', JSON.stringify(res.data.userInfo)); //将客户的基本信息，收藏的楼盘放入localstorage
                                 localStorage.setItem('userPhone', res.data.phoneNum); //将用户电弧存入本地
-                                //localStorage.setItem('token', res.data.token); //将用户token存入本地
-                                //localStorage.setItem('standbyToken', res.data.standbyToken) //将用户备用token存入本地
                                 localStorage.setItem('userName', res.data.userName) //如果有姓名，则存入localStorage
-
+                                
+                                    this.RegistrationIDfn();
                                 return Vue.prototype.post(url, data, opinion);
                             })
                         }
@@ -533,7 +591,7 @@ export default class {
                         return res;
                 }
 
-            }).catch(function(e) {
+            }).catch(function (e) {
                 console.error(e);
             })
         };
@@ -541,7 +599,7 @@ export default class {
          * 获取微信openid
          * @returns {string}
          */
-        Vue.prototype.getOpenId = function() {
+        Vue.prototype.getOpenId = function () {
             if (config.WECHAT_AUTH) { //判断是测试还是正式
                 if (this.getStorage(this.KEYS.OPENID)) { //判断session里是否有openid
                     return this.getStorage(this.KEYS.OPENID)
@@ -673,7 +731,7 @@ export default class {
             anchor.setAttribute("download", "");
             anchor.style.display = "none";
             document.body.appendChild(anchor);
-            setTimeout(function() {
+            setTimeout(function () {
                 anchor.click();
                 document.body.removeChild(anchor);
             }, 66);
@@ -684,7 +742,7 @@ export default class {
          * @param file
          * @param type :  图片（pic）, 文档(file)
          */
-        Vue.prototype.fileFilter = function(file, type = "pic") {
+        Vue.prototype.fileFilter = function (file, type = "pic") {
             let name = file.name;
             let arr = [];
 
@@ -707,39 +765,39 @@ export default class {
          * @param options 跳转到登录页面的附加参数
          * @returns {boolean}
          */
-        Vue.prototype.verifyLogin = function(login = true, options = {
-                query: "",
-            }) {
-                //不为空则为登录状态
-                if (!!this.getStorage(this.KEYS.USER_TOKEN)) {
-                    return true
-                }
-                if (login) {
-                    //window.location.href = config.LOGIN_PAGE_URL() //+ options.query;
-                    // this.$router.push("/login")
-                    window.location.hash = "#/login"
-                }
+        Vue.prototype.verifyLogin = function (login = true, options = {
+            query: "",
+        }) {
+            //不为空则为登录状态
+            if (!!this.getStorage(this.KEYS.USER_TOKEN)) {
+                return true
+            }
+            if (login) {
+                //window.location.href = config.LOGIN_PAGE_URL() //+ options.query;
+                // this.$router.push("/login")
+                window.location.hash = "#/login"
+            }
 
+            return false;
+        }
+        /**
+         * 判断是否是在微信端
+         */
+        Vue.prototype.isECTouch = function () {
+            var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                localStorage.setItem('platform', 'weixin');
+                //在微信中打开
+                store.state.showWxTitle = true;
+                return true;
+            } else {
+                store.state.showWxTitle = false;
                 return false;
             }
-            /**
-             * 判断是否是在微信端
-             */
-        Vue.prototype.isECTouch = function() {
-                var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
-                if (ua.match(/MicroMessenger/i) == "micromessenger") {
-                    localStorage.setItem('platform','weixin');
-                    //在微信中打开
-                    store.state.showWxTitle = true;
-                    return true;
-                } else {
-                    store.state.showWxTitle = false;
-                    return false;
-                }
-            }
-            /*判断是安卓还是ios登录*/
+        }
+        /*判断是安卓还是ios登录*/
 
-        Vue.prototype.AndroidOrIos = function() {
+        Vue.prototype.AndroidOrIos = function () {
             //安卓返回true,ios返回false
             let u = navigator.userAgent;
             let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
@@ -751,17 +809,84 @@ export default class {
                 return false;
             }
         }
-
+        
+        // 极光推送方法
+        Vue.prototype.RegistrationIDfn =  function() {
+          window.JPush.getRegistrationID((rId)=> {
+            // console.log("JPushPlugin:registrationID is " + rId);
+            // var rId =  '12343'
+            // this.RegistrationID =  rId;
+            this.saveReg(rId);
+          });
+        }, 
+        // 保存极光推送id的方法
+        Vue.prototype.saveReg = function(rId){
+            let platform = localStorage.getItem('platform');
+            if (platform == null || platform == 'null' || platform == 'undefined') {
+                var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                    platform = 'weixin';
+                } else {
+                    platform = 'webPage';
+                }
+            }
+            let deviceType = null;
+            if(platform == 'iOS'){
+              deviceType = 1;
+            }else{
+               deviceType = 0;
+            }
+            let url  = '/agenthouseCutomer/OwnerController/updOwnerByToken';
+            let post_data = {
+              deviceType:deviceType,
+              registerId:rId,
+            }
+            this.post(url,post_data,{interfaceType: "tongji"}).then(response => {
+              if(response.code == 200){
+                console.log('保存成功');
+              }
+            },
+              response => {
+                this.showalert(response.msg);
+              }
+            );
+          }
+        // 用于生成UUID方法
+        Vue.prototype.uuidFn = function(){
+            // return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+            return 'xxxx-xxxx-xxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0,
+                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }   
+        
+        // 存入cookie
+        Vue.prototype.setCookie =  function(name, value) {
+            var Days = 720;
+            var exp = new Date();
+            exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+            document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString()+";path=/";
+        }
+        // 获取cookie
+        Vue.prototype.getCookid =  function(name){
+            var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+            if (arr = document.cookie.match(reg))
+                return unescape(arr[2]);
+            else
+                return null;
+        }
+        
 
         /*---------------------------------------------新房---------------------------------------------*/
         Vue.prototype.notEmpty = (value) => {
-                if (value === null || value === undefined || value === "null" || value === "undefined" || value === "") {
-                    return true;
-                } else {
-                    return false;
-                }
+            if (value === null || value === undefined || value === "null" || value === "undefined" || value === "") {
+                return true;
+            } else {
+                return false;
             }
-            // 身份认证
+        }
+        // 身份认证
         Vue.prototype.IC = (field) => {
             let value = field;
             if (value === "") {
@@ -788,23 +913,23 @@ export default class {
 
         // 是否有token
         Vue.prototype.LoToken = () => {
-                let LoToken = localStorage.getItem('token');
-                if (LoToken === null || LoToken === undefined || LoToken === "null" || LoToken === "undefined" || LoToken === "") {
-                    return true;
-                } else {
-                    return false;
-                }
+            let LoToken = localStorage.getItem('token');
+            if (LoToken === null || LoToken === undefined || LoToken === "null" || LoToken === "undefined" || LoToken === "") {
+                return true;
+            } else {
+                return false;
             }
-            // 电话号码验证
+        }
+        // 电话号码验证
         Vue.prototype.UserPhone = () => {
-                let UserPhone = localStorage.getItem('userPhone');
-                if (UserPhone === null || UserPhone === undefined || UserPhone === "null" || UserPhone === "undefined" || UserPhone === "") {
-                    return true;
-                } else {
-                    return false;
-                }
+            let UserPhone = localStorage.getItem('userPhone');
+            if (UserPhone === null || UserPhone === undefined || UserPhone === "null" || UserPhone === "undefined" || UserPhone === "") {
+                return true;
+            } else {
+                return false;
             }
-            // 电话号码验证
+        }
+        // 电话号码验证
         Vue.prototype.EnCryption = (val, item) => {
             val = ''
             for (var i = 0; i < item.length; i++) {

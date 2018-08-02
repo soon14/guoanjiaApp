@@ -89,7 +89,7 @@
 
         <div class="middle">
             <slot name="middle" v-if="!title"></slot>
-            <p class="title" v-else="!title">{{title}}</p>
+            <p class="title" else="!title">{{title}}</p>
         </div>
 
         <div class="right-part">
@@ -136,8 +136,6 @@
 //              this.onheader =  true;
 //              //   console.log('安卓',this.AndroidOrIos());
 //          }
-            
-            
             //判断是安卓还是ios登录，定义到变量中
 			let u = navigator.userAgent;
             let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端

@@ -2,7 +2,7 @@
 @import "../../style/theme.scss";
 $height: 0.8rem;
     .Lessee-box{
-        background:$greyColor;
+        background:$titleColor;
         width:100%;
         height:100%;
         overflow: hidden;
@@ -12,77 +12,90 @@ $height: 0.8rem;
             overflow: hidden;
             .Lessee-box-center-details{
                 width:100%;
-                height: 2.6rem;
+                height: 2.8rem;
                 background:#fff;
-                .details-top{
-                    width:90%;
-                    margin-left:5%;
-                    height: 25%;
-                    border-bottom:solid 1px #dbdbdb;
-                    p{
-                        font-size: 12px;
-                        float:right;
-                        line-height:0.6rem;
-                    }
-                }
+                border-top:1px solid #ccc;
+                // .details-top{
+                //     width:90%;
+                //     margin-left:5%;
+                //     height: 25%;
+                //     border-bottom:solid 1px #dbdbdb;
+                //     p{
+                //         font-size: 12px;
+                //         float:right;
+                //         line-height:0.6rem;
+                //     }
+                // }
                 .details-bottom{
-                    width:90%;
-                    margin-left:5%;
-                    height: 75%;
+                    width:100%;
+                    margin-left:0.3rem;
+                    height: 100%;
                     overflow: hidden;
                     .details-bottom-left{
-                        width:40%;
-                        height:80%;
-                        margin-top:3%;
+                        width:2.8rem;
+                        height:2.1rem;
+                        margin-top:0.32rem;
                         float:left;
                         img{
-                            width:90%;
+                            width:100%;
                             height:100%;
+                            border-radius: 0.1rem;
                         }
                     }
                     .details-bottom-right{
-                        width:60%;
-                        height:80%;
-                        margin-top:3%;
-                        float:right;
+                        width:4rem;
+                        height:100%;
+                        float: left;
+                        margin-left: 0.3rem;
+                        margin-top:0.4rem;
                         text-align: left;
                         .details-bottom-right-div1{
                             width:100%;
-                            height: 32%;
+                            height:0.32rem;
+                            line-height: 0.32rem;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                            white-space: nowrap;
+                            
                             p{
-                                font-size: 14px;
-                                line-height:0.5rem;
+                                white-space: nowrap;
+                                font-size: 0.32rem;
+                                line-height:0.32rem;
+                                color: #000;
+                                transform: translateX(0rem);
+                                // animation: bounce-out 10s  linear infinite;
                             }
                         }
                         .details-bottom-right-div2{
                             width:100%;
-                            height: 32%;
+                            height: 0.45rem;
+                            line-height: 0.45rem;
+                            margin-top:0.2rem;
+                            color: #666;
                             overflow: hidden;
                             text-overflow: ellipsis;
                             white-space: nowrap;
                             p{
-                                font-size: 12px;
+                                font-size: 0.26rem;
                                 line-height:0.5rem;
                             }
                         }
                         .details-bottom-right-div3{
                             width:100%;
-                            height: 32%;
+                            height: 0.45rem;
+                            margin-top:0.1rem;
                             p{
-                                font-size: 14px;
-                                line-height:0.5rem;
+                                font-size: 0.32rem;
+                                height: 0.45rem;
+                                line-height: 0.45rem;
                                 float:left;
-                                color:$partColor;
+                                color:#000;
                             }
-                            span{
-                                display: block;
-                                float: left;
-                                line-height:0.5rem;
-                                font-size: 12px;
-                            }
+                            // span{
+                            //     display: block;
+                            //     float: left;
+                            //     line-height:0.5rem;
+                            //     font-size: 12px;
+                            // }
                             div{
                                 width:30%;
                                 height: 80%;
@@ -104,21 +117,47 @@ $height: 0.8rem;
                                 }
                             }
                         }
+                        .bottom-label{
+                            width: 100%;
+                            // margin-top: 0.05rem;
+                            .bottom-label-list{
+                                height: 0.4rem;
+                                padding: 0 0.1rem;
+                                display: block;
+                                float: left;
+                                color: #999;
+                                text-align: center;
+                                line-height: 0.4rem;
+                                font-size: 0.24rem;
+                                margin-top: 0.15rem;
+                                border-radius: 0.05rem;
+                                background-color: #f5f5f5;
+                                margin-left: 0.1rem;
+                                max-width: 1.2rem;
+                                overflow: hidden;
+                                &:nth-child(1){
+                                    margin-left: 0rem;
+                                }
+                            }
+                        }
                     }
                 }
             }
             .Lessee-box-center-tenancies{
                 width:100%;
-                height: 3.16rem;
-                margin-top:0.2rem;
+                height: auto;
+                // margin-top:0.2rem;
                 background:#fff;
                 .tenancies-div1,.tenancies-div2,.tenancies-div3,.tenancies-div4{
                     width:90%;
                     margin-left:5%;
-                    height: 0.79rem;
+                    height: 1.08rem;
+                    border-bottom:1px solid #eee;
+                    font-size: 0.32rem;
+                    color:#000;
                     p{
-                        font-size: 12px;
-                        line-height: 0.79rem;
+                        // font-size: 12px;
+                        line-height: 1.1rem;
                     }
                     .tenancies-p1{
                         float: left;
@@ -136,21 +175,38 @@ $height: 0.8rem;
                         margin-right:0.1rem;
                     }
                 }
+                .tenancies-div3{
+                    .tenancies-p2{
+                        float: right;
+                        width: 1rem;
+                        height: 0.4rem;
+                        display: inline-block;
+                        line-height: 0.4rem;
+                        text-align:center;
+                        background-color: #e34b3e;
+                        font-size: 0.24rem;
+                        color: #fff;
+                        margin-top: 0.33rem;
+                    }
+                }
 
 
             }
             .Lessee-box-center-partnership{
                 width:100%;
-                height: 1rem;
-                margin-top:0.2rem;
+                height: 1.08rem;
+                // margin-top:0.2rem;
                 background:#fff;
+                color:#000;
+                font-size: 0.32rem;
+                border-bottom:1px solid #eee;
                 div{
                     width:90%;
                     margin-left:5%;
                 }
                 p{
-                    font-size: 12px;
-                    line-height:1rem;
+                    // font-size: 12px;
+                    line-height:1.1rem;
                 };
                 .partnership-p1{
                     float:left;
@@ -163,28 +219,29 @@ $height: 0.8rem;
             }
             .Lessee-box-center-sign{
                 width:100%;
-                height: 1rem;
-                margin-top:0.2rem;
+                height: 1.08rem;
+                // margin-top:0.2rem;
                 background:#fff;
+                border-bottom:1px solid #eee;
                 div{
                     width:90%;
                     margin-left:5%;
                     p{
                         float:left;
-                        font-size:12px;
-                        line-height:1rem;
+                        font-size:0.32rem;
+                        line-height:1.1rem;
                     }
                     .sign-sign-p1{
-                        width:25%;
+                        width:auto;
                     }
                     .sign-sign-p2{
-                        width:10%;
+                        width:auto;
                     }
                     .sign-sign-p3{
-                        width:20%;
+                        width:auto;
                     }
                     .sign-sign-p4{
-                        width:30%;
+                        width:auto;
                         float:right;
                     }
                 }
@@ -196,7 +253,17 @@ $height: 0.8rem;
 	}
 	.emptyandroid{
 		height: 1.1rem;
-	}
+    }
+    @keyframes bounce-out {
+        0% {
+            // left: 0;
+            transform: translateX(0.1rem);
+        }
+        100% {
+            // left: -100%;
+            transform: translateX(-58%);
+        }
+    }
 </style>
 
 <template>
@@ -207,63 +274,68 @@ $height: 0.8rem;
         <div :class="[androidOrIos ? 'emptyandroid' : 'emptyios']" v-if="!this.$store.state.showWxTitle"></div>
         <div class="Lessee-box-center">
             <div class="Lessee-box-center-details">
-                <div class="details-top">
+                <!-- <div class="details-top">
                     <p v-if="saleContractId">{{saleContractId}}</p>
-                </div>
+                </div> -->
                 <div class="details-bottom">
                     <div class="details-bottom-left">
                         <img :src="picImage">
                     </div>
                     <div class="details-bottom-right">
                         <div class="details-bottom-right-div1">
-                            <p><span v-if="houseRoom">{{houseRoom}}</span><span v-if="roomName">{{roomName}}</span></p>
+                            <p class="p1"><span>{{houseRoom}}</span>&nbsp;<span v-if="roomName">{{roomName}}房间</span></p>
+                            <!-- <p><span v-if="houseRoom">{{houseRoom}}</span>&nbsp;<span v-if="roomName">{{roomName}}</span>房间</p> -->
                         </div>
                         <div class="details-bottom-right-div2">
-                            <p><span v-if="buildUnitNo">{{buildUnitNo}}</span><span v-if="buildNo">{{buildNo}}</span><span v-if="houseNo">{{houseNo}}</span></p>
+                            <p><span v-if="buildNo">{{buildNo}}号楼</span>&nbsp;<span v-if="buildUnitNo">{{buildUnitNo}}单元&nbsp;&nbsp;</span>{{houseBuildNo}}层/{{area}}㎡</p>
                         </div>
                         <div class="details-bottom-right-div3">
-                            <p v-if="realRentMoney">{{realRentMoney}}</p>
-                            <span>元/月</span>
-                            <div>
+                            <p v-if="realRentMoney">{{realRentMoney}}元/月</p>
+                            <!-- <div>
                                 <span v-if="statusName">{{statusName}}</span>
-                            </div>
+                            </div> -->
+                        </div>
+                        <div class="bottom-label">
+                            <span class="bottom-label-list" v-for="(label,index) in tags" :key="index">{{label}}</span>
+                            <div style="clear: both;"></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="Lessee-box-center-tenancies">
+                <div style="background-color:#eee; width:100%;height:0.2rem;"></div>
                 <div class="tenancies-div1">
                     <p class="tenancies-p1">租期</p>
-                    <p class="tenancies-p2" style="color:#d7d7d7">{{validDate+"-"+endDate}}</p>
+                    <p class="tenancies-p2" style="color:#999">{{validDate+"-"+endDate}}</p>
                 </div>
                 <div class="tenancies-div2">
                     <p class="tenancies-p1">付款方式</p>
-                    <p class="tenancies-p2" style="color:#d7d7d7">{{receiptCycleName}}</p>
+                    <p class="tenancies-p2" style="color:#999">{{receiptCycleName}}</p>
                 </div>
                 <div class="tenancies-div3">
                     <p class="tenancies-p1">物业交割信息</p>
-                    <p class="tenancies-p2" style="color:#76b48f">{{isDelivery}}</p>
+                    <span class="tenancies-p2" >{{isDelivery}}</span>
                 </div>
                 <div class="tenancies-div4">
                     <p class="tenancies-p1">租约账单</p>
                     <p class="tenancies-p2 a-decor" v-if="unbind" @click="lease" style="color:#3195d1">{{payStatus}}</p>
                     <p class="tenancies-p2 a-decor" v-if="!unbind" style="color:#d7d7d7">{{payStatus}}</p>
-                    <p class="tenancies-p3" style="color:#e24e59">{{number+"期"}}</p>
+                    <p class="tenancies-p3" style="color:#999">{{number+"期"}}</p>
                 </div>
             </div>
             <div class="Lessee-box-center-partnership">
                 <div>
                     <p class="partnership-p1">合租人</p>
-                    <p class="partnership-p3" style="color:#d7d7d7">{{jointRentPhone}}</p>
-                    <p class="partnership-p2" style="color:#d7d7d7">{{jointRentName}}</p>
+                    <p class="partnership-p3" style="color:#999">{{jointRentPhone}}</p>
+                    <p class="partnership-p2" style="color:#999">{{jointRentName}}</p>
                 </div>
             </div>
             <div class="Lessee-box-center-sign">
                 <div>
                     <p class="sign-sign-p1">签约主体信息</p>
-                    <p class="sign-sign-p2" v-if="renterName">姓名:</p>
-                    <p class="sign-sign-p3" v-if="renterName">{{renterName}}</p>
-                    <p class="sign-sign-p4" style="color:#d7d7d7">{{ownerPhone}}</p>
+                    <!-- <p class="sign-sign-p2" v-if="renterName">姓名:</p> -->
+                    <!-- <p class="sign-sign-p3" v-if="renterName">{{renterName}}</p> -->
+                    <p class="sign-sign-p4" style="color:#999">{{ownerPhone}}</p>
                 </div>
             </div>
         </div>
@@ -301,6 +373,10 @@ $height: 0.8rem;
                 receiptPlanId:"",//收款计划id
                 unbind:true,//解约显示不同标签
                 androidOrIos:true,	//默认为安卓登录
+                tags:"",
+                changeRoomNo:"",
+                area:"",//房间面积
+                houseBuildNo:"",//房间楼层
             }
         },
 
@@ -310,8 +386,8 @@ $height: 0.8rem;
             this.post('RentContractController/getRentContractDetail',{
                 'saleContractId':this.saleContractId
             }).then((res) =>{
-                console.log(1111111111);
-                console.log(res.data.picImage);
+                // console.log(1111111111);
+                // console.log(res.data.picImage);
                 this.saleContractId = res.data.saleContractId;//合同id
                 this.buildNo = res.data.buildNo;//房源楼
                 this.buildUnitNo = res.data.buildUnitNo;//房源单元
@@ -351,6 +427,20 @@ $height: 0.8rem;
                 }else{
                     this.isDelivery="已交割"
                 };
+                this.tags= res.data.advantageTags ? res.data.advantageTags.split(",").slice(0,3) : "";
+                if(this.tags.length==1){
+                    this.tags= res.data.advantageTags ? res.data.advantageTags.split("，").slice(0,3) : "";
+                }
+                // item.attachImageLength = item.attachImage.length-2;
+                for( var i = 0; i < this.tags.length; i ++){
+                    if(this.tags[i] == ""){
+                        this.tags.splice(i,1)
+                        i--;
+                    }
+                }
+                this.changeRoomNo = res.data.changeRoomNo;
+                this.area = res.data.coveredArea;//房间面积
+                this.houseBuildNo = res.data.buildFloor;//房间楼层
             });
             this.isIosAndroid();
         },
@@ -368,7 +458,7 @@ $height: 0.8rem;
 					//ios
 					this.androidOrIos = false; 
 				}
-				console.log(this.AndroidOrIos());
+				// console.log(this.AndroidOrIos());
 			},
             Homepage(){//跳转到首页
                 this.$router.push('/Homepage')

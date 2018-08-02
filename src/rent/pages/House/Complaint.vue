@@ -4,7 +4,7 @@
     .content {
         width: 100%;
         height: 100%;
-        background-color: $greyColor;
+        background-color: white;
     }
     .innerStyle{
     	position: fixed;
@@ -44,7 +44,6 @@
             width: 0;
             height: 0;
             z-index:100;
-			/*border: 20px solid red;*/
             border-width: 0.16rem 0.16rem 0.16rem 0.16rem;
 			border-style: solid;
 			border-color: #fff transparent transparent transparent ;
@@ -52,6 +51,7 @@
             bottom:-0.32rem;
             left:25%;
             margin-left:-0.16rem;
+            transition: all 0.5s;
         }
     }
     .scroll {
@@ -68,22 +68,12 @@
 
 <template>
     <div class="content">
-        <!--<ga-page-header >
-            <p slot="middle">
-                <input type="text">
-            </p>
-            <p slot="right-btn">哈哈</p>
-        </ga-page-header>-->
 		<div class="fixContent innerStyle" >
-			<!--<ga-page-header title="投诉建议">
-	            <p slot="right-btn"></p>
-	        </ga-page-header>-->
 	        <div :class="[androidOrIos ? 'emptyandroid' : 'emptyios']" v-if="!this.$store.state.showWxTitle"></div>
-	        <img class="logo" src="../../../../static/rent/img/collection/sclogo.png" alt="">
 	        <div class="tab">
 	            <div class="wantC" @click="wantc" :style="wtc">我要投诉</div>
 	            <div class="cRecord" @click="cRecord" :style="crd">查看投诉记录</div>
-	            <div class="sanjiao" :style="{left:showSj}"></div>
+	            <!--<div class="sanjiao" :style="{left:showSj}"></div>-->
 	        </div>
 	        <div class="scroll">
 	            <component :is="showCpt"></component>
@@ -104,12 +94,14 @@
                 showSj:'25%',
                 showCpt:'Wantc',
                 wtc:{
-                    color:'#e24e59',
-                    fontSize:'0.35rem'
+                    color:'#999999',
+                    fontSize:'0.28rem',
+                    background:'#eeeeee'
                 },
                 crd:{
-                    color:'#666666',
-                    fontSize:'0.32rem'
+                    color:'#e34b3e',
+                    fontSize:'0.28rem',
+                    background:'white'
                 },
                 token:"",
                 androidOrIos:true,	//默认为安卓登录
@@ -129,7 +121,6 @@
         },
         mounted(){
             this.token = this.getUrlStr();
-            console.log(this.token)
             this.getlocal();
             this.isIosAndroid();
         },
@@ -143,7 +134,6 @@
 					//ios
 					this.androidOrIos = false; 
 				}
-				console.log(this.AndroidOrIos());
 			},
             getUrlStr() {
                  var url = window.location.href;
@@ -158,24 +148,27 @@
             wantc(){
                 this.showSj = "25%",
                 this.wtc = {
-                    color:'#e24e59',
-                    fontSize:'0.35rem'
+                    color:'#999999',
+                    fontSize:'0.28rem',
+                    background:'#eeeeee'
                 },
                 this.crd = {
-                    color:'#666666',
-                    fontSize:'0.32rem'
+                    color:'#e34b3e',
+                    fontSize:'0.28rem'
                 },
                 this.showCpt = "Wantc"
             },
             cRecord() {
                 this.showSj = "75%",
                 this.crd = {
-                    color:'#e24e59',
-                    fontSize:'0.35rem'
+                    color:'#999999',
+                    fontSize:'0.28rem',
+                    background:'#eeeeee'
                 },
                 this.wtc = {
-                    color:'#666666',
-                    fontSize:'0.32rem'
+                	color:'#e34b3e',
+                    fontSize:'0.28rem',
+                    background:'white'
                 },
                 this.showCpt = "Crecord"
             }

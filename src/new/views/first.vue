@@ -6,13 +6,6 @@
         <swipers></swipers>
         <!--导航栏  -->
         <navigation></navigation>
-        <!--推荐楼盘-->
-        <div class='addCustomer' v-on:click="addNewHouse">
-            <span>
-                <img src='../../../static/new/img/smallBuild.png' style="height:70%;margin-top:5px;margin-left:.5rem;" />
-            </span>
-            <span style="font-size:0.35rem;line-height:40px;margin-left:0.5rem;">推荐楼盘</span>
-        </div>
         <!-- 跳转链接 -->
         <flexbox>
             <flexbox-item @click.native="newHouse">
@@ -49,7 +42,6 @@ export default {
   },
   methods: {
     //推荐楼盘的点击事件
-    addNewHouse() {},
     newHouse() {
       this.$router.push("buildList");
     },
