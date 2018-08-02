@@ -185,7 +185,7 @@
               分享国安家
             </span>
           </div>
-          <div class='product product1' style="height:1rem;" @click="">
+          <div class='product product1' style="height:1rem;">
             <span class="searchName">
               关于我们
             </span>
