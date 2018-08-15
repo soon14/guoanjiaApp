@@ -94,14 +94,14 @@
                 showSj:'25%',
                 showCpt:'Wantc',
                 wtc:{
-                    color:'#999999',
-                    fontSize:'0.28rem',
-                    background:'#eeeeee'
-                },
-                crd:{
                     color:'#e34b3e',
                     fontSize:'0.28rem',
                     background:'white'
+                },
+                crd:{
+                	color:'#999999',
+                    fontSize:'0.28rem',
+                    background:'#eeeeee'
                 },
                 token:"",
                 androidOrIos:true,	//默认为安卓登录
@@ -148,27 +148,32 @@
             wantc(){
                 this.showSj = "25%",
                 this.wtc = {
-                    color:'#999999',
-                    fontSize:'0.28rem',
-                    background:'#eeeeee'
+                     color:'#e34b3e',
+                    fontSize:'0.28rem'
                 },
                 this.crd = {
-                    color:'#e34b3e',
-                    fontSize:'0.28rem'
+                	color:'#999999',
+                    fontSize:'0.28rem',
+                    background:'#eeeeee'
+                	
+                	
+                   
                 },
                 this.showCpt = "Wantc"
             },
             cRecord() {
                 this.showSj = "75%",
                 this.crd = {
-                    color:'#999999',
-                    fontSize:'0.28rem',
-                    background:'#eeeeee'
-                },
-                this.wtc = {
-                	color:'#e34b3e',
+                    color:'#e34b3e',
                     fontSize:'0.28rem',
                     background:'white'
+                },
+                this.wtc = {
+                	color:'#999999',
+                    fontSize:'0.28rem',
+                    background:'#eeeeee'
+                	
+                	
                 },
                 this.showCpt = "Crecord"
             }

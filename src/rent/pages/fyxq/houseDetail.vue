@@ -3,35 +3,39 @@
 	/*@import "../../style/public.scss";*/
 	$k:1;
     $ColorClass: $labelOne, $labelTwo, $labelThree;
+    @font-face{
+		font-family:font01;
+		src:url("../../../fonts/BEBASNEUE.otf");
+	}
 	.collect{
 		box-sizing: border-box;
 		padding: 0.24rem 0.31rem 0;
 		background:white;
 		font-size: $mostFontSize;
 		.collect-title{
-			height: 0.65rem;
+			height: 0.4rem;
+			padding-top: 0.1rem;
 			img{
 				margin-bottom: 0.05rem;
 				display: inline-block;
 			}
 			.priceShow{
+				height: 0.4rem;
+				line-height: 0.4rem;
 				font-weight: bold;
 				float: left;
-				color: #df4d4e;
+				color: #666666;
 				font-size: 0.42rem;
+				font-family: font01;
+				margin-top: 0.02rem;
 			}
-			.collectBtn{
-				width: 0.7rem;
-				float: right;
-				text-align: center;
-				font-size: 0.3rem;
-				img{
-					width: 0.28rem;
-					height: 0.28rem;
-				}
-			}
-			.shareBtn{
-				margin-top: 0.01rem;
+			.priceShowMonth{
+				height: 0.4rem;
+				line-height: 0.4rem;
+				font-weight: normal;
+				float: left;
+				color: #666666;
+				font-size: 0.36rem;
 			}
 			.line-share-collect{
 				float: right;
@@ -48,53 +52,52 @@
 			
 		}
 		.collect-message{
-			/*height: 0.76rem;*/
 			padding-bottom:0.1rem ;
 			box-sizing: border-box;
 			padding: 0.19rem 0 0 0.28rem;
-			border-top: 0.01rem solid #eeeeee;
 			margin-top:0.2rem ;
-			.recommend1{
-				
-			}
-			@mixin color($bgColor){
-                border: 1px solid $bgColor;
-                color: $bgColor;
-            }
-            @for $i from 1 through 3{
-				.recommend1:nth-child(3n+#{$i}){
-					@include color(nth($ColorClass,$i));
-				}
-			}
+			border-top: 1px solid #cccccc; 
 		}
 		.collect-message>span{
 			display: block;
 			float: left;
 			height: 0.46rem;
 			line-height: 0.46rem;
-			color: #f9ffff;
+			color: #999999;
 			border-radius: 0.05rem;
 			text-align: center;
 			margin-right: 0.16rem;
 			padding: 0.05rem 0.1rem 0;
-			margin-bottom: 0.2rem;
+			margin-bottom: 0.05rem;
+			background: #F5F5F5;
+			font-size: 0.24rem;
 		}
 	}
 
 	/*户型 层数 面积*/
 	.houseType{
 		box-sizing: border-box;
-		padding: 0.2rem 0.3rem 0;
-		height: 2.2rem;
+		padding: 0.2rem 0 0;
 		background: white;
+		width: 6.9rem;
+		margin: auto;
 		.houseType-row{
-			height: 0.54rem;
+			overflow: hidden;
+			padding:0.4rem 0;
+			border-top: 1px solid #CCCCCC;
+			border-bottom: 1px solid #CCCCCC;
 			.row-col {
-				width: 50%;
-				height: 0.54rem;
+				width: 24%;
+				text-align: center;
 				float: left;
+				height: 0.3rem;
+				line-height: 0.3rem;
+				color:black;
+				font-size:  0.28rem;
+				border-right:1px solid #cccccc;
 			}
 		}
+		
 
 		.houseType-phone{
 			height: 0.74rem;
@@ -119,91 +122,80 @@
 		}
 
 	}
-	.row-col>span{
-		display: inline-block;
-		float: left;
-		line-height: 0.58rem;
-	}
-	.row-col span:nth-child(1) {
-		font-size: 0.28rem;
-		color: #939393;
-	}
-	.row-col span:nth-child(2) {
-		font-size: 0.29rem;
-		color: #484848;
-	}
-	.row-col span:nth-child(3) {
-		font-size: $fewFontSize;
-		color: #484848;
-	}
-	span{
-		display:inline;
-	}
+	
 
 	/*房源房间详细信息*/
 	.houseRoomDetail{
+		
 		box-sizing: border-box;
-		padding: 0.15rem 0.15rem ;
+		width: 6.9rem;
+		margin: auto;
+		/*padding:0 0.15rem  0.15rem;*/
 		font-size: $reminderFontSize;
-		background: #f2f2f2;
+		background: white;
 		.houseRoomDetail-title {
-			height: 0.55rem;
 			box-sizing: border-box;
-			padding-top: 0.1rem;
+			padding: 0.2rem 0;
 			background: white;
-
+			text-align:left;
+			span{
+				font-size: 0.32rem;
+				color: black;
+			}
 		}
 		.house-content{
 			background: white;
 			text-indent: 2em;
-			padding: 0.34rem 0.2rem;
+			padding: 0 0.2rem 0.2rem;
 			font-size: 0.24rem;
 			text-align: left;
 		}
 		.facility{
 			background: white;
 			box-sizing: border-box;
-			padding: 0.18rem 0.08rem;
+			padding: 0 0.08rem 0;
+			border-bottom:1px solid #CCCCCC;
+			overflow: hidden;
+			.facility-item{
+				padding: 0 0.1rem;
+				/*width: 1.4rem;*/
+				height: 0.6rem;
+				line-height: 0.6rem;
+				text-align: center;
+				float: left;
+				color: black;
+				font-size: 0.28rem;
+				color: #999999;
+				margin-bottom: 0.2rem;
+				border-bottom:1px solid #999999;
+			}
+			.facilityItemFirst{
+				color: black;
+				border-bottom: 2px solid black;
+			}
+			.peitaoxinxi{
+				overflow: hidden;
+				.peitaoxinxi-woshi{
+					width: 20%;
+					height: 1rem;
+					font-size: 0.22rem;
+					color:#999999;
+					text-align: center;
+					float: left;
+					margin-bottom:0.2rem;
+					img{
+						width: 0.54rem;
+						height: 0.54rem;
+						margin: auto;
+					}
+					p{
+						margin-top: 0.1rem;
+					}
+				}
+			}
 		}
 	}
-	.houseRoomDetail-title span:nth-child(1) {
-		display: block;
-		float: left;
-		width: 0.05rem;
-		height: 0.4rem;
-		background: #ff9439;
-		margin-right: 0.2rem;
-		margin-top: -0.02rem
-	}
-	.houseRoomDetail-title span:nth-child(2) {
-		display: inline-block;
-		float: left;
-		font-size: 0.28rem;
-		line-height: 0.4rem;
-	}
-	.facility-title{
-		width:3.6rem;
-		height: 0.46rem;
-		line-height: 0.46rem;
-		text-indent: 1.5em;
-		box-sizing: border-box;
-		padding-top:0.04rem ;
-		text-align: left;
-		/*background: url(../../../../static/fyxq/icon/orange.png) ;*/
-
-	}
-	.facility-title1{
-		background-image: url(../../../../static/rent/fyxq/icon/orange.png) ;
-	}
-	.facility-title2{
-		background-image: url(../../../../static/rent/fyxq/icon/blue.png) ;
-	}
-	.facility-title3{
-		background-image: url(../../../../static/rent/fyxq/icon/green.png) ;
-	}
-	.facility-title4{
-		background-image: url(../../../../static/rent/fyxq/icon/red.png) ;
-	}
+	
 	.background0{
 		background: #ff943a;
 	}
@@ -215,46 +207,6 @@
 	}
 	.background3{
 		background: #49c891;
-	}
-
-	.facility span{
-		color: white;
-		font-size: $reminderFontSize;
-	}
-	.facility span:nth-child(1){
-		font-weight: 700;
-		font-size: 0.28rem;
-	}
-	.facility span:nth-child(2){
-
-		font-size: 0.24rem;
-	}
-	.facility-content{
-		box-sizing: border-box;
-		padding: 0.2rem 0.19rem;
-		.facility-content-row{
-			height: 0.67rem;
-			.facility-col{
-				width: 33.33%;
-				height: 0.57rem;
-				float: left;
-				font-size: 0.24rem;
-				/*overflow:hidden;
-	      		text-overflow:ellipsis;
-				white-space:nowrap;*/
-				text-align: left;
-				.facility-col-img{
-					width: 0.25rem;
-					height: 0.25rem;
-					float: left;
-					margin: 0.03rem 0.1rem;
-					img{
-						width: 100%;
-						height: 100%;
-					}
-				}
-			}
-		}
 	}
 	/*室友信息*/
 	.roommate{
@@ -273,16 +225,14 @@
 				/*text-align: center;*/
 				.roommate-col1{
 					display: block;
-					width: 0.6rem;
-					height: 0.6rem;
+					width: 1rem;
+					height: 0.4rem;
 					text-align: center;
-					line-height: 0.6rem;
-					/*background:#ff943a;*/
-					color: white;
-					border-radius: 50%;
-					font-weight: 700;
-					margin: 0.04rem 0 0 0.45rem;
-					font-size: $reminderFontSize;
+					line-height: 0.4rem;
+					background:#F5F5F5;
+					color: black;
+					margin: 0.16rem 0 0 0.25rem;
+					font-size: 0.28rem;
 					box-sizing:border-box ;
 					padding-top: 0.02rem;
 				}
@@ -301,37 +251,34 @@
 				float: right;
 			}
 			.yesCheck{
-				color: #606060;
+				color: black;
 				text-align: center;
 				font-size: 0.24rem;
 			}
 			.noCheck{
-				color: #15be49;
+				color: #999999;
 				text-align: center;
 				font-size: 0.24rem;
-				font-weight: bold;
 			}
 			.roomrent{
-				color: #d31a20;
-				font-size: 0.24rem;
+				color: black;
+				font-size: 0.28rem;
 				text-align: left;
 			}
 			.content-li-last{
-				font-size: 0.24rem;
+				font-size: 0.28rem;
 			}
 			.thisHouse{
 				text-align: center;
 				color: #e75667;
-				font-weight: bold;
+				font-size: 0.28rem;
 			}
 			.lookroom{
-				color: #289cc3;
-				text-decoration: underline;
+				color: #0099cc;
+				font-size: 0.28rem;
+				text-decoration: none;
 			}
 		}
-	}
-	.roommate ul:last-child{
-		border: 0;
 	}
 	/*服务介绍*/
 	.serve{
@@ -348,20 +295,18 @@
 	        text-overflow:ellipsis;
 			white-space:nowrap;
 			text-align: left;
+			color: #999999;
 			span{
-				color: #ff9233;
+				color: black;
 				font-size: 0.24rem;
 			}
 			.serve-img{
 				width: 0.25rem;
 				height: 0.25rem;
-				margin: 0.2rem 0.05rem 0 0 ;
+				margin: 0.2rem 0.25rem 0 0 ;
 				float: left;
 			}
 		}
-	}
-	.serve li:last-child{
-		border: 0;
 	}
 	/*付款方式*/
 	.payway{
@@ -369,13 +314,18 @@
 		.payway-title{
 			height: 0.5rem;
 			font-size: 0.25rem;
-			background: white;
+			background: #F5F5F5;
 			li{
 				width: 25%;
 				float: left;
 				text-align: center;
 				line-height: 0.55rem;
+				box-sizing: border-box;
+				border-right: 1px solid white;
 			}
+		}
+		.payway-title li:last-child{
+			border: #010101;
 		}
 		.payway-content{
 			height: 0.7rem;
@@ -384,63 +334,18 @@
 				width: 25%;
 				text-align: center;
 				line-height: 0.7rem;
-				color: #0d0005;
-				font-size: 0.23rem;
+				color: #999999;
+				font-size: 0.28rem;
 				float: left;
-				span{
-					display: inline-block;
-					width: 0.9rem;
-					height: 0.35rem;
-					background: #5299db;
-					color: white;
-					text-align: center;
-					line-height: 0.3rem;
-					border-radius: 3px;
-					box-sizing: border-box;
-					padding-top: 2px;
-				}
+				
 			}
-		}
-		
-		
-		
-	}
-	/*周边交通*/
-	.round{
-		background: white;
-		box-sizing: border-box;
-		padding:0 0.18rem 0.21rem 0.18rem;
-		overflow: hidden;
-		.round-location {
-			padding: 0.18rem 0 0.18rem 0;
-			text-align: left;
-			.round-img{
-				width: 0.35rem;
-				height: 0.35rem;
-				float: left;
-				margin: 0.01rem 0.1rem 0 0;
-				img{
-					width: 100%;
-					height: 100%;
-
-				}
-			}
-		}
-		.surround{
-			border-bottom:0.01rem solid #e6e6e6 ;
-		}
-		.round-location span:nth-of-type(2){
-			display: block;
-			font-size: 0.24rem;
-			text-indent: 2em;
-			
 		}
 	}
 	/*小区*/
 	.community{
 		background: white;
 		box-sizing: border-box;
-		padding: 0.27rem 0 0.27rem 0.2rem;
+		/*padding: 0.27rem 0 0.27rem;*/
 		.community-scroll {
 			position: relative;
 			/*width: 3.39rem*3;*/
@@ -450,7 +355,6 @@
 			height: 2.8rem;
 			display: inline-block;
 			margin-left: 0.1rem;
-			margin-right: 0.1rem;
 			float: left;
 			/*scroll中的图片*/
 			.communityImg {
@@ -468,10 +372,7 @@
 		}
 		p{
 			box-sizing: border-box;
-			/*padding-top:0.22rem ;*/
-			/*border-top: 0.01rem solid #e6e6e6;*/
-			text-indent: 2em;
-			font-size: 0.24rem;
+			font-size: 0.28rem;
 		}
 	}
 	/*国安家推荐*/
@@ -482,76 +383,58 @@
 		padding: 0.4rem 0 0 0;
 
 	}
-	.recommend-title {
-			text-align: center;
-			line-height: 0.35rem;
-			color: #e24e59;
-			height: 0.35rem;
-			font-size: 0.45rem;
-		}
-		.isHaveGajClass{
-			padding-bottom: 0.35rem;
-		}
-		.recommend-title>p {
-			display: inline-block;
-			height: 0.03rem;
-			width: 1.3rem;
-			background: #e8495b;
-			margin-bottom: 0.08rem;
-		}
+
 	.ga-recommend {
 
 		box-sizing: border-box;
 		position: relative;
 		margin-top: 0.3rem;
-		.scroll-swiper{
-			background: white;
+		.tuijian-box{
+			width: 100%;
 			box-sizing: border-box;
-			padding: 0.2rem 0 0 0.15rem;
-		}
-		.box1-item {
-			width: 3.31rem;
-			/*height: 3.9rem;*/
-			display: inline-block;
-			margin-left: 0.2rem;
-			float: left;
-			.active5{
-				width: 0.8rem;
-				height:0.8rem;
-				position: absolute;
-				top: 0.2rem;
-				left: 0.2rem;
-				background: url("../../../../static/rent/house-list/active418.png") no-repeat;
-				background-size: 100%;
-			}
-			.gaImg {
-				width: 3.3rem;
-				height: 2.6rem;
-				img{
-					width: 100%;
+			padding: 0 0.3rem;
+			overflow-x: scroll;
+			.tuijian-slide{
+				width: 14rem;
+				height: 3.4rem;
+				.tuijian-li{
+					width: 2.4rem;
 					height: 100%;
-					border-radius: 0.1rem;
+					margin-right: 0.4rem;
+					float: left;
+					.tuijian-li-img{
+						width: 2.4rem;
+						height: 2.4rem;
+						position: relative;
+						img{
+							width: 100%;
+							height: 100%;
+							border-radius:0.1rem ;
+						}
+						.tuijian-li-money{
+							position: absolute;
+							top: 0.2rem;
+							left: 0.2rem;
+							padding:0.1rem 0.2rem;
+							background: rgba(0,0,0,.5);
+							color: white;
+							font-size: 0.36rem;
+							border-radius: 0.1rem;
+						}
+					}
+					.tuijian-li-p{
+						font-size: 0.28rem;
+						color: #999999;
+						text-align: left;
+						margin-top: 0.2rem;
+					}
 				}
 			}
-			.gatitle {
-				box-sizing: border-box;
-				padding: 0.12rem 0 0 0.1rem;
-				font-size: $mostFontSize;
-				text-align: left;
-				.recommend-firstline{
-					font-size: 0.28rem;
-					color: #313131;
-					overflow:hidden;
-	       			text-overflow:ellipsis;
-					white-space:nowrap;
-				}
-				.recommend-secondline{
-					font-size: 0.28rem;
-					color: #e84e56;
-					margin-top: 0.1rem;
-				}
+			.tuijian-slide li:last-child{
+				margin-right: 0;
 			}
 		}
+		
 	}
 	.recommend-bottom{
 		width: 100%;
@@ -574,25 +457,20 @@
 			margin-left: 0;
 			line-height: 1.1rem;
 		}
-		/*.recommend-li1 p:nth-child(1){
-			font-size: 0.3rem;
-			color: #8b8b8b;
-		}*/
 		.recommend-li1 p:nth-child(1){
 			font-size: 0.42rem;
-			color: #df4d4e;
+			color: black;
 			font-weight: bold;
+			font-family: font01;
 		}
 		.recommend-li2,.recommend-li2{
-			/*line-height: 1.2rem;*/
-			/*line-height: 0;*/
 			font-size: $mostFontSize;
 		}
 		.recommend-li2>span{
 			display: inline-block;
 			width: 1.6rem;
 			height: 0.6rem;
-			background: #f6b14c;
+			background: #e34b3e;
 			border-radius: 0.1rem;
 			margin-top: 0.2rem;
 			line-height: 0.6rem;
@@ -601,7 +479,7 @@
 			padding-top: 0.04rem;
 		}
 		.recommend-li3>span{
-			background: #e2614c;
+			background: #e34b3e;
 		}
 	}
 /*轮播图样式*/
@@ -666,18 +544,19 @@
 		background-size: 100%;
 	}
 .surface1,.surface2{
-	width: 7.5rem;
-	height: 4rem;
+	width: 6.9rem;
+	height: 5rem;
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 0.35rem;
+	left: 0.3rem;
 	text-align: center;
-	line-height: 3.15rem;
+	line-height: 5.15rem;
 	font-weight: 700;
 	color: #c5c5c5;
 	font-size: 0.8rem;
 	background: rgba(0,0,0,0.2);
-	z-index: 999;
+	z-index: 998;
+	border-radius: 0.1rem
 }
 
 // tab样式
@@ -728,6 +607,7 @@
 /*百度地图*/
 .map-out{
 	position: relative;
+	margin-top: 0.2rem;
 	.drawdown{
 		position: absolute;
 		top: 0;
@@ -931,6 +811,82 @@
   line-height: 6.5rem;
   font-weight: 500;
 }
+
+.swipertopabs{
+  position: absolute;
+  top: .6rem;
+  left: 0.3rem;
+  width: 6.9rem;
+  height: 2rem;
+  text-align: left;
+  overflow: hidden;
+  z-index: 998;
+}
+.absitem{
+  width: 2.8rem;
+  height: 0.4rem;
+  border-radius: .16rem;
+  background: rgba(46, 44, 44, 0.6);
+  margin-bottom: .1rem;
+}
+.absitem img{
+  float: left;
+  margin: 0.05rem .12rem 0 .16rem;
+  width: 0.26rem;
+  height: 0.26rem;
+}
+.absitemp{
+  width: 2.2rem;
+  font-size: .24rem;
+  line-height: .4rem;
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.danmu {
+  position: absolute;
+  left: 100%;
+  // animation: danmu 5s linear 0s 3;
+}
+.aniactive{
+  animation: danmu 5s linear 0s 3;
+}
+.danmus1{
+  top: .5rem;
+}
+.danmus2{
+  top: 1rem;
+}
+.danmus3{
+  top: 1.5rem;
+}
+@keyframes danmu {
+  from {
+    left: 100%;
+    transform: translateX(0);
+  }
+  to {
+    left: 0;
+    transform: translateX(-100%);
+  }
+}
+.collectBtn{
+	width: 0.7rem;
+	height: 0.7rem;
+	position: absolute;
+	top: 0.6rem;
+	right: 0.5rem;
+	z-index: 999;
+	img{
+		width: 100%;
+		height: 100%;
+	}
+}
+.shareBtn{
+	right: 1.4rem;
+}
+
 </style>
 <template>
 	<div class="fixContent">
@@ -947,14 +903,38 @@
 		<!--跳转至应用宝下载；国安家APP-->
 		<div><downLoad></downLoad></div>
 		<!--头部-->
-		<!--<ga-page-header title="房源详情"></ga-page-header>-->
 		<div class="page-content" id="pageBody">
 			<div :class="[androidOrIos ? 'emptyandroid' : 'emptyios']" v-if="!this.$store.state.showWxTitle"></div>
-
-			<div style="position: relative;height: 4rem;">
+			
+			
+			<div style="position: relative;height: 5rem;padding-top: 0.36rem;">
+				<!--弹幕-->
+				<div class="swipertopabs">
+	                <div 
+	                  v-for="(item, i) in barList" 
+	                  :key="i" :style="{animation: 'danmu '+item.settime+'s linear 0s infinite'}" 
+	                  class="absitem danmu" 
+	                  :class="'danmus' + item.dame"
+	                >
+	                  <img src="../../../../static/new/img/whiteren.png" alt="">
+	                  <p class="absitemp">{{item.text}}</p>
+	                </div>
+                </div>
+                <!--收藏分享-->
+                <div class="collectBtn" @click="collectFunc" :style=" isCollect ? collectYes : collectNo ">
+					<img v-if="isCollect" src="../../../../static/rent/fyxq/icon/starSolid.png" alt="" />
+					<img v-if="!isCollect" src="../../../../static/rent/fyxq/icon/starRed.png" alt="" />
+				</div>
+				<div class="collectBtn shareBtn" @click="buildShare" v-if="!this.$store.state.showWxTitle">
+					<img src="../../../../static/rent/fyxq/icon/fenxiang.png" alt="" />						
+				</div>
+				
+				<div class="surface1" v-if="isAppointment "> 已预约 </div>
+				<div class="surface2" v-if="isRent "> 已出租 </div>
+                <!--轮播图-->
 				<swiper 
 					:options="swiperOption" 
-					style="height: 4rem;"
+					style="height: 5rem;width: 6.9rem;margin: auto;border-radius: 0.1rem;overflow: hidden;"
 					v-if="imgUrl.length > 0"
 					@click.native = show(awesomeIndex)
 					>
@@ -965,11 +945,7 @@
 						<!--<div class="active4" v-if="active418"></div>-->
 			        </swiper-slide>
 			        <div class="swiper-pagination" slot="pagination"></div>
-			   	</swiper>
-			   	
-				<!--<div class="pageNum">{{(awesomeIndex+1)}}/{{imgLength}}</div>-->
-				<div class="surface1" v-if="isAppointment "> 已预约 </div>
-				<div class="surface2" v-if="isRent "> 已出租 </div>
+			   </swiper>
 			</div>
 			
 		   	<!--缩略图-->
@@ -1001,55 +977,37 @@
 			
 			<!--房间信息与收藏-->
 			<div class="collect">
+				<p style="font-size: 0.42rem;text-align: left;">{{areaName}} <span v-if="isRoomOrHouse">{{houseName}}</span> {{houseName == '东大桥店'?roomFloor:colledtName}}{{roomNumber}}</p>
+
 				<div class="collect-title">
-					<div class="priceShow">￥{{Price == null?0:Price}}/月</div>
-					
-					<div class="collectBtn" @click="collectFunc" :style=" isCollect ? collectYes : collectNo ">
-						<img v-if="isCollect" src="../../../../static/rent/fyxq/icon/starSolid.png" alt="" />
-						<img v-if="!isCollect" src="../../../../static/rent/fyxq/icon/starRed.png" alt="" />
-						<p style="margin-top: 0.5px; font-size: 0.3rem;">收藏</p>
-					</div>
-					<div class="line-share-collect"></div>
-					<!--分享按钮-->
-					<div class="collectBtn shareBtn" @click="buildShare" v-if="!this.$store.state.showWxTitle">
-						<img src="../../../../static/rent/fyxq/icon/fenxiang.png" alt="" />						
-						<p style="font-size: 0.3rem;">分享</p>
-					</div>
+					<div class="priceShow">{{Price == null?0:Price}}</div>
+					<div class="priceShowMonth">/月</div>
 				</div>
-				<p style="font-size: 0.28rem;text-align: left;">{{areaName}} <span v-if="isRoomOrHouse">{{houseName}}</span> {{houseName == '东大桥店'?roomFloor:colledtName}}{{roomNumber}}</p>
 				<div class="collect-message">
 					<span v-for="(item,index) in advantageTagsArr" class="recommend1">{{item}}</span>
 					<div style="clear: both;"></div>
 				</div>
 			</div>
-			<div style="height: 0.15rem; background: #f2f2f2;"></div>
 			<!--户型 层数 面积-->
 			<div class="houseType">
 				<div class="houseType-row">
 					<div class="row-col">
-						<span>户型：</span>
 						<span >{{afterRoom}}室{{afterLiving}}厅</span>
-						<!--<span>（主卧）</span>-->
 					</div>
 					<div class="row-col">
-						<span>层数：</span>
-						<span >{{houseName == '东大桥店'?roomFloor:buildFloor}}</span>
+						<span >{{houseName == '东大桥店'?roomFloor+'层':buildFloor+'层'}}</span>
 					</div>
-				</div>
-				<div class="houseType-row" style=" border-bottom:0.01rem solid #e6e6e6;">
 					<div class="row-col">
-						<span>面积：</span>
 						<span>{{Area}}㎡</span>
-	
 					</div>
-					<div class="row-col">
-						<span>朝向：</span>
-						<span >{{Orientation}}</span>
+					<div class="row-col" style="border-right: 0;">
+						<span >{{'朝'+Orientation}}</span>
 					</div>
 				</div>
-				<div class="houseType-phone">
+				
+				<!--<div class="houseType-phone">
 					<p class="phone-name">客服热线<a href="tel:400-900-2225"><span class="phone-num">&nbsp;&nbsp;400-900-2225</span></a></p>
-				</div>
+				</div>-->
 			</div>
 	
 			<!--房源房间详细信息-->
@@ -1057,226 +1015,174 @@
 				<!--房源介绍-->
 				<div v-if="isHaveEnvironment">
 					<div class="houseRoomDetail-title">
-						<span></span>
 						<span>房源介绍</span>
 					</div>
-					<div style="height: 0.05rem; background: #f2f2f2;"></div>
 					<div class="house-content">
 						{{advantageEnvironment}}
 					</div>
-					<div style="height: 0.15rem; background: #f2f2f2;"></div>
+					<div style="height: 0.1rem; background: #f2f2f2;"></div>
 				</div>
 	
 	
 				<!--房屋配套-->
 				<div class="houseRoomDetail-title">
-					<span style="background: #e36348;"></span>
 					<span>房屋配套</span>
 				</div>
-				<div style="height: 0.05rem; background: #f2f2f2;"></div>
 				<div class="facility">
-					<div class="roomItems"  v-for="(item,index) in roomItems" v-if="!(item.typeCode == '0014006' || item.typeCode == '0014007')">
-						<div class="facility-title" :class="itemStyle[item.typeCode]" style="background-size:100% 100% ;">
-							<span v-if="item.typeCode == '0014001'">{{item.roomItemName+roomNumber}}</span>
-							<span v-else>{{ productType == '0019003' && item.typeCode == '0014004' ? '独立卫生间' : item.roomItemName}}</span>
-							<span>({{item.usedArea}}㎡ )</span>
+					<div 
+						class="facility-item" 
+						:class="facilityItemFirst[index]" 
+						@click="clickFacility(item,index)" 
+						v-for="(item,index) in roomItems" 
+						v-if="!(item.typeCode == '0014006' || item.typeCode == '0014007')">
+						<p v-if="item.typeCode == '0014001'">{{item.roomItemName+roomNumber}}</p>
+						<p v-else>{{productType == '0019003' && item.typeCode == '0014004' ? '独立卫生间' : item.roomItemName}}</p>
+					</div>
+					<div style="clear: both;"></div>
+					<div class="peitaoxinxi">
+						<div v-if="facilityItemName === '0014001'" class="peitaoxinxi-room">
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/bed.png"/>
+								<p>双人床</p>
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/chuangdian.png"/>
+								<p>双人床垫</p>			
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/threedoor.png"/>
+								<p>三门衣柜</p>			
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/guizi.png"/>
+								<p>床头柜</p>			
+							</div>
+							
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/desk.png"/>
+								<p>写字桌</p>			
+							</div>
+							
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/yizi.png"/>
+								<p>写字椅</p>			
+							</div>
+							
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/wifi.png"/>
+								<p>WIFI</p>			
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/kongtiao.png"/>
+								<p>空调</p>			
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/lock.png"/>
+								<p>智能锁</p>			
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/chazuo.png"/>
+								<p>智能插座</p>			
+							</div>
 						</div>
-						<div class="facility-content">
-							<div class="facility-content-row">
-								<!--<div class="facility-col" v-for="goods in item.items">现在屋内配置写死，之前的代码注释
-									<div class="facility-col-img">
-										<img :src="goods.icon"/>
-									</div>
-									{{goods.itemName}}
-								</div>-->
-								<div v-if="item.typeCode === '0014001'">
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/bed.png"/>
-										</div>
-										双人床
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/chuangdian.png"/>
-										</div>
-										双人床垫
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/threedoor.png"/>
-										</div>
-										三门衣柜
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/guizi.png"/>
-										</div>
-										床头柜
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/desk.png"/>
-										</div>
-										写字桌
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/yizi.png"/>
-										</div>
-										写字椅
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/wifi.png"/>
-										</div>
-										Wifi
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/kongtiao.png"/>
-										</div>
-										空调
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/lock.png"/>
-										</div>
-										智能锁
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/chazuo.png"/>
-										</div>
-										智能插座
-									</div>
-								</div>
-								<div v-else-if="item.typeCode === '0014002'">
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/luyou.png"/>
-										</div>
-										路由器
-									</div>
-								</div>
-								<div v-else-if="item.typeCode === '0014003'">
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/bingxiang.png"/>
-										</div>
-										冰箱
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/youyanji.png"/>
-										</div>
-										抽油烟机
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/weibolu.png"/>
-										</div>
-										微波炉
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/ranqizao.png"/>
-										</div>
-										燃气灶
-									</div>
-	
-								</div>
-								<div v-else-if="item.typeCode === '0014004'">
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/xiyiji.png"/>
-										</div>
-										洗衣机
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/hotwater.png"/>
-										</div>
-										热水器
-									</div>
-								</div>
-								<div v-else-if="item.typeCode === '0014005'">
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/xiyiji.png"/>
-										</div>
-										暂无
-									</div>
-									<div class="facility-col">
-										<div class="facility-col-img">
-											<img src="../../../../static/rent/fyxq/icon/hotwater.png"/>
-										</div>
-										暂无
-									</div>
-								</div>
-								<div style="border-bottom:0.01rem solid #e6e6e6;float: left;width: 100%;margin-top: 0.05rem;"></div>
+						<div v-if="facilityItemName === '0014002'" class="peitaoxinxi-keting">
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/luyou.png"/>
+								<p>路由器</p>			
+							</div>
+							<div style="clear: both;"></div>
+						</div>
+						<div v-if="facilityItemName === '0014003'" class="peitaoxinxi-chufang">
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/bingxiang.png"/>
+								<p>冰箱</p>
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/youyanji.png"/>
+								<p>抽油烟机</p>
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/weibolu.png"/>
+								<p>微波炉</p>
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/ranqizao.png"/>
+								<p>燃气灶</p>
+							</div>
+							<div style="clear: both;"></div>
+						</div>
+						<div v-if="facilityItemName === '0014004'" class="peitaoxinxi-cesuo">
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/xiyiji.png"/>
+								洗衣机
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/hotwater.png"/>
+								热水器
+							</div>
+							<div style="clear: both;"></div>
+						</div>
+						<div v-if="facilityItemName === '0014005'" class="peitaoxinxi-zanwu">
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/xiyiji.png"/>								
+								暂无
+							</div>
+							<div class="peitaoxinxi-woshi">
+								<img src="../../../../static/rent/fyxq/icon/xiyiji.png"/>			
+								暂无
 							</div>
 							<div style="clear: both;"></div>
 						</div>
 					</div>
+					
 				</div>
-				<div style="height: 0.15rem; background: #f2f2f2;"></div>
 				<!--房间室友信息-->
 				<div v-if="isHaveroomList">
 					<div class="houseRoomDetail-title" >
-						<span style="background: #3ac7db;"></span>
-						<span>房间室友信息</span>
+						<span>室友信息</span>
 					</div>
-					<div style="height: 0.05rem; background: #f2f2f2;"></div>
 					<div class="roommate">
 						<ul v-for="(item,index) in roomList">
-							<li style="width: 15%;"><span class="roommate-col1" :class="backgroundStyle[index]">{{houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}</span></li>
+							<li style="width: 15%;"><span class="roommate-col1">{{houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}</span></li>
 							<li style="width: 30%;" :class="!item.isIntakeState ? 'yesCheck' : 'noCheck' ">
 								<p style="width: 100%; text-align: center;">{{item.intakeState}}</p>
-								<!--<img v-if="item.isIntakeState" :src="item.icon"/>-->
 							</li>
 							<li style="width: 30%;" class="roomrent">
-								<p v-if="!item.isIntakeState">￥{{item.price}}元/月</p>
-								<div style="color: #535353;" v-if="item.isIntakeState">
-									<img :src="item.icon"/>
-									&nbsp;{{item.constellation}}
+								<p v-if="!item.isIntakeState"><span style="font-weight: 700;">{{item.price}}</span>元/月</p>
+								<div style="color: #535353;font-size: 0.28rem;" v-if="item.isIntakeState">
+									<!--<img :src="item.icon"/>-->
+									{{item.constellation}} &nbsp;&nbsp;&nbsp;
+									{{item.sexChinese}}
 								</div>
-								<!--<p v-if="item.isIntakeState">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.constellation}}</p>-->
 							</li>
 							<li style="text-align: center; width: 25%;" class="content-li-last">
 								<span class="thisHouse" v-if="!item.isIntakeState && item.isthisHouse">当前房源</span>
 								<span class="lookroom" @click="toOthersRoom(item)" v-if="!item.isIntakeState && !item.isthisHouse">
 									查看房间
 								</span>
-								<span v-if="item.isIntakeState">{{item.job || "保密"}}</span>
+								<span v-if="item.isIntakeState" style="font-size: 0.28rem;">{{item.job || "保密"}}</span>
 							</li>
 						</ul>
 					</div>
 				</div>
-				<div style="height: 0.15rem; background: #f2f2f2;"></div>
 				<!--服务介绍-->
 				<div>
 					<div class="houseRoomDetail-title">
-						<span style="background: #47cb8f;"></span>
 						<span>服务介绍</span>
 					</div>
-					<div style="height: 0.05rem; background: #f2f2f2;"></div>
 					<div class="serve">
 						<ul>
 							<li ><div class="serve-img"><img src="../../../../static/rent/fyxq/icon/pinzhi.png"/></div><span>品质</span> &nbsp;&nbsp;&nbsp;真实房源、环保家具、智能门锁</li>
-							<li ><div class="serve-img"><img src="../../../../static/rent/fyxq/icon/serve.png"/></div><span style="color: #e66253;">服务</span> &nbsp;&nbsp;&nbsp;月度保洁、及时维修</li>
-							<li ><div class="serve-img"><img src="../../../../static/rent/fyxq/icon/pay.png"/></div><span style="color: #3dcae8;">支付</span> &nbsp;&nbsp;&nbsp;多种支付方式灵活选择</li>
+							<li ><div class="serve-img"><img src="../../../../static/rent/fyxq/icon/serve.png"/></div><span>服务</span> &nbsp;&nbsp;&nbsp;月度保洁、及时维修</li>
+							<li ><div class="serve-img"><img src="../../../../static/rent/fyxq/icon/pay.png"/></div><span>支付</span> &nbsp;&nbsp;&nbsp;多种支付方式灵活选择</li>
 						</ul>
 					</div>
 				</div>
-				<div style="height: 0.15rem; background: #f2f2f2;"></div>
 				<!--付款方式-->
 				<div>
 					<div class="houseRoomDetail-title">
-						<span style="background: #e2614c;"></span>
 						<span>付款方式</span>
 					</div>
-					<div style="height: 0.05rem; background: #f2f2f2;"></div>
 					<div class="payway">
 						<!--表头-->
 		    			<ul class="payway-title">
@@ -1288,53 +1194,42 @@
 		    			<div style="height: 0.02rem; background: #f2f2f2;"></div>
 		    			<ul class="payway-content">
 		    				<li><span>季付</span></li>
-		    				<li>￥{{Price}}/月</li>
-		    				<li>￥{{Price}}/月</li>
-		    				<li>￥{{Math.round(Price*12*0.08)}}/年</li>
+		    				<li><span></span>{{Price}}/月</li>
+		    				<li>{{Price}}/月</li>
+		    				<li>{{Math.round(Price*12*0.08)}}/年</li>
 		    			</ul>
 		    			<ul class="payway-content">
-		    				<li><span style="background: #e96464;">半年付</span></li>
-		    				<li>￥{{Price}}/月</li>
-		    				<li>￥{{Price}}/月</li>
-		    				<li>￥{{Math.round(Price*12*0.07)}}/年</li>
+		    				<li><span >半年付</span></li>
+		    				<li>{{Price}}/月</li>
+		    				<li>{{Price}}/月</li>
+		    				<li>{{Math.round(Price*12*0.07)}}/年</li>
 		    			</ul>
 		    			<ul class="payway-content">
-		    				<li><span style="background: #f6b14c;">年付</span></li>
-		    				<li>￥{{Price}}/月</li>
-		    				<li>￥{{Price}}/月</li>
-		    				<li>￥{{Math.round(Price*12*0.06)}}/年</li>
+		    				<li><span>年付</span></li>
+		    				<li>{{Price}}/月</li>
+		    				<li>{{Price}}/月</li>
+		    				<li>{{Math.round(Price*12*0.06)}}/年</li>
 		    			</ul>
-		    			
-		    			
-		    			
 					</div>
 				</div>
 				
-				<!--周边交通-->
 				<div>
-					<div style="height: 0.15rem; background: #f2f2f2;"></div>
 					<div class="houseRoomDetail-title">
-						<span style="background: #76a7cf;"></span>
-						<span>周边交通</span>
+						<span>周边</span>
 					</div>
-					<div style="height: 0.05rem; background: #f2f2f2;"></div>
-					<div class="round" >
-						<div class="round-location surround" v-if="isHaveSurrounding">
-							<div class="round-img"><img src="../../../../static/rent/fyxq/icon/round.png"/></div>
-							<span style="color: #f19741;font-size: 0.28rem;">周边</span>
-							<div style="clear: both;margin-bottom: 0.1rem;"></div>
-							<span >{{surrounding}}</span>
-						</div>
-						<div style="clear: both;"></div>
-						<div class="round-location" v-if="ishaveTraffic">
-							<div class="round-img"><img src="../../../../static/rent/fyxq/icon/traffic.png"/></div>
-							<span style="color:#e36161;font-size: 0.28rem;">交通</span>
-							<div style="clear: both;margin-bottom: 0.1rem;"></div>
-							<span >{{circumjacentTraffic}}</span>
-						</div>
-						<div style="clear: both;"></div>
-	
+					<div style="color: #999999;font-size: 0.28rem;text-align: left;">
+						{{surrounding}}
 					</div>
+				</div>
+				<div>
+					<div class="houseRoomDetail-title">
+						<span>交通</span>
+					</div>
+					<div style="color: #999999;font-size: 0.28rem;text-align: left;">
+						{{circumjacentTraffic}}
+					</div>
+				</div>
+				<div>
 					<!--房源地图-->
 					<div class="map-out">
 						<div class="houseMap" id="houseMap"></div>
@@ -1344,17 +1239,13 @@
 							<canvas id="snow">不支持canvas</canvas>
 						</div>
 					</div>
-					
 				</div>
 	
 				<!--小区-->
 				<div v-if="isHaveRecommend">
-					<div style="height: 0.15rem; background: #f2f2f2;"></div>
 					<div class="houseRoomDetail-title">
-						<span style="background: #f98ab4;"></span>
 						<span>小区</span>
 					</div>
-					<div style="height: 0.05rem; background: #f2f2f2;"></div>
 					<div class="community">
 						<swiper 
 							v-if="isHaveCommunityImages"
@@ -1376,26 +1267,23 @@
 			</div>
 			<!--国安家推荐-->
 			<div class="recommend">
-				<div class="recommend-title" :class="!isHaveGaj ? 'isHaveGajClass' : '' ">
-					<p></p>&nbsp;&nbsp;&nbsp;&nbsp;国安家推荐&nbsp;&nbsp;&nbsp;&nbsp;<p></p>
+				<div style="height: 0.2rem;background: #EEEEEE;"></div>
+				<div class="houseRoomDetail-title" style="text-align: left;padding-left: 0.3rem;margin-top: 0.3rem;">
+					<span >国安家推荐</span>
 				</div>
 				<div class="ga-recommend" v-if="isHaveGaj">
-				    <swiper 
-				    	:options="swiperOptionRecommed"
-				    	style="height: 4rem;">
-				        <swiper-slide class="scroll-swiper" v-for="(roomItems,index) in roomArr" :key="index">
-							<div class="box1-item" style="position: relative;" v-for="(item,index) in roomItems"  @click="recommendDetali(item)">
-								<div class="gaImg">
+					
+					<div class="tuijian-box">
+						<ul class="tuijian-slide">
+							<li class="tuijian-li" v-for="(item,index) in recommendList" :key="index" @click="recommendDetali(item)">
+								<div class="tuijian-li-img">
 									<img :src="item.image" />
+									<div class="tuijian-li-money"><span style="font-weight: 700;">{{item.price}}</span><span style="font-size: 0.28rem;">/月</span></div>
 								</div>
-								<div class="gatitle">
-									<p class="recommend-firstline">{{item.houseName}} {{item.houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}</p>
-									<p class="recommend-secondline">￥{{item.price == null?0:item.price}}/月 </p>
-								</div>
-								<!--<div class="active5" v-if="item.active418"></div>-->
-							</div>
-				      	</swiper-slide>
-				    </swiper>
+								<div class="tuijian-li-p">{{item.houseName}} {{item.houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div style="height: 1.2rem;background: #f2f2f2;"></div>			
 			</div>
@@ -1418,7 +1306,7 @@
         </div>	
 		<div class="recommend-bottom">
 			<ul>
-				<li class="recommend-li1"><p>￥{{Price == null?0:Price}}/月</p></li>
+				<li class="recommend-li1"><p>{{Price == null?0:Price}} <span style="font-weight: normal;">/月</span></p></li>
 				<li class="recommend-li2" @click="appointLookRoom"><span>预约看房</span></li>
 				<li class="recommend-li2 recommend-li3" @click="nowReserve"><span>立即下定</span></li>
 			</ul>
@@ -1434,11 +1322,7 @@
 	/*引入vue-awesome-swiper*/
 	//import 'swiper/dist/css/swiper.css'
 	//import { swiper, swiperSlide } from 'vue-awesome-swiper'
-	/*标题背景色*/
-	import orange from"../../../../static/rent/fyxq/icon/orange.png"
-	import blue from"../../../../static/rent/fyxq/icon/blue.png"
-	import green from"../../../../static/rent/fyxq/icon/green.png"
-	import red from"../../../../static/rent/fyxq/icon/red.png"
+
 
 	/*引入图标*/
 	import icon_boy from '../../../../static/rent/fyxq/icon/boy.png'
@@ -1539,93 +1423,10 @@
 				recommendList:[],//推荐
 				recommendLength:'',//推荐的长度
 				address:'11',
-				itemStyle: {
-					"0014001": "facility-title1",
-					"0014002": "facility-title4",
-					"0014003": "facility-title3",
-					"0014004": "facility-title2",
-					"0014005": "facility-title2",
-					"0014006": "facility-title2",
-					"0014007": "facility-title2"
+				facilityItemFirst:{
+					"0":"facilityItemFirst"
 				},
-				backgroundStyle:{
-					"0":"background0",
-					"1":"background1",
-					"2":"background2",
-					"3":"background3",
-					"4":"background0",
-					"5":"background1",
-					"6":"background2",
-					"7":"background3",
-					"8":"background0",
-					"9":"background1",
-					"10":"background2",
-					"11":"background3",
-					"12":"background0",
-					"13":"background1",
-					"14":"background2",
-					"15":"background3",
-					"16":"background2",
-					"17":"background3",
-					"18":"background0",
-					"19":"background1",
-					"20":"background2",
-					"21":"background3",
-					"22":"background0",
-					"23":"background1",
-					"24":"background2",
-					"25":"background3",
-					"26":"background0",
-					"27":"background1",
-					"28":"background2",
-					"29":"background3",
-					"30":"background0",
-					"31":"background1",
-					"32":"background2",
-					"33":"background3",
-					"34":"background0",
-					"35":"background1",
-					"36":"background2",
-					"37":"background3",
-					"38":"background2",
-					"39":"background3",
-					"40":"background0",
-					"41":"background1",
-					"42":"background2",
-					"43":"background3",
-					"44":"background0",
-					"45":"background1",
-					"46":"background2",
-					"47":"background3",
-					"48":"background0",
-					"49":"background1",
-					"50":"background2",
-					"51":"background3",
-					"52":"background0",
-					"53":"background1",
-					"54":"background2",
-					"55":"background3",
-					"56":"background0",
-					"57":"background1",
-					"58":"background2",
-					"59":"background3",
-					"60":"background0",
-					"61":"background1",
-					"62":"background2",
-					"63":"background3",
-					"64":"background0",
-					"65":"background1",
-					"66":"background2",
-					"67":"background3",
-					"68":"background0",
-					"69":"background1",
-					"70":"background2",
-					"71":"background3",
-					"72":"background0",
-					"73":"background1",
-					"74":"background2",
-					"75":"background3"
-				},
+				facilityItemName:"0014001",
 				colledtName:'',//房间显示的名字和收藏的名字
 				areaName:'',//区域名字
 				isRoomOrHouse:'',//是合租还是整租
@@ -1652,7 +1453,33 @@
 				collectHashUrl:"",	//3-16.收藏改成传入hash值给后台
 				supernatantTel:"",//接收的电话号
 				active418:false,
-				roomFloor:''
+				roomFloor:'',
+				barList:[
+			        {
+			          text:"人心齐泰山移！坚信越来越好！越来越好！",
+			          settime: 5,
+			          num: 5,
+			          dame: '1'
+			        },
+			         {
+			          text:"dfdsfsfsdfs",
+			          settime: 6,
+			          num: 6,
+			          dame: '2'
+			        },
+			         {
+			          text:"越来越好！",
+			          settime: 9,
+			          num: 6,
+			          dame: '3'
+			        },
+			         {
+			          text:"lalalalalalalal！",
+			          settime: 3,
+			          num: 4,
+			          dame: ''
+			        }
+		      	],
 			}
 		},
 		created() {
@@ -1710,6 +1537,20 @@
 			
 		},
 		methods: {
+			//房屋配套点击事件
+			clickFacility(item,index){
+				let facilityItemTitle = document.querySelectorAll(".facility-item");
+				for(let i=0;i<this.roomItems.length;i++){
+					if(i== index){
+						facilityItemTitle[i].style.color="black";
+						facilityItemTitle[i].style.borderBottom="2px solid black";
+					}else{
+						facilityItemTitle[i].style.color="#999999";
+						facilityItemTitle[i].style.borderBottom="1px solid #999999"
+					}
+				}
+				this.facilityItemName = item.typeCode;
+			},
 			//天气预报
 			getweather(){
 				fetch("https://free-api.heweather.com/s6/weather/now?location=beijing&key=9e027a426bfa4318b606f4abbd77d93a",{
@@ -2444,11 +2285,7 @@
 						}
 						return item;
 					})
-					this.recommendLength = this.recommendList.length;
-					let roomlength=this.recommendList.length/2;
-	                for(let i=0; i<roomlength;i++){//将合租数据转换为二维数组
-	                 	this.roomArr.push(this.recommendList.splice(0,2))
-	                }
+
 				})
 			},
 			toOthersRoom(item){//跳转到该房源的其他房间
@@ -2555,7 +2392,7 @@
 				this.id = this.$route.query.id;
 				this.productType=this.$route.query.productType;
 				this.previewerList = [];
-				this.roomArr = [];
+				this.recommendList = [];
 				this.imgUrl=[];
 				this.everyName=[];
 				this.getHouseDetaile();

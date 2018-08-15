@@ -318,16 +318,18 @@ export default {
         appointmentClick() {
             
             if (!this.LoToken() && !this.UserPhone()) {
-                this.rooms = this.typeInformation.buildname;
-                let username = localStorage.getItem('userName');
-                if (!this.notEmpty(username)) {
-                    this.username = username;
-                } else {
-                    this.username = '';
-                }
-                this.mobile = localStorage.getItem('userPhone');
-                this.shows = true;
-                this.market = true;
+                // this.rooms = this.typeInformation.buildname;
+                // let username = localStorage.getItem('userName');
+                // if (!this.notEmpty(username)) {
+                //     this.username = username;
+                // } else {
+                //     this.username = '';
+                // }
+                // this.mobile = localStorage.getItem('userPhone');
+                // this.shows = true;
+                // this.market = true;
+                let buildID = this.$route.query.buildid;
+                this.$router.push({ path: "reservationPages", query: { buildID: buildID } });
             } else {
                  this.$store.state.loginShow = true;
             }
@@ -671,7 +673,7 @@ export default {
         width: 100%;
         height: 100%;
         background: #fff;
-        background: url('../../../static/new/img/quitCollent.png') no-repeat;
+        background: url('../../../static/new/img/shoucang01.png') no-repeat;
         background-position: 20%;
         background-size: 30%;
         padding-left: 0.75rem;
@@ -683,7 +685,7 @@ export default {
         position: absolute;
         left: 0;
         bottom: 0;
-        background: url('../../../static/new/img/collent1.png') no-repeat;
+        background: url('../../../static/new/img/shoucang02.png') no-repeat;
         background-position: 20%;
         background-size: 30%;
         padding-left: .75rem;

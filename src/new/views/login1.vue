@@ -1,30 +1,39 @@
 <template>
     <div :class="[this.$store.state.loginShow ? 'login_show' :'login_top' ]"> 
           <!-- 头部 -->
-        <div class="loginTop" ref="loginTop" :style="{'height':loginBox+'px'}"  >
+        <!-- <div class="loginTop" ref="loginTop" :style="{'height':loginBox+'px'}"  >
           <div class="close">
             <img class="img1" src="../../../static/new/img/cloase1.png" alt="" @click="logoTitleClick">
           </div>
-        </div>
+        </div> -->
         <div class="loginCenter" ref="loginCenter" :style="{'height':centerBox+'px'}">
             
             <div class="inputBox">
-              <div class="close2">
+              <!-- <div class="close2">
                 <img class="img0" src="../../../static/new/img/cloase2.png" alt="">
                 <img class="img2" :src="faceImg" alt="">
-              </div>              
+              </div>               -->
+              <div class="back-top" @click="logoTitleClick">
+                <span></span>
+              </div>
+              <div class="login-text">
+                <h2>登录</h2>
+                <h3>欢迎来到国安家</h3>
+                <p>惹您是第一次登录,我们将自动以您的手机号注册</p>
+              </div>
+              
               <div class="box">
                 <div class="inputTel animated" :class="{flipInX:isanimated}">
-                  <div class="inio">
+                  <!-- <div class="inio">
                     <img src="../../../static/new/img/loginPhone.png" alt="">
-                  </div>
+                  </div> -->
                   <input type="tel" pattern="\d" v-model.number="phoneNumber" maxlength="11" @input="handleTel"  placeholder="请输入手机号码" id="inputBlur" @click="phoneClick('1')">
                 </div>
                 <div class="henggang"></div>
                 <div class="inputVerify animated" :class="{flipInX:isanimated}">
-                  <div class="inio">
+                  <!-- <div class="inio">
                     <img src="../../../static/new/img/loginSuo.png" alt="">
-                  </div>
+                  </div> -->
                   <input type="number" v-model.number="vistionCode" maxlength="6" @input="authCodeInput" placeholder="请输入验证码" id="inputBlur2" @click="phoneClick('2')">
                   <div v-if="issecond === 1" class="second" @click="processButton001">获取验证码</div>
                   <div v-else-if="issecond === 2" class="secondTwo animated flipInY">{{timesCount}}</div>
@@ -47,20 +56,20 @@
 
 <script>
 // import { XInput, XButton} from 'vux'
-import face00 from '../../../static/rent/login/00.png';
-import face01 from '../../../static/rent/login/01.png';
-import face02 from '../../../static/rent/login/02.png';
-import face03 from '../../../static/rent/login/03.png';
-import face04 from '../../../static/rent/login/04.png';
-import face05 from '../../../static/rent/login/05.png';
-import face06 from '../../../static/rent/login/06.png';
-import face07 from '../../../static/rent/login/07.png';
-import face08 from '../../../static/rent/login/08.png';
-import face09 from '../../../static/rent/login/09.png';
-import face10 from '../../../static/rent/login/10.png';
-import face11 from '../../../static/rent/login/11.png';
-import face12 from '../../../static/rent/login/12.png';
-import face13 from '../../../static/rent/login/13.png';
+// import face00 from '../../../static/rent/login/00.png';
+// import face01 from '../../../static/rent/login/01.png';
+// import face02 from '../../../static/rent/login/02.png';
+// import face03 from '../../../static/rent/login/03.png';
+// import face04 from '../../../static/rent/login/04.png';
+// import face05 from '../../../static/rent/login/05.png';
+// import face06 from '../../../static/rent/login/06.png';
+// import face07 from '../../../static/rent/login/07.png';
+// import face08 from '../../../static/rent/login/08.png';
+// import face09 from '../../../static/rent/login/09.png';
+// import face10 from '../../../static/rent/login/10.png';
+// import face11 from '../../../static/rent/login/11.png';
+// import face12 from '../../../static/rent/login/12.png';
+// import face13 from '../../../static/rent/login/13.png';
 //解决安卓软键盘遮挡问题
 // alert(navigator.appVersion);
 if(/Android [4-8]/.test(navigator.appVersion)) {
@@ -91,25 +100,25 @@ export default {
       loginBox: "", //动态调整top高度，保证安卓软键盘不变形
       centerBox: "", //动态调整center高度，保证安卓软键盘不变形
       RegistrationID:"",//极光推送的id
-      faceImg:face00,//变换表情
+      // faceImg:face00,//变换表情
     };
   },
   methods: {
     //调节安卓软键盘问题
     phoneClick(e) {
       this.phoneNumber=this.phoneNumber;
-      if(e == '1'){
-        this.faceImg=face00;
-      }else if(e == '2'){
-        this.faceImg=face12;
-      }
+      // if(e == '1'){
+      //   this.faceImg=face00;
+      // }else if(e == '2'){
+      //   this.faceImg=face12;
+      // }
       let bodyHeight =
         window.document.documentElement.clientHeight ||
         document.body.clientHeight;
-      let topHeight = this.$refs.loginTop.offsetHeight;
-      let centerHeight = this.$refs.loginCenter.offsetHeight;
-      this.loginBox = topHeight;
-      this.centerBox = centerHeight;
+      // let topHeight = this.$refs.loginTop.offsetHeight;
+      // let centerHeight = this.$refs.loginCenter.offsetHeight;
+      // this.loginBox = topHeight;
+      // this.centerBox = centerHeight;
     },
     //实时判断电话号
     handleTel(e) {
@@ -122,29 +131,30 @@ export default {
         this.hiddenShade(); //两秒自动关闭弹出层
         return false;
       }
-      if(faceLength == 1){
-        this.faceImg=face01;
-      }else if(faceLength == 2){
-        this.faceImg=face02;
-      }else if(faceLength == 3){
-        this.faceImg=face03;
-      }else if(faceLength == 4){
-        this.faceImg=face04;
-      }else if(faceLength == 5){
-        this.faceImg=face05;
-      }else if(faceLength == 6){
-        this.faceImg=face06;
-      }else if(faceLength == 7){
-        this.faceImg=face07;
-      }else if(faceLength == 8){
-        this.faceImg=face08;
-      }else if(faceLength == 9){
-        this.faceImg=face09;
-      }else if(faceLength == 10){
-        this.faceImg=face10;
-      }else if (faceLength == 11) {
+      // if(faceLength == 1){
+      //   this.faceImg=face01;
+      // }else if(faceLength == 2){
+      //   this.faceImg=face02;
+      // }else if(faceLength == 3){
+      //   this.faceImg=face03;
+      // }else if(faceLength == 4){
+      //   this.faceImg=face04;
+      // }else if(faceLength == 5){
+      //   this.faceImg=face05;
+      // }else if(faceLength == 6){
+      //   this.faceImg=face06;
+      // }else if(faceLength == 7){
+      //   this.faceImg=face07;
+      // }else if(faceLength == 8){
+      //   this.faceImg=face08;
+      // }else if(faceLength == 9){
+      //   this.faceImg=face09;
+      // }else if(faceLength == 10){
+      //   this.faceImg=face10;
+      // }else 
+      if (faceLength == 11) {
         tel = e.target.value;
-        this.faceImg=face11;
+        // this.faceImg=face11;
         if (!/^1[3|4|5|7|8][0-9]\d{8}$/.test(tel)) {
           this.isshades = true;
           this.shdeModel = "电话号码有误,请重新输入";
@@ -351,12 +361,6 @@ export default {
                   "standbyToken",
                   response.data.standbyToken
                 ); //将用户备用token存入本地
-                // 获取极光推送的id 判断有没有值，没有调用推送接口，有了直接调用保存接口
-                // let inObj  = response.data.userInfo.infoByUserIdList;
-                // this.RegistrationID = inObj.RegistrationID;
-                // if(this.notEmpty(this.RegistrationID)){
-                  this.RegistrationIDfn();
-                // }
                 localStorage.setItem("userName", response.data.realName); //如果有姓名，则存入localStorage
                 this.$store.state.userName = response.data.realName;
                 this.$store.state.userPhone = response.data.phoneNum;
@@ -365,9 +369,15 @@ export default {
                   "userInfroMap",
                   JSON.stringify(response.data.userInfo)
                 ); //将客户的基本信息，收藏的楼盘放入localstorage
+                // 获取极光推送的id 判断有没有值，没有调用推送接口，有了直接调用保存接口
+                // let inObj  = response.data.userInfo.infoByUserIdList;
+                // this.RegistrationID = inObj.RegistrationID;
+                // if(this.notEmpty(this.RegistrationID)){
+                  this.RegistrationIDfn();
+                // }
               }, 700);
             } else {
-              this.faceImg=face13;
+              // this.faceImg=face13;
               this.isshades = true;
               this.shdeModel = response.msg;
               this.vistionCode = "";
@@ -440,7 +450,7 @@ export default {
     },
     myLoginShow: function() {
       if (this.$store.state.loginShow == true) {
-        this.faceImg=face00;
+        // this.faceImg=face00;
         this.isanimated = true; //关闭css3效果；
         this.issecond = 1; //不读秒倒计时
       } else {
@@ -519,53 +529,87 @@ body {
 }
 .loginCenter {
   width: 100%;
-  height: 70%;  
+  height: 7.5rem;  
   .inputBox {
     width: 100%;
-    height: 56%;
+    height: 7.5rem;
     overflow: hidden;
-    .close2 {
+    // margin-top:1rem;
+    // .close2 {
+    //   width: 100%;
+    //   height: 39%;
+    //   position: relative;
+    //   overflow:hidden;
+    //   .img0 {
+    //     width: 2px;
+    //     height: 100%;
+    //     right: 18%;
+    //     position: absolute;
+    //     z-index: 0;
+    //   }
+    //   .img2{
+    //     width:1.4rem;
+    //     height:1.4rem;
+    //     margin:0.25rem auto;
+    //   }
+    // }
+    .back-top{
       width: 100%;
-      height: 39%;
-      position: relative;
-      overflow:hidden;
-      .img0 {
-        width: 2px;
+      height: 1rem;
+      padding-left: 0.3rem;
+      span{
+        display: inline-block;
+        width: 0.5rem;
         height: 100%;
-        right: 18%;
-        position: absolute;
-        z-index: 0;
+        background: url("../../../static/new/img/close2.png") no-repeat;
+        background-size: 50%;
+        margin-top:0.25rem;
       }
-      .img2{
-        width:1.4rem;
-        height:1.4rem;
-        margin:0.25rem auto;
+    }
+    .login-text{
+      margin-left: 0.45rem;
+      h2{
+        color: #e34b3e;
+        font-size: 0.66rem;
+        text-align: left;
+      }
+      h3{
+        color: #333;
+        font-size: 0.36rem;
+        text-align: left;
+        margin-top:0.35rem;
+      }
+      p{
+        color: #999;
+        font-size: 0.28rem;
+        text-align: left;
+        margin-top:0.15rem;
       }
     }
     .box {
-      width: 80%;
+      width: 6.7rem;
       height: 2.4rem;
-      margin-left: 10%;
-      margin-top:1%;
+      margin-left: 0.4rem;
+      margin-top:1.8rem;
       border-radius: 10px;
-      border: solid 1px #d8d8d8;
+      // border: solid 1px #d8d8d8;
       position: relative;
-      .inio {
-        width: 20%;
-        height: 100%;
-        float: left;
-        position: relative;
-        img {
-          width: 30%;
-          height: 44%;
-          position: absolute;
-          margin: auto;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-        }
-      }
+      // .inio {
+      //   width: 20%;
+      //   height: 100%;
+      //   float: left;
+      //   position: relative;
+      //   img {
+      //     width: 30%;
+      //     height: 44%;
+      //     position: absolute;
+      //     margin: auto;
+      //     left: 0;
+      //     right: 0;
+      //     top: 0;
+      //     bottom: 0;
+      //   }
+      // }
       .henggang{
         width:100%;
         height: 1px;
@@ -582,7 +626,7 @@ body {
         -webkit-animation-duration: 1.4s; //动画持续时间
         -webkit-animation-delay: 0.4s; //动画延迟时间
         input {
-          width: 80%;
+          width: 6.7rem;
           height: 1.15rem;
           border: none;
           text-indent: 10px;
@@ -592,8 +636,9 @@ body {
           outline: none;
           float: left;
           overflow: hidden;
-          border-top-left-radius: 10px;
-          border-top-right-radius: 10px;
+          // border-bottom: solid 1px #ccc;
+          // border-top-left-radius: 10px;
+          // border-top-right-radius: 10px;
         }
       }
       .inputVerify {
@@ -603,9 +648,10 @@ body {
         border-bottom-right-radius: 10px;
         -webkit-animation-duration: 1.4s; //动画持续时间
         -webkit-animation-delay: 0.8s; //动画延迟时间
+        position: relative;
         input {
-          width: 37%;
-          height: 1.17rem;
+          width: 6.7rem;
+          height: 1.15rem;
           border: none;
           text-indent: 10px;
           font-size: 14px;
@@ -614,27 +660,37 @@ body {
           outline: none;
           float: left;
           overflow: hidden;
-          border-bottom-left-radius: 10px;
-          border-bottom-right-radius: 10px;
+          border-bottom: solid 1px #ccc;
+          // border-bottom-left-radius: 10px;
+          // border-bottom-right-radius: 10px;
+
         }
         .second {
           width: 33%;
           height: 100%;
           float: right;
-          font-size: 14px;
+          font-size: 0.28rem;
           line-height: 1.2rem;
           overflow: hidden;
+          position: absolute;
+          top:0;
+          right: 0rem;
+          color: #e34b3e;
+          text-align: center;
         }
         .secondTwo {
           width: 35%;
           height: 98%;
           float: right;
-          font-size: 14px;
+          font-size: 0.28rem;
           line-height: 1.1rem;
           overflow: hidden;
           background: #f3f3f3;
           border-bottom-right-radius: 10px;
           text-align: center;
+          position: absolute;
+          top:0;
+          right: 0rem;
         }
       }
     }
@@ -642,13 +698,13 @@ body {
   .buttonBox {
     width: 100%;
     height: 14%;
-    margin-top:2%;
+    margin-top:7%;
     position: relative;
     .button {
-      width: 80%;
-      height: 1rem;
-      background: #c9151d;
-      border-radius: 50px;
+      width: 6.9rem;
+      height: 0.9rem;
+      background: #e34b3e;
+      border-radius: 9px;
       position: absolute;
       margin: auto;
       left: 0;
@@ -656,8 +712,8 @@ body {
       right: 0;
       bottom: 0;
       text-align: center;
-      line-height: 1rem;
-      font-size: 14px;
+      line-height: 0.9rem;
+      font-size: 0.32rem;
       color: #fff;
       letter-spacing: 4px;
       transition-property: width; //表示对那个属性进行变化
@@ -687,7 +743,8 @@ body {
   .telBox {
     width: 100%;
     height: 15%;
-    position: relative;
+    position: absolute;
+    bottom: -1rem;
     a {
       position: absolute;
       margin: auto;
@@ -696,15 +753,15 @@ body {
       top: 0;
       bottom: 0;
       text-align: center;
-      color: #ce5606;
+      color: #e34b3e;
       letter-spacing: 1px;
-      line-height: 2rem;
-      font-size: 16px;
+      // line-height: 2rem;
+      font-size: 0.28rem;
       -webkit-animation-duration: 1.4s; //动画持续时间
       -webkit-animation-delay: 1s; //动画延迟时间
-      span {
-        color: #202020;
-      }
+      // span {
+      //   color: #202020;
+      // }
     }
   }
 }

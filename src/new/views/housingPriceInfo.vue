@@ -1,4 +1,20 @@
 <style lang="less" scoped>
+.housingPriceInfo{
+  *{
+    font-family: 'Source Han Sans CN';
+  }
+  .swiper_box{
+    padding: 0.3rem 0.2rem 0.2rem;
+    height: 4.4rem;
+
+    .swipers{
+      height: 100%;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  }
+}
 .body_top {
   margin-top: 60px;
 }
@@ -9,35 +25,107 @@
   margin-top: 0;
 }
 .overstriking {
-  font-weight: bold;
+  &.buildName{
+    font-size: 0.5rem;
+    color: #000;
+    height: 1rem;
+    line-height: 1rem;
+
+  }
 }
 .thirty {
   // 1rem = 16
-  font-size: 0.47rem;
+  font-size: 0.4rem;
 }
 .twentySix {
-  font-size: 0.405rem;
+
+  &.priceThree{
+    font-family: 'Source Han Sans CN';
+    font-size: 0.4rem;
+    line-height: 0.8rem;
+    color: #000;
+  }
 }
 .twelve {
   font-size: 0.325rem;
+  &.average_price{
+    padding-left: 0.2rem;
+    text-align: left;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    color: #000;
+     font-size: 0.4rem;
+     span{
+       color: #000;
+       font-size: 0.32rem;
+      &.numbers{
+        font-size: 0.4rem;
+        font-family: "Century Gothic"
+       }
+     }
+  }
 }
 .colorThree {
   color: #333;
+  &.chouseBtn{
+    height: 40px;
+    width: 3.6rem;
+    margin: 0.1rem auto;
+
+  }
+  span{
+    height: 100%;
+    width: 50%;
+    float: left;
+    background-color: #eee;
+    line-height: 40px;
+    text-align: center;
+    color: #999;
+    &.actived{
+      color: #fff;
+      background-color: #e45044;
+    }
+  }
 }
 .colorSix {
   color: #666;
 }
 .colorNine {
   color: #999;
+  height: 0.8rem;
+  line-height:0.8rem;
+  span{
+    color: #000;
+    &.numbers{
+      font-family: "Century Gothic"
+    }
+  }
 }
 .info {
   padding: 0.25rem 0 0.25rem 0.2rem;
   text-align: left;
   position: relative;
+  .Tels{
+    margin-top: 0.1rem;
+    color: #e45044;
+    font-size: 0.5rem;
+    height: 0.8rem;
+    font-family:  "Century Gothic";
+    line-height: 0.8rem;
+    position: relative;
+  }
   .phone {
+    width: 1rem;
+    height: 1rem;
     position: absolute;
-    bottom: 0.2rem;
-    left: 4rem;
+    bottom: -0.3rem;
+    right: 0.35rem;
+  }
+  .telInfo{
+    color: #999;
+    height: 0.4rem;
+    font-size: 0.3rem;
+    line-height: 0.4rem;
   }
   .service {
     position: absolute;
@@ -58,8 +146,10 @@
   }
 }
 .interval {
-  height: 0.15rem;
-  background: #f0f0f0;
+  width: 96%;
+  margin: 0 auto;
+  height: 0;
+ border-bottom: 1px solid #f0f0f0;
 }
 .reference {
   padding: 0.25rem 0;
@@ -68,18 +158,16 @@
 }
 .priceTrend {
   text-align: left;
-  padding: 0.25rem 0.05rem 0.25rem;
   padding-left: 0.2rem;
   position: relative;
   .TrendTitle {
     line-height: 1rem;
-    border-bottom: 1px solid #f0f0f0;
   }
   .dabox{
   	width: 6rem;
   	overflow: hidden;
   	position: absolute!important;
-    top: 1.67rem;
+    top: 2.3rem;
     left: 0.83rem;
     overflow: hidden;
     height: 300px;
@@ -96,7 +184,7 @@
     position: absolute;
     left: 0;
     z-index: 999;
-    transition: all .2s 
+    transition: all .2s
   }
   .yearYes {
     display: inline-block;
@@ -123,67 +211,70 @@
 </style>
 
 <template>
-       <div  class="fixContent" >
-        <div :class="{'body_top':IosTop,'body_tops':AndroidTop,'wx_tops':wxTop}" >
-        <!-- <swiper loop auto :show-dots='true' :list="imgList" :index="0" dots-position="center" height="4.7rem"></swiper> -->
-        <swiper :options="swiperOption" ref="mySwiper">
-            <swiper-slide :key='index' v-for="(item,index) in imgList"><img style="width:100%; height:4rem" :src='item.img' /></swiper-slide>
-       </swiper>
-        <div class="info">
-            <div>
-                <span class="overstriking thirty colorThree">{{ buildName }}</span>
-                <span
-                    class="tag"
-                    v-for="(tag,index) in buildTag"
-                    :key='index'>
-                    {{ tag }}
-                </span>
-            </div>
-            <div class="twentySix colorSix overstriking">{{ averagePrice }}元/㎡</div>
-            <div class="twelve colorNine">交房时间：{{ launchTime }}</div>
-            <div class="twelve colorNine">
-                咨询电话：{{ consult }}
-            </div>
-            <a class="phone" :href="'tel:' + consult"><img src="../../../static/new/img/phone.png" alt="" style="width:.5rem"></a>
-            <!-- <img class="service" src="../../static/img/service.png" alt="" style="width:1.3rem"> -->
-        </div>
-        <div class="interval"></div>
-        <div class="reference">
-            <span class="twentySix colorSix">参考均价</span>
-            <div class="thirty colorThree">{{ referenceAverageprice }}元/㎡</div>
-        </div>
-        <div class="priceTrend">
-            <p class="TrendTitle twentySix colorThree">价格及走势</p>
-            <div class="dabox">
-	            	<div id="ecBox1" ref="davox">
-	
-		            </div>
-            </div>
-            <div id="ecBox">
-		
-		        </div>
-            <div class="twelve colorThree">
-                近{{recentYears}}年：
-                <span
-                    :class="{
-                        yearYes: classYearTab,
-                        yearNo: !classYearTab
-                    }"
-                    @click="yearOne">
-                    1年
-                </span>
-                <span
-                    :class="{
-                        yearNo: classYearTab,
-                        yearYes: !classYearTab
-                    }"
-                    @click="yearThree">
-                    3年
-                </span>
-            </div>
-        </div>
-        </div>
+  <div  class="fixContent housingPriceInfo" >
+    <div :class="{'body_top':IosTop,'body_tops':AndroidTop,'wx_tops':wxTop}" >
+    <div class="swiper_box">
+      <swiper class="swipers" :options="swiperOption" ref="mySwiper1">
+        <swiper-slide :key='index' v-for="(item,index) in imgList">
+          <img style="width:100%; height:100%" :src='item.img' />
+        </swiper-slide>
+        <div class="swiper-pagination swiper-head" slot="pagination"></div>
+      </swiper>
+
     </div>
+
+    <div class="info">
+
+        <div class="overstriking buildName">
+          {{ buildName }}
+        </div>
+        <div class="twelve colorNine">楼盘均价：<span class="numbers">{{ averagePrice }}元/平米</span></div>
+        <div class="twelve colorNine">开盘时间：<span class="numbers">{{ openquotationtime }}</span></div>
+        <div class="twelve colorNine">交房时间：<span class="numbers">{{ launchTime }}</span></div>
+
+        <div class="twelve colorNine">楼盘地址：<span >{{ address }}</span></div>
+        <div class="Tels">
+          {{ consult }}
+          <a class="phone" :href="'tel:' + consult"><img src="../../../static/new/img/redTel.png" alt="" style="width:1rem"></a>
+        </div>
+        <div class="telInfo">
+          最新政策，更多优惠信息，请致电展示中心
+        </div>
+        <!-- <img class="service" src="../../static/img/service.png" alt="" style="width:1.3rem"> -->
+    </div>
+    <div class="interval"></div>
+    <div class="twelve average_price">参考均价：<span class="numbers">{{ referenceAverageprice }}</span><span>元/㎡</span></div>
+    <div class="interval"></div>
+    <!-- <div class="reference">
+        <span class="twentySix colorSix">参考均价</span>
+        <div class="thirty colorThree">{{ referenceAverageprice }}元/㎡</div>
+    </div> -->
+    <div class="priceTrend">
+        <p class="TrendTitle twentySix colorThree priceThree">价格及走势</p>
+        <div class="twelve colorThree chouseBtn">
+            <span
+                :class="{actived:recentYears=='1'}"
+                @click="yearOne">
+                近1年
+            </span>
+            <span
+              :class="{actived:recentYears=='3'}"
+                @click="yearThree">
+                近3年
+            </span>
+        </div>
+        <div class="dabox">
+            <div id="ecBox1" ref="davox">
+
+            </div>
+        </div>
+        <div id="ecBox">
+
+        </div>
+
+    </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -198,8 +289,17 @@ export default {
       IosTop: false,
       wxTop: false,
       swiperOption: {
-        loop: true,
-        autoplay: true
+
+        loop : true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+          },
+        pagination: {
+          el: ".swiper-head",
+          type: "bullets",
+          clickable: true,
+        }
       },
       consult: "400-900-2225", // 咨询电话
       buildID: "",
@@ -208,6 +308,8 @@ export default {
       buildTag: "",
       averagePrice: "",
       launchTime: "", // 交房时间
+      address:"",//楼盘地址
+      openquotationtime:"",//开盘时间
       referenceAverageprice: "", // 参考均价
       ecOption: "",
       classYearTab: true,
@@ -221,7 +323,7 @@ export default {
   mounted() {
     this.buildID = this.$route.query.buildID;
     this.dataLoad();
-    
+
     if (!this.$store.state.showWxTitle) {
       if (!this.AndroidOrIos()) {
         this.AndroidTop = false;
@@ -237,31 +339,18 @@ export default {
       this.AndroidTop = false;
       this.IosTop = false;
     }
-    
+
     //缓冲运动
     var that = this
     function sport(obj,target){
 			clearInterval(timer);
 			//设置速度
 			timer = setInterval(function(){
-				let speed = (target - obj.offsetLeft) / 4; 
+				let speed = (target - obj.offsetLeft) / 4;
 				speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
 				//检测停止(匀速运动的停止条件 )
 				if(obj.offsetLeft <-200){
 					clearInterval(timer);
-//						that.ecOption1.baseOption.dataZoom=[{
-//				            type: 'inside',
-//				            realtime: true,
-//				            start: 0,
-//				            end: 30,
-//				            filterMode:"empty",
-//				           interval:5
-//				        }
-//					    ]
-//	    			var myChart1 = that.$echarts.init(document.getElementById("ecBox1"));
-//	      		myChart1.setOption(that.ecOption1);
-//	      		var oDabox1 = that.$refs.davox
-//						oDabox1.style.width = "100%"
 				}else{
 					obj.style.left = obj.offsetLeft - speed + "px";
 				}
@@ -269,7 +358,7 @@ export default {
 			},100)
 		}
     let timer = null;
-    
+
     var oDabox = document.getElementById("ecBox1")
     var client = 0
     document.getElementsByClassName("fixContent")[0].onscroll = function(){
@@ -289,7 +378,7 @@ export default {
 					if(Math.abs(temppxre) > 15){
 						tempsource = 10;
 					}
-					
+
 					if(Math.abs(temppxre) > tempsource){
 						disXs = disXe;
 						tempsource = 20;
@@ -302,9 +391,9 @@ export default {
 						}
 						oDabox.style.left = movexpram + "px";
 					}
-					
 
-					
+
+
 //					oDabox.style.top = e.pageY - disY + "px";
 				}
 			}
@@ -333,13 +422,15 @@ export default {
           this.buildTag = (response.data.buildtag || "").split(",");
           this.averagePrice = response.data.averageprice || "";
           this.launchTime = response.data.launchtime || "";
+          this.openquotationtime = response.data.openquotationtime || "";
+          this.address = response.data.address|| "";
           this.cityname = response.data.city || "";
           this.province = response.data.province || "";
         }
       }).then(()=>{
       	this.ecLoad();
       });
-      
+
     },
     ecLoad: function() {
     	var that = this
@@ -357,14 +448,14 @@ export default {
         var threeYearMax = 0; //三年最大值
 				var oneYearMin = 0; //一年最小值
         var threeYearMin = 0; //三年最小值
-        
+
         var oneYearX = [];
         var currentTime = new Date();
         var currentYear = currentTime.getFullYear();
         var currentMonth = currentTime.getMonth() + 1;
         var sanMonth = []
         console.log(this.cityname,this.province)
-        
+
 //      var mI = null;
 //      currentMonth !== 12 ? (currentYear -= 1) : (currentMonth = 0);
 //      for (var i = currentMonth + 1; i <= currentMonth + 12; i++) {
@@ -393,7 +484,7 @@ export default {
 				//console.log(sanMonth[sanMonth.length-1].substr(4,));
 				//console.log(sanMonth[sanMonth.length-1].substr(0,4)-3 + sanMonth[sanMonth.length-1].substr(4,))
 //				var falseMoth = sanMonth[sanMonth.length-1].substr(0,4)-3 + sanMonth[sanMonth.length-1].substr(4,)
-//				
+//
 //				var falseArray = ["2015-01", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09", "2015-10", "2015-11", "2015-12", "2016-01", "2016-02", "2016-03","2016-04", "2016-05","2016-07", "2016-08", "2016-09", "2016-10", "2016-11", "2016-12"]
 //				//console.log(falseMoth)
 //				var falseArrays = falseArray.indexOf(falseMoth,0)
@@ -427,12 +518,12 @@ export default {
                 }
               }
             }
-            
+
             if (data.data["一年"]["商圈走势"]) {
               var fjTrends = data.data["一年"]["商圈走势"];
               for (var i = 0; i < fjTrends.length; i++) {
               		businessArea.push(fjTrends[i].buildprice);
-              		
+
               }
             }
             if (data.data["一年"]["区域走势"]) {
@@ -488,7 +579,7 @@ export default {
 						}
 						function getMin(a,b,c)
 						{
-							
+
 							//console.log(a,b,c)
 							if(a>0){
 								var tempgetmin = a;
@@ -499,7 +590,7 @@ export default {
 							}else{
 								var tempgetmin = 0.4;
 							}
-							
+
 							if(a>0){
 								tempgetmin = tempgetmin<a?tempgetmin:a
 							}
@@ -509,7 +600,7 @@ export default {
 							if(c>0){
 								tempgetmin = tempgetmin<c?tempgetmin:c
 							}
-							
+
 						return tempgetmin;
 						}
 
@@ -522,17 +613,17 @@ export default {
 							}
 								return arrNew
 					  }
-					  
+
 						//areaTrend = trimSpace(areaTrend)
 						//businessArea =	trimSpace(businessArea)
             var xqMax = Math.max.apply(null, delezero(xqTrend));
             var areaMax = Math.max.apply(null, delezero(areaTrend));
             var businessMax = Math.max.apply(null, delezero(businessArea));
-            
+
             var xqMin = Math.min.apply(null, delezero(xqTrend));
             var areaMin = Math.min.apply(null, delezero(areaTrend));
             var businessMin = Math.min.apply(null,delezero(businessArea));
-            
+
             if(businessMin =="-Infinity"){
             	 oneYearMin = getMin(xqMin,areaMin,businessMax);
             	 //console.log(xqMin,areaMin,businessMin);
@@ -540,10 +631,10 @@ export default {
             	oneYearMin = getMin(xqMin,areaMin,businessMin);
             	//console.log(xqMin,areaMin);
               //console.log(oneYearMin);
-            	
+
             }
-            
-            
+
+
             if(businessMax == "Infinity"){
             	oneYearMax = getMax(xqMax,areaMax,businessMax);
             	//console.log(xqMax,areaMax,businessMax);
@@ -552,16 +643,16 @@ export default {
             	oneYearMax = getMax(xqMax,areaMax);
             	//console.log(oneYearMax);
             }
-            
-            
+
+
             //console.log(oneYearMin);
             //xqMin < areaMin ? (oneYearMin = xqMin) : (oneYearMin = areaMin);
-            
+
             var temp1 = Math.floor(oneYearMin*10-1)/10;
             var temp2 = Math.round(((Math.round(oneYearMax*10)-Math.round(Math.floor(oneYearMin*10-1)))+2)/3)*3/10 + (Math.floor(oneYearMin*10-1)/10);
             //console.log(temp1);
             //console.log(temp2);
-             
+
           }
           if (data.data["三年"]) {
             /* for (let i = 0; i < 12; i++) {
@@ -606,7 +697,7 @@ export default {
 						for(var po=0;po<quantity+1;po++){
 							//xqTrend3.unshift("0")
 						}
-						
+
             if (data.data["三年"]["区域走势"]) {
               var qyTrend3 = data.data["三年"]["区域走势"];
               for (var i = 0; i < qyTrend3.length; i++) {
@@ -678,31 +769,31 @@ export default {
 								}
 							}
 								return arrNew
-					  }						
+					  }
 
             var xqMax3 = Math.max.apply(null, delezero(xqTrend3));
             var areaMax3 = Math.max.apply(null, delezero(areaTrend3));
             var businessMax3 = Math.min.apply(null, delezero(businessArea3));
-            
+
             var xqMin3 = Math.min.apply(null, delezero(xqTrend3));
             var areaMin3 = Math.min.apply(null, delezero(areaTrend3));
             var businessMin3 = Math.min.apply(null, delezero(businessArea3));
-            
+
             //console.log(xqMin3,areaMin3,businessMin3)
 //          if(businessMin3=="-Infinity"){
 //          	 threeYearMin = getMax(xqMin3,areaMin3);
 //          }else{
-//          	
+//
 //          	 threeYearMin = getMin(xqMin3,areaMin3,businessMin3);
 //          }
-//          
-//          
+//
+//
 //          if(businessMax3 == "Infinity"){
 //          	threeYearMax = getMin(xqMin3,areaMin3);
 //          }else{
 //          	threeYearMax = getMin(xqMin3,areaMin3,businessMax3);
 //          }
-            
+
             var temp3 = 10000;
             if (xqMax3.length > 6 || areaMax3.length > 6) {
               temp3 = 1000000;
@@ -715,7 +806,7 @@ export default {
             	}
             }
             for (var i = 0; i < areaTrend3.length; i++) {
-             
+
               if(areaTrend3[i] == 0){
             		 areaTrend3[i] = ""
             	}else{
@@ -723,7 +814,7 @@ export default {
             	}
             }
             for (var i = 0; i < businessArea3.length; i++) {
-             
+
               if(businessArea3[i] == 0){
             		 businessArea3[i] = ""
             	}else{
@@ -733,7 +824,7 @@ export default {
             var xqMax3 = Math.max.apply(null, xqTrend3);
             var areaMax3 = Math.max.apply(null, areaTrend3);
             var businessMax3 = Math.min.apply(null, businessArea3);
-            
+
 //          var xqMin3 = Math.min.apply(null, xqTrend3);
 //          var areaMin3 = Math.min.apply(null, areaTrend3);
 //          var businessMin3 = Math.min.apply(null, businessArea3);
@@ -907,7 +998,7 @@ export default {
                     return toDecimal2(value);
                   }
                 },
-                
+
                 //	        	axisLine:{
                 //			          lineStyle:{
                 //			              color:'yellow',
@@ -920,13 +1011,13 @@ export default {
                   type: "line",
                   symbolSize: 6,
                   smooth: true,
-                  itemStyle : 
+                  itemStyle :
                   {
-		                normal : {  
-		                    lineStyle:{  
+		                normal : {
+		                    lineStyle:{
 		                       width:1,
-		                    }  
-		                }  
+		                    }
+		                }
 		           		},
                 },
                 {
@@ -934,26 +1025,26 @@ export default {
                   type: "line",
                   symbolSize: 6,
                   smooth: true,
-                  itemStyle : 
+                  itemStyle :
                   {
-		                normal : {  
-		                    lineStyle:{  
+		                normal : {
+		                    lineStyle:{
 		                       width: 1,
-		                    }  
-		                }  
+		                    }
+		                }
 		           		},
                 } ,{
 		                name: this.cityname,
 		                type: "line",
 	                  symbolSize: 6,
 	                  smooth: true,
-	                  itemStyle : 
+	                  itemStyle :
                   {
-		                normal : {  
-		                    lineStyle:{  
+		                normal : {
+		                    lineStyle:{
 		                       width: 1,
-		                    }  
-		                }  
+		                    }
+		                }
 		           		},
                    }
               ],
@@ -1026,9 +1117,9 @@ export default {
             }
           ]
         };
-        
-        
-        
+
+
+
         //上层图
       this.ecOption1 = {
           baseOption: {
@@ -1040,8 +1131,8 @@ export default {
               currentIndex: 0 //显示第几个
             },
 
-            
-            
+
+
             /*yAxis: {
         //		        	data:["1","2","3","4","5","6","7","8","9","10","11","12"],//['2','4','6','8','10','12'],
                             name:"成交参考单价(万元)",
@@ -1070,7 +1161,7 @@ export default {
               },
               tooltip: {
 					        trigger: 'axis',
-					       
+
 					    },
               grid: {
                 left: 50
@@ -1116,7 +1207,7 @@ export default {
                     return toDecimal2(value);
                   }
                 },
-                
+
                 //	        	axisLine:{
                 //			          lineStyle:{
                 //			              color:'yellow',
@@ -1130,13 +1221,13 @@ export default {
                   symbolSize: 6,
                   data: xqTrend,
                   smooth: true,
-                  itemStyle : 
+                  itemStyle :
                   {
-		                normal : {  
-		                    lineStyle:{  
+		                normal : {
+		                    lineStyle:{
 		                       width:1,
-		                    }  
-		                }  
+		                    }
+		                }
 		           		},
                 },
                 {
@@ -1145,13 +1236,13 @@ export default {
                   symbolSize: 6,
                   data: areaTrend,
                   smooth: true,
-                  itemStyle : 
+                  itemStyle :
                   {
-		                normal : {  
-		                    lineStyle:{  
+		                normal : {
+		                    lineStyle:{
 		                       width: 1,
-		                    }  
-		                }  
+		                    }
+		                }
 		           		},
                 } ,{
 		                name: this.cityname,
@@ -1159,13 +1250,13 @@ export default {
 	                  symbolSize: 6,
 	                  data: businessArea,
 	                  smooth: true,
-	                  itemStyle : 
+	                  itemStyle :
                   {
-		                normal : {  
-		                    lineStyle:{  
+		                normal : {
+		                    lineStyle:{
 		                       width: 1,
-		                    }  
-		                }  
+		                    }
+		                }
 		           		},
                    }
               ],
@@ -1240,11 +1331,11 @@ export default {
             }
           ]
         };
-        
-        
+
+
         var myChart = this.$echarts.init(document.getElementById("ecBox"));
         myChart.setOption(this.ecOption);
-        
+
         var myChart1 = this.$echarts.init(document.getElementById("ecBox1"));
         myChart1.setOption(this.ecOption1);
       });
@@ -1254,10 +1345,10 @@ export default {
     		this.ecOption1.baseOption.timeline.currentIndex = 1;
 	      var myChart = this.$echarts.init(document.getElementById("ecBox"));
 	      myChart.setOption(this.ecOption);
-	      
+
 	      var myChart1 = this.$echarts.init(document.getElementById("ecBox1"));
 	      myChart1.setOption(this.ecOption1);
-	      
+
 	      this.classYearTab = false;
 	      this.recentYears = "3"
     },
@@ -1266,12 +1357,12 @@ export default {
 	      this.ecOption1.baseOption.timeline.currentIndex = 0;
 	      var myChart = this.$echarts.init(document.getElementById("ecBox"));
 	      myChart.setOption(this.ecOption);
-	      
+
 	      var myChart1 = this.$echarts.init(document.getElementById("ecBox1"));
 	      myChart1.setOption(this.ecOption1);
 	      this.classYearTab = true;
 	      this.recentYears = "1"
-	      
+
     },
     setupdata:function(){
     	var myChart = this.$echarts.init(document.getElementById("ecBox"));

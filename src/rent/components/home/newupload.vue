@@ -1,6 +1,10 @@
 <style lang="less" scoped>
 	@import '~vux/src/styles/1px.less';
 	@import '~vux/src/styles/center.less';
+	@font-face{
+		font-family:font01;
+		src:url("../../../fonts/BEBASNEUE.otf");
+	}
 	.table-view{
         background: white;
         .table-view-list{
@@ -34,17 +38,12 @@
         				color:white;
         				// font-weight: 700;
         				box-sizing: border-box;
-        				padding-top: 0.08rem;
-        				padding-left: 0.06rem;
-        				.houseMoneyCHN{
-    						font-size: 0.18rem;
-    						float: left;
-    						margin-top: 0.04rem;
-        				}
+        				padding: 0.07rem 0.05rem 0.1rem 0.25rem;
+        				
         				.houseMoneyNum{
-        					
-        					font-size:0.35rem;
+        					font-family: font01;
         					float: left;
+        					font-size: 0.42rem;
         				}
         			}
         		}
@@ -310,7 +309,7 @@
             		<div class="imgOne">
             			<img class="pull-left" :src="item.roomFirstImage">
             			<div class="houseMoney">
-            				<div class="houseMoneyCHN"></div><div class="houseMoneyNum">{{item.price?item.price:"敬请关注"}}</div><div v-if="item.price">元/月</div>
+            				<div class="houseMoneyNum">{{item.price?item.price:"敬请关注"}}</div><div v-if="item.price">元/月</div>
             			</div>
             		</div>
             		<div class="imgRight">

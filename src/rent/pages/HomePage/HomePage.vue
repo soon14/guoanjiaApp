@@ -3,169 +3,124 @@
         
         <!--跳转至应用宝下载；国安家APP-->
 		<div><downLoad></downLoad></div>
-		
-        <div class="headerHomeAndro"  v-bind:class="{ 'headerHome': this.$store.state.showWxTitle }">
-        	<div style="height: 0.2rem;" v-if="!this.$store.state.showWxTitle"></div>
-       		<div style="width: 1.3rem;height: 1.1rem;float: left;" v-if="!this.$store.state.showWxTitle">
-       			<div class="back-btn" @click="goBack"></div>
-       		</div>
-       		<div class="middle-input" @click="toHouseList" v-bind:class="{'middle-input-wechat': !isWechat}">
-       			<input type="text" class="input-inner" placeholder="请输入您想住的小区或区域" />
-       			<div class="searchLogo"><x-icon type="ios-search" size="23" ></x-icon></div>
-       		</div>
-       		<div :class="[this.isIosAndroid() ? 'header-right' : 'header-right-ios']" @click="toMapSearch">
-       			<!--<x-icon type="ios-search" size="30" ></x-icon>-->
-       			<img style="width: 0.5rem;height: 0.5rem;" src="../../../../static/rent/HomePage/mapsearchhouse.png" alt="" />
-       		</div>
-        </div>
-        <!--<div :class="[androidOrIos ? 'emptyandroid' : 'emptyios']"></div>-->
-       
-	    <div :class="[this.$store.state.showWxTitle ? 'HomeContentndroid' : 'HomeContent']">   
-	        <div class="banner" style="height: 3.8rem;width: 100%;"><!--轮播图-->
-	            <swiper :options="swiperOption" style="height: 3.8rem;" v-if="newBaseList.length > 0">
+		<div style="background: white;">
+    		<IosorAndroid></IosorAndroid>
+    	</div>
+	    <div>
+	    	<div style="height: 1rem;line-height: 1rem;text-align: left;font-size: 0.48rem;box-sizing: border-box;padding-left: 0.3rem;">
+	    		租房首页
+	    	</div>
+	        <div class="banner">
+	        	<!--搜索框-->
+		        <div style="background: white;">
+			        <div class="home-search">
+			        	<div class="home-search-btn"></div>
+			        	<div class="home-search-input">
+			        		<input type="text" class="search-input-inner" @focus="toHouseList" placeholder="请输入您想居住的小区或区域" />
+			        	</div>
+			        	<div class="home-search-map" @click="toMapSearch"></div>
+			        </div>
+		        </div>
+		        <!--轮播图-->
+	            <swiper :options="swiperOption" style="height: 4rem;border-radius: 0.1rem;" v-if="newBaseList.length > 0">
 			        <swiper-slide v-for="(item,index) in newBaseList" :key="index">
-			        	<img :src="item.multimefileName" alt="" @click="newTransformOut(item,index)" style="height:100%;width:100%;"/>
+			        	<div style="width: 100%;height: 100%;overflow: hidden;">
+			        		 <img  :src= "item.multimefileName" alt="" @click="newTransformOut(item,index)" style="height:100%;width:100%;"/> 
+			        	</div>
 			        </swiper-slide>
 			        <div class="swiper-pagination" slot="pagination"></div>
 			    </swiper>
 	        </div>
+	        
+	        <!--快捷搜索-->
+	        <div class="quick-search">
+	        	<ul class="quick-search-ul">
+	        		<li class="quick-search-li" @click="toHouseList">
+	        			<img style="width: 0.45rem;" src="../../../../static/rent/HomePage/subway3x.png" alt="" />
+	        			<p>地铁找房</p>
+	        		</li>
+	        		<li class="quick-search-li" @click="toMapSearch">
+	        			<img src="../../../../static/rent/HomePage/mapHome.png" alt="" />
+	        			<p>地图找房</p>
+	        			
+	        		</li>
+	        		<li class="quick-search-li" @click="toHouseList">
+	        			<img src="../../../../static/rent/HomePage/gongyu.png" alt="" />
+	        			<p>集中式公寓</p>
+	        			
+	        		</li>
+	        		<li class="quick-search-li" @click="toVrlook">
+	        			<img src="../../../../static/rent/HomePage/VR3x.png" alt="" />
+	        			<p>VR看房</p>
+	        		</li>
+	        		<li class="quick-search-li" @click="ownerEntrust">
+	        			<img src="../../../../static/rent/HomePage/weituo.png" alt="" />
+	        			<p>业主委托</p>
+	        		</li>
+	        	</ul>
+	        </div>
+	        <div class="houseNum">
+	        	<div class="houseNum-item">
+	        		<div class="houseNum-number">{{quyuNumber1.count}}+</div>
+	        		<div class="houseNum-name">{{quyuNumber1.name+'区'}}</div>
+	        	</div>
+	        	<div class="houseNum-item">
+	        		<div class="houseNum-number">{{quyuNumber2.count}}+</div>
+	        		<div class="houseNum-name">{{quyuNumber2.name+'区'}}</div>
+	        	</div>
+	        	<div class="houseNum-item" style="margin-right: 0;">
+	        		<div class="houseNum-number">{{quyuNumber3.count}}+</div>
+	        		<div class="houseNum-name">{{quyuNumber3.name+'区'}}</div>
+	        	</div>
+	        </div>
+	        <div style="height: 0.2rem;background: #F5F5F5;"></div>
+	        
 	        <!--国安好房-->
-			<div style="background: white;" v-if="roomListLength !== 0">
-	
-				<div class="title-box">
-	                <div class="box-title-box">
-	                    <img src="../../../../static/rent/HomePage/titlelogo_03.png" class="img1">
-	                    <p>国安家公寓</p>
-	                    <div class="middle-line"><span></span></div>
-	                	<p class="lookMore" @click="goodRoom">查看更多>></p>
-	                </div>
-	            </div>
-			    <swiper :options="swiperOptionRoom" style="height: 3.8rem;">
-			        <swiper-slide class="scroll-swiper" v-for="(roomItems,index) in roomArr" :key="index">
-						<div class="box1-item" style="position: relative;" v-for="(item,index) in roomItems" @click="toRoomDetail(item)">
-							<div class="gaImg">
-								<img :src="item.image" />
-							</div>
-							<div class="gatitle">
-								<p class="gatitle-one">{{item.houseName}}&nbsp;{{item.houseName=='东大桥店'?item.roomFloor: item.roomName}}{{item.roomNumber}}</p>
-								<p>￥{{item.price}}/月 </p>
-							</div>
-							<!--<div class="active5" v-if="item.active418"></div>-->
-						</div>
-			      	</swiper-slide>
-			    </swiper>
+			<div style="background: white;padding-top: 0.5rem;" v-if="roomListLength !== 0">
+	            <div class='panorama' >
+		            <span>国安家公寓</span>
+		            <span @click="goodRoom"></span>
+		        </div>
+		        <HomeTemplate></HomeTemplate>
 			</div>
+			<div style="height: 1px;width: 6.9rem; margin: auto; background: #cccccc;"></div>
 			<!--国安整租-->
-			<div style="background: white;" v-if="houseListLength !== 0">
-				<div style="height: 0.15rem; background: #f2f2f2;"></div>
-				<div class="title-box">
-	                <div class="box-title-box">
-	                    <img src="../../../../static/rent/HomePage/house.png" class="img1">
-	                    <p>最新上架</p>
-	                    <div class="middle-line"><span></span></div>
-	                	<p class="lookMore" @click="goodHouse">查看更多>></p>
-	                </div>
-	            </div>
-			    <swiper :options="swiperOptionRoom" style="height: 3.8rem;">
-			        <swiper-slide class="scroll-swiper" v-for="(houseItems,index) in houseArr" :key="index">
-						<div class="box1-item" v-for="item in houseItems" @click="toRoomDetail(item)">
-							<div class="gaImg" style="position: relative;">
-								<img :src="item.image" />
-								<!--<div class="active-gaImg" v-if="item.active418"></div>-->
-							</div>
-							<div class="gatitle">
-								<p class="gatitle-one">{{item.houseName}}&nbsp;{{item.houseName=='东大桥店'?item.roomFloor: item.roomName}}{{item.roomNumber}}</p>
-								<p>￥{{item.price}}/月</p>
-							</div>
-							
-						</div>
-			      	</swiper-slide>
-			    </swiper>
+			<div style="background: white;padding-top: 0.4rem;" v-if="houseListLength !== 0">
+				<div class='panorama' >
+		            <span>最新上架</span>
+		            <span @click="goodRoom"></span>
+		        </div>
+		        <HomeTemplate :verse="true"></HomeTemplate>
 			</div>
-			<div style="height: 0.15rem; background: #f2f2f2;"></div>
-	        <div class="GuoanLive"><!--国安寓-->
-	        	<div class="title-box">
-	                <div class="box-title-box">
-	                    <img src="../../../../static/rent/HomePage/guoanyu.png" class="img1">
-	                    <p>国安Home</p>
-	                    <div class="long-line" style="width: 4.2rem;"><span></span></div>
-	                </div>
-	            </div>
-	            <div class="guoanHome">
-	            	<div class="templet-box" @click="listTurn">
-		                <img  src="https://media.guoanfamily.com/rent/static/HomePage/guoanyutu.png" />
-		            </div>
-	            </div>
+			<div class="shiming"></div>
+			
+	        <!--精彩活动-->
+	        <div class="activity" v-if="!this.$store.state.showWxTitle">
+	            <div class='panorama' >
+		            <span>精彩活动</span>
+		            <span @click="ActiveList"></span>
+		        </div>
+		        <div class="activity-ul-box">
+		        	<ul class="activity-ul">
+		            	<li class="activity-li" @click="li6">
+		            		<img src="https://media.guoanfamily.com/rent/static/HomePage/article01.jpg" alt="" />
+		            	</li>
+		            	<li class="activity-li" @click="li5">
+		            		<img src="https://media.guoanfamily.com/rent/static/activeList/active01.png" alt="" />
+		            	</li>
+		            	<li class="activity-li" @click="li1">
+		            		<img src="https://media.guoanfamily.com/rent/static/HomePage/gongzhonghao04.png" alt="" />
+		            	</li>
+		            	<li class="activity-li" @click="li4">
+		            		<img src="https://media.guoanfamily.com/rent/static/HomePage/gongzhonghao05.png" alt="" />
+		            	</li>
+		            	<li class="activity-li" @click="li3">
+		            		<img src="https://media.guoanfamily.com/rent/static/HomePage/gongzhonghao06.png" alt="" />
+		            	</li>
+		            </ul>
+		        </div>
 	        </div>
-	        <div class="activity" v-if="!this.$store.state.showWxTitle"><!--精彩活动-->
-	            <div class="title-box">
-	                <div class="box-title-box">
-	                    <img src="../../../assets/home/activity.png" class="img1">
-	                    <p>精彩活动</p>
-	                    <div class="middle-line"><span></span></div>
-	                    <p class="lookMore" @click="ActiveList">查看更多>></p>
-				
-	                </div>
-	            </div>
-	            <div class="activity-box" @click="activity2">
-	                <div class="activity-top">
-	                    <div class="activity-left">
-	                    	<img src="https://media.guoanfamily.com/rent/static/HomePage/article01.jpg" alt="" />
-	                    </div>
-	                    <div class="activity-right">
-	                        <h3>点亮北京</h3>
-	                        <p>在这个日渐寒冷的深秋时刻，为这座古老又崭新的城市，与在这城市漂泊的每一个认真生活的年轻人，点亮等你回家的灯火~</p>
-	                    </div>
-	                </div>
-	            </div>
-	
-	            <div style="height: 0.03rem; background: #f2f2f2; margin-bottom: 0.27rem;"></div>
-	            <div class="activity-box" @click="activity1">
-	                <div class="activity-top">
-	                    <div class="activity-left">
-	                    	<img src="https://media.guoanfamily.com/rent/static/activeList/active01.png" alt="" />
-	
-	                    </div>
-	                    <div class="activity-right" >
-	                        <h3>百万房租免费送</h3>
-	                        <p>今年十一让我们来个改变之旅参加国安家品质租住节领取价值3500元礼包为自己找一个理想家~</p>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="templet"><!--业主委托-->
-	            <div class="title-box">
-	                <div class="box-title-box">
-	                    <img src="../../../../static/rent/HomePage/weituo.png" class="img1">
-	                    <p>业主委托</p>
-	                    <div class="long-line"><span></span></div>
-	                </div>
-	            </div>
-	            <div class="templet-box" @click="ownerEntrust">
-	                <img src="https://media.guoanfamily.com/rent/static/HomePage/homeweituo.png" />
-	            </div>
-	        </div>
-	        <div class="Templet"><!--样板间-->
-	          	<div class="title-box">
-	                <div class="box-title-box">
-	                    <img src="../../../../static/rent/HomePage/yangbanjian.png" class="img1">
-	                    <p>国安家高品质服务公寓</p>
-	                    <div class="long-line" style="width: 2.8rem;"><span></span></div>
-	                </div>
-	            </div>
-	            <div class="myself">
-	            	<img src="../../../../static/rent/HomePage/myself.png" alt="" />
-	            </div>
-	           <Templets></Templets>
-	
-	        </div>
-			<!--备案信息-->
-	        <!-- <div class="copy-right" style="font-size: 0.16rem; background: #fff; text-align: center; padding: .2rem 10% 0.6rem 10%;line-height: .4rem">
-	            <p>Copyright&copy;2013-2018</p>
-	            <p>西藏中信国安房地产项目管理有限公司北京分公司</p>
-	            <p style="color: #cccccc">京ICP备16058357号</p>
-	            <p style="color: #cccccc">客服电话：400-900-2225 010-85757521</p>
-	        </div> -->
+	       	<div style="height:1.1rem;;"></div>
 	    </div>
     </div>
 </template>
@@ -173,15 +128,21 @@
 import PageHeader from '../../components/public/PageHeader';//导航
 import Guoan from '../../components/home/GuoanLive';//国安寓
 import Templets from '../../components/home/templet';
+import amazingActivty from '../../components/home/activity.vue';//精彩活动列表
 
 import downLoad from '../../components/home/downLoad'
+import HomeTemplate from '../../components/home/HomeTemplate'
+import IosorAndroid from '../../../new/components/IosorAndroid'
 
 export default {
   	components: {
 	    PageHeader,
 	    Guoan,
         Templets,
-        downLoad
+        downLoad,
+        amazingActivty,
+        HomeTemplate,
+        IosorAndroid
   	},
   	data () {
 		var self = this;
@@ -246,8 +207,19 @@ export default {
             chuxinChange:true,
             isPersonal:false,
             androidOrIos:true,	//默认为安卓登录
-            isWechat:!this.$store.state.showWxTitle
-            
+            isWechat:!this.$store.state.showWxTitle,
+            quyuNumber1:{
+            	count:"",
+            	name:""
+            },
+            quyuNumber2:{
+            	count:"",
+            	name:""
+            },
+            quyuNumber3:{
+            	count:"",
+            	name:""
+            },
 		}
   	},
   	created() {
@@ -260,9 +232,38 @@ export default {
         
         //轮播图初始化数据
         this.bannerMessage();
+        this.getquyuHouseNumber();
 	},
-	
-	methods: {
+	methods : {
+		//获取区域的房间数
+		getquyuHouseNumber(){
+			this.post("common/getHouseCountByNoSale").then((res)=>{
+				this.quyuNumber1=res.data[0];
+				this.quyuNumber2=res.data[1];
+				this.quyuNumber3=res.data[2];
+			})
+		},
+		li1(){
+	  		this.$router.push({path:"framePage",query:{title:'有温暖的地方才是家',src:'https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484366&amp;idx=1&amp;sn=ece2b438cd3a18ba0b8efe44e7165a4b&amp;chksm=ea191850dd6e91462d38197e72d842e08b3c2052013b7a297adfbb690f037fe26d80fb21a97c#rd'}});
+	  	},
+	  	li2(){
+	  		this.$router.push({path:"framePage",query:{title:'从要求品质到追求品牌',src:'https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484345&amp;idx=1&amp;sn=271c9ca5e837a7506749f864ae7e4960&amp;chksm=ea191827dd6e91311b6eba03dcc7677a1a44480c262dacdb19020ccfb51af4ab61b7b32d41d5#rd'}});
+	  	},
+	  	li3(){
+	  		this.$router.push({path:"framePage",query:{title:'这家央企请了50人',src:'https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484288&amp;idx=1&amp;sn=f2670bf85aba293834adf009450e8eeb&amp;chksm=ea19181edd6e9108ea1949381b74aa3570f8cba3ef1ce20c5536145a8245efee54adf4d36428#rd'}});
+		},
+	  	li4(){
+	  		this.$router.push({path:"framePage",query:{title:'在北京如何不假装生活',src:'https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&mid=2247484270&idx=1&sn=ae14f2fd2803952185e662a58bf3f966&chksm=ea1918f0dd6e91e633c93944c3910145be8147878b6f0127a9473f0e5230e4b401da854f6763#rd'}});
+	  	},
+	  	li5(){
+	  		this.$router.push({path:"framePage",query:{title:'百万房租免费送',src:'https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&mid=2247484447&idx=1&sn=5742f69dbacf8664df9cab90c712c043&chksm=ea191f81dd6e969713ea45ba70a9837cef94ed37f2dd6f93837ce509ac7704fd3ce9c2140afe#rd'}});
+	  	},
+	  	li6(){
+	  		this.$router.push({path:"framePage",query:{title:'点亮北京',src:'https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&mid=2247484478&idx=1&sn=dd7412962e6c1fa477d9c821e8d04205&chksm=ea191fa0dd6e96b674e15a0edd3b8fa6f7ffc9d117519bbaea8592a65454ab75ec99f0199fb6#rd'}});
+	  	},
+		
+		
+		
 		isIosAndroid(){
 			if(this.isECTouch()){
 				//weixin
@@ -360,6 +361,10 @@ export default {
 	  	toHouseList(){//点击搜索框跳转到搜索页面
 	  		this.$router.push({path:"HouseList/HotSearch"})
 	  	},
+	  	//跳转到vr看房
+	  	toVrlook(){
+	  		this.$router.push({path:"/VrLook"})
+	  	},
 	  	goodRoom(){//跳转到合租房源列表
 	  		this.$router.push({path:"/HouseList",query:{name:"0019001"}})
 	  	},
@@ -370,8 +375,8 @@ export default {
 	    	this.$router.push({path:"/HouseList",query:{name:"0019003"}})
 	    },
 		ownerEntrust(){//跳转到业主委托
-		 	this.broadcast(this.EVENTS.PAGE_LOADING_START, "HomePage", {}, ()=>{});
-	        this.$router.push({path:"/Delegation"})
+//		 	this.broadcast(this.EVENTS.PAGE_LOADING_START, "HomePage", {}, ()=>{});
+	        this.$router.push({path:"/Entrust"})
 	    },
 		toRoomDetail(item){//跳转到该房间详情
 	        this.$router.push({path:"/HouseList/houseDetail",query:{id:item.id,productType:item.productType}})
@@ -563,11 +568,11 @@ export default {
 
 <style scoped lang="scss">
 @import "../../style/theme.scss";
-$height: 0.8rem;
-$imgheight:0.4rem;
+.swiper-pagination-bullet-active{
+  background:#ffffff !important;
+}
 .box{
 	transform: translate3d(0,0,0);
-    background:#f4f4f4;
     height: 100%;
     .HomeContent{
     	overflow-y: scroll;
@@ -583,51 +588,13 @@ $imgheight:0.4rem;
     	bottom:0;
     	width:100%;
     }
-    
-	.headerHomeAndro{
-		width:100%;
-		height:1.3rem;
-		background:#e24e59;
-		position:absolute;
-		top:0;
-		left:0;
-		z-index:999;
-	}
-	.headerHome{
-		width:100%;
-		height:1.1rem;
-		background:#e24e59;
-		position:absolute;
-		top:0;
-		left:0;
-		z-index:999;
-	}
-	.back-btn{
-        height: 1.1rem;
-        width: 1.3rem;
-        background: url("../../../../static/rent/icon-back-btn.png") no-repeat center;
-        background-size:0.42rem ;
-	}
-	.middle-input{
-		width: 4.9rem;
-		height: 1.1rem;
-		float: left;
-		line-height: 0.001rem;
-		position: relative;
-	}
+	
 	.searchLogo{
 		position: absolute;
 		width: 0.6rem;
 		height: 0.6rem;
 		left: 0.05rem;
 		top: 0.34rem;
-	}
-	.middle-input-wechat{
-		width: 5.9rem;
-		height: 1.1rem;
-		float: left;
-		margin-left: 0.3rem;
-		line-height: 0.001rem;
 	}
 	.input-inner{
 		width: 100%;
@@ -641,518 +608,189 @@ $imgheight:0.4rem;
 		text-indent: 0.6rem;
 	}
  	::-webkit-input-placeholder {
-        color: white;
+        color: #999999;
     }
 
     :-moz-placeholder {
-        color: white;
+        color: #999999;
     }
 
     ::-moz-placeholder {
-        color: white;
+        color: #999999;
     }
 
     :-ms-input-placeholder {
-        color: white;
+       color: #999999;
     }
-	.header-right{
-		width: 1.3rem;
-		height: 1.1rem;
-		float: right;
-		margin-top: 0.07rem;
-		box-sizing: border-box;
-		padding: 0.18rem 0 0 0.4rem;
-		/*background: url("../../../../static/rent/HomePage/mapLink.png") no-repeat center;*/
-	}
-	.header-right-ios{
-		width: 1.3rem;
-		height: 1.1rem;
-		float: right;
-		margin-top: -0.09rem;
-		box-sizing: border-box;
-		padding: 0.36rem 0 0 0.4rem;
-		/*background: url("../../../../static/rent/HomePage/mapLink.png") no-repeat ;*/
-		/*background-size:42%;*/
-		/*background-position: 0.4rem 0.36rem;*/
-	}
+	
     .banner{
         position: relative;
-        .vux-slider{
-            .vux-swiper{
-            }
-        }
-        .vux-indicator{
-            bottom:0px !important;
-        }
-        .banner-spot{
-            width:1.5rem;
-            position: absolute;
-            bottom:0.3rem;
-            right:0.2rem;
-            height: 0.2rem;
-            box-sizing: border-box;
-            padding-left: 0.1rem;
-            margin-right: 0.1rem;
-            z-index: 999;
-            p{
-                width:0.18rem;
-                height: 0.18rem;
-                background:#cfcfcd;
-                border-radius: 50%;
-                float: left;
-                margin-left:0.1rem;
-            }
-            .BspotP1{
-                background:#f25067;
-            }
-            .BspotP2{
-                background:#f25067;
-            }
-            .BspotP3{
-                background:#f25067;
-            }
-            .BspotP4{
-                background:#f25067;
-            }
-        }
+        padding: 0 0.3rem 0 0.3rem;
+        background: white;
+        overflow: hidden;
+        .home-search{
+	    	width: 6.5rem;
+	    	height:.8rem;
+	    	margin: auto;
+			border-radius:.1rem;
+			background:white;
+			position:absolute;
+			top:0.25rem;
+			left:0.5rem;
+			z-index:1000;
+			.home-search-btn{
+				width: 0.8rem;
+				height:.8rem;
+				float: left;
+				background: url(../../../../static/rent/HomePage/search-btn.png) no-repeat center;
+				background-size:0.5rem ;
+			}
+			.home-search-map{
+				width: 0.8rem;
+				height:.8rem;
+				float: right;
+				background: url(../../../../static/rent/HomePage/map-search.png) no-repeat center;
+				background-size:0.4rem ;
+			}
+			.home-search-input{
+				width: 4.8rem;
+				margin-top: 0.1rem;
+				height: 0.6rem;
+				float: left;
+				line-height: 0 ;
+				border-right: 1px solid #CCCCCC;
+				.search-input-inner{
+					width: 100%;
+					height: 100%;
+					border: 0;
+					background:transparent;
+	
+				}
+			}
+			
+	    }
+        
+        
+    }
+    
+    .quick-search{
+    	width: 100%;
+    	background: white;
+    	.quick-search-ul{
+    		width: 100%;
+    		padding: 0.5rem 0.2rem 0.6rem 0.2rem;
+    		box-sizing: border-box;
+    		overflow:hidden;
+    		.quick-search-li{
+    			width: 20%;
+    			height: 1rem;
+    			float: left;
+    			text-align: center;
+    			img{
+    				width: 0.5rem;
+    				height: 0.5rem;
+    				margin: auto;
+    			}
+    			p{
+    				font-size: 0.24rem;
+    				margin-top: 0.15rem;
+    			}
+    		}
+    	}
+    }
+    .houseNum{
+    	border-top:1px solid #eeeeee;
+    	padding: 0.5rem 0.3rem;
+    	background: white;
+    	overflow: hidden;
+    	.houseNum-item{
+    		width: 2.1rem;
+    		height: 1.3rem;
+    		float: 0.3rem;
+    		background: #f5f5f5;
+    		border-radius: 0.1rem;
+    		margin-right: 0.3rem;
+    		float: left;
+    		box-sizing: border-box;
+    		padding: 0.1rem;
+    		.houseNum-number{
+    			height: 0.6rem;
+    			font-size: 0.42rem;
+    			border-bottom :1px solid #eeeeee;
+    			text-align: center;
+    			font-weight: 600;
+    			line-height: 0.7rem;
+    			
+    		}
+    		.houseNum-name{
+    			text-align: center;
+    			font-size: 0.24rem;
+    			color: #333333;
+    			height: 0.55rem;
+    			color: #333333;
+    			line-height: 0.55rem;
+    		}
+    	}
     }
     .activity{ 
         background:#fff;
-        margin-top:0.15rem;
-        .activity-box{
-            width:90%;
-            margin-left:5%;
-            .activity-top{
-                width:100%;
-                height: 2rem;
-                .activity-left{
-                    width:2.8rem;
-                    height:1.75rem;
-                    float: left;
-                    img{
-                        width:100%;
-                        height:100%;
-                    }
-                }
-                .activity-right{
-                    width:3.9rem;
-                    height:1.75rem;
-                    float: right;
-                    box-sizing: border-box;
-                    padding-right: 0.15rem;
-                    h3{
-                        font-size:0.3rem;
-                        margin-left:0.3rem;
-                        font-weight: bold;
-                        color: #131313;
-                       	overflow:hidden;
-	       				text-overflow:ellipsis;
-						white-space:nowrap;
-                    }
-                    p{
-                    	width: 100%;
-                    	color: #666666;
-                        font-size: 0.23rem;
-                        margin-top:0.1rem;
-                        margin-left:0.3rem;
-                        text-align: left;
-                        text-indent: 2em;
-                    }
-                }
-            }
+        padding-top: 0.5rem;
+        .activity-ul-box{
+        	width: 100%;
+        	height:3rem;
+        	overflow-x:scroll ;
+        	box-sizing: border-box;
+        	
+        	padding:0 0.3rem 0.3rem 0.3rem;
+        }
+        .activity-ul{
+        	width: 16.5rem;
+        	background: white;
+        	overflow: hidden;
+        	.activity-li {
+        		width: 3rem;
+        		height: 2.4rem;
+        		float: left;
+        		background: lightblue;
+        		margin-right:0.3rem;
+        		img{
+        			width: 100%;
+        			height: 100%;
+        			border-radius: 0.1rem;
+        		}
+        	}
+        }
+    }
+    .shiming{
+    	width: 100%;
+    	height: 1.5rem;
+    	background: url(https://media.guoanfamily.com/rent/static/HomePage/yaoxian.png);
+    	background-size:100%;
+    }
+}
 
-        }
-    }
-    .templet{   
-        width:100%;
-        height: 4.5rem;
-        background:#fff;
-        margin-top:0.15rem;
-        padding-bottom:0.45rem;
-        .templet-box{
-            width:90%;
-            height:3.42rem;
-            margin-left:5%;
-            img{
-            	width:100%;
-                height:100%;
-            }
-            .templet-top{
-                width:100%;
-                height: 2.8rem;
-                margin-top:0.2rem;
-                .templet-left{
-                    width:40%;
-                    height:100%;
-                    float: left;
-                    img{
-                        width:100%;
-                        height:100%;
-                    }
-                }
-                .templet-right{
-                    width:60%;
-                    height:100%;
-                    float: left;
-                    h3{
-                        font-size:$littleFontSize;
-                        margin-top: 0.5rem;
-                        margin-left:10px;
-                        font-weight: 600;
-                    }
-                    p{
-                        font-size: $mostFontSize;
-                        margin-top:0.1rem;
-                        margin-left:10px;
-                    }
-                    span{
-                        display: inline-block;
-                        font-size:$mostFontSize;
-                        font-weight:600;
-                        margin-left:6px;
-                        color:$partColor;
-                    }
-                }
-            }
-        }
-    }
-    .GuoanLive{ 
-      width:100%;
-      height: 3.7rem;
-      background:#fff;
-      /*margin-top:0.5rem;*/
-     .guoanHome{
-     	box-sizing: border-box;
-     	padding: 0 5%;
-     }
-      .Guoan{
-        width:90%;
-        margin-left:5%;
-        .vux-swiper-desc{
-            font-size:12px !important;
-            background:tan !important;
-        }
-      }
-    }
-    .Templet{
-        width:100%;
-        background:#fff;
-        margin-top:0.15rem;
-        box-sizing: border-box;
-        padding-bottom: 0.5rem;
-    }
-}
-.banner{
-    //margin-top:$height;
-}
-.copyright {
-  font-size: 12px;
-  color: #ccc;
-  text-align: center;
-}
-.text-scroll {
-  border: 1px solid #ddd;
-  border-left: none;
-  border-right: none;
-}
-.text-scroll p{
-  font-size: 12px;
-  text-align: center;
-  line-height: 30px;
-}
-.black {
-  background-color: #000;
-}
-.title{
-  line-height: 100px;
-  text-align: center;
-  color: #fff;
-}
-.animated {
-  animation-duration: 1s;
-  animation-fill-mode: both;
-}
-.vux-indicator.custom-bottom {
-  bottom: 30px;
-}
-@-webkit-keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
+.panorama{
+  width:100%;
+  height:.8rem;
+  font-size:0.38rem;
+  color:#000000;
+  line-height:38px;
+  text-align:left;
+  font-weight:500;
+  margin-bottom: 0.05rem;
+  span{
+     padding-left:.3rem;
   }
-  100% {
-    opacity: 1;
-    transform: none;
+  span:nth-child(2){
+    display: block;
+    float: right;
+    height:35px;
+    width:115px;
+    margin-right:.3rem;
+    margin-bottom:.1rem;
+    background:url('../../../../static/new/reversionimg/more.png') no-repeat right;
+    background-size:50%;
   }
 }
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-.fadeInUp {
-  animation-name: fadeInUp;
-}
-.swiper-demo-img img {
-  width: 100%;
-}
-.MarginTop{
-  margin-top:0.01rem;
-}
-.title-box{//标题栏样式
-    width:100%;
-    height:1rem;
-    box-sizing: border-box;
-    padding-top: 0.1rem;
-    .box-title-box{
-    height:$height;
-    width:90%;
-    margin-left:5%;
-        .img1,p,div{
-            float: left;
-        }
-        .img1{
-            width:0.3rem;
-            height:0.3rem;
-            margin-top:0.2rem;
-        }
-        p{
-            font-size: 0.28rem;
-            line-height: $height;
-            margin-left:0.1rem;
-        }
-        .middle-line{
-	        height:$height;
-	        width:3.2rem;
-	        margin:0 0 0 0.23rem;
-	        line-height:0.1rem;
-	            span{
-	                display:inline-block;
-	                height: 1px;
-	                background:#f1f1f1;
-	                width:100%;
-	            }
-        }
-        .long-line{
-	        height:$height;
-	        width:4.5rem;
-	        margin:0 0 0 0.23rem;
-	        line-height:0.1rem;
-	            span{
-	                display:inline-block;
-	                height: 1px;
-	                background:#f1f1f1;
-	                width:100%;
-	            }
-        }
 
-        .img2{
-            height: $imgheight;
-            width:0.8rem;
-            margin-top:0.16rem;
-            float:right;
-        }
-        .lookMore{
-        	float: right;
-        	color: #333333;
-        	font-size: 0.24rem;
-        	margin: 0;
-        }
-    }
-}
-
-/*修改头部标题栏样式*/
- $topheight: 0.92rem;
- $btnSize: 0.42rem;
-
-	.title {
-		height: 0.8rem;
-		box-sizing: border-box;
-		padding: 0.2rem 0.3rem 0 0.3rem;
-		font-size:$titleFontSize;
-		.title-logo {
-			width: 0.32rem;
-			height: 0.26rem;
-			float: left;
-			margin-right: 0.12rem;
-			margin-top: 0.1rem;
-		}
-		.title-more {
-			float: right;
-			width: 0.64rem;
-			height: 0.33rem;
-			margin-top: 0.07rem;
-		}
-	}
-
-	.gaHome {
-		/*height: 3.52rem;*/
-		box-sizing: border-box;
-		position: relative;
-		padding-left: 0.3rem;
-
-	}
-
-	.box1 {
-		/*height: 100px;*/
-		position: relative;
-		/*width: 16.95rem;*/
-	}
-
-	.box1-item {
-		width: 3.31rem;
-		/*height: 3.9rem;*/
-		display: inline-block;
-		margin-left: 0.2rem;
-		float: left;
-		.active5{
-			width: 0.8rem;
-			height:0.8rem;
-			position: absolute;
-			top: 0.2rem;
-			left: 0.4rem;
-			background: url("../../../../static/rent/house-list/active418.png") no-repeat;
-			background-size: 100%;
-		}
-	}
-	/*scroll中的图片*/
-
-	.gaImg {
-		width: 100%;
-		height: 2.59rem;
-		.active-gaImg{
-			width: 0.8rem;
-			height:0.8rem;
-			position: absolute;
-			top: 0.2rem;
-			left: 0.2rem;
-			background: url("../../../../static/rent/house-list/active418.png") no-repeat;
-			background-size: 100%;
-		}
-		img{
-			width: 100%;
-			height: 100%;
-		}
-	}
-
-	.gatitle {
-		box-sizing: border-box;
-		padding: 0.12rem 0 0 0.1rem;
-		font-size: 0.24rem;
-		text-align: left;
-		.gatitle-one{
-			overflow:hidden;
-	       	text-overflow:ellipsis;
-			white-space:nowrap;
-		}
-	}
-
-	.gatitle p:nth-child(2) {
-		color: #e84e56;
-		margin-top: 0.06rem
-	}
-
-	.box1-item:first-child {
-		margin-left: 0;
-	}
-	.entrust{
-		/*margin-top: 0.4rem;*/
-		box-sizing: border-box;
-		padding:0 0.3rem ;
-		.entrust-leftImg{
-			width: 2.8rem;
-			height: 2.8rem;
-			float: left;
-		}
-		.entrust-rightTitle{
-			float: right;
-			width:3.89rem;
-			height: 2.8rem;
-			box-sizing: border-box;
-			padding-top: 0.32rem;
-		}
-		.entrust-rightTitle p:nth-child(1){
-			font-size: $titleFontSize;
-		}
-		.entrust-rightTitle p:nth-child(2){
-			font-size: $reminderFontSize;
-			margin-top:0.32rem;
-			color: #676767;
-		}
-		.entrust-rightTitle p:nth-child(3){
-			font-size: $reminderFontSize;
-			margin-top:0.32rem;
-			color: #e14d5b;
-			font-weight: bold;
-		}
-	}
-	.vux-x-icon {
-	  fill: white;
-	}
-	.myself{
-		widows: 100%;
-		height: 1.5rem;
-		img{
-			width: 100%;
-			height: 100%;
-		}
-	}
-	.btnandroid{
-		margin-top: -0.05rem;
-	}
-	.btnios{
-		/*margin-top: 0.1rem;*/
-	}
-	.search{
-		height: 0.5rem;
-		width: 5.43rem;
-		position: relative;
-		left: -0.45rem;
-		display: block;
-		margin-top: 0.55rem;
-		margin-right: 0.1rem;
-		margin-left:0.2rem ;
-		border: 1px solid #fcfff4;
-		background: transparent;
-		outline: none;
-		color: white;
-		border-radius: 2px;
-		text-indent: 0.15rem;
-		font-size: 0.24rem;
-		box-sizing: border-box;
-	}
-	.searchandroid{
-		height: 0.5rem;
-		width: 5.43rem;
-		position: relative;
-		left: -0.45rem;
-		display: block;
-		margin-top: 0.3rem;
-		margin-right: 0.1rem;
-		margin-left:0.2rem ;
-		border: 1px solid #fcfff4;
-		background: transparent;
-		outline: none;
-		color: white;
-		border-radius: 2px;
-		text-indent: 0.15rem;
-		font-size: 0.24rem;
-		box-sizing: border-box;
-	}
-	.emptyios{
-		height: 1.3rem;
-	}
-	.emptyandroid{
-		height: 1.1rem;
-	}
-	.scroll-swiper{
-		background: white;
-		box-sizing: border-box;
-		padding: 0 0 0 0.3rem;
-	}
 </style>

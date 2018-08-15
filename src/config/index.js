@@ -19,11 +19,11 @@ let def = {
 
 let dev = {
   DEV: true,
-   INTERFACE_NEW: "https://www.guoanfamily.com/",
- //INTERFACE_NEW: "http://172.16.40.120:8003/",
+   INTERFACE_NEW: "https://nt.guoanfamily.com/",
+//  INTERFACE_NEW: "http://172.16.47.64:8002/",
   // INTERFACE_NEW: "http://ntest.guoanfamily.com/",
 
-  INTERFACE_RENT: "https://www.guoanfamily.com/agenthouseCutomer/",
+  INTERFACE_RENT: "https://rt.guoanfamily.com/agenthouseCutomer/",
   UPLOAD_IMAGE: `https://www.guoanfamily.com/agenthouseWeb/CommonController/uploadFile`,
   IMAGE_PATH: "https://img.guoanfamily.com/",
   WECHAT_AUTH: false,
@@ -48,10 +48,10 @@ let dev = {
 
 let prod = {
   DEV: false,
-  INTERFACE_NEW: "https://www.guoanfamily.com/",
+  INTERFACE_NEW: "https://nt.guoanfamily.com/",
   // INTERFACE_NEW: "http://ntest.guoanfamily.com/",
 
-  INTERFACE_RENT: "https://www.guoanfamily.com/agenthouseCutomer/",
+  INTERFACE_RENT: "https://rt.guoanfamily.com/agenthouseCutomer/",
   UPLOAD_IMAGE: `https://www.guoanfamily.com/agenthouseWeb/CommonController/uploadFile`,
   IMAGE_PATH: "https://img.guoanfamily.com/",
   // 个人中心后台接口个人中心后台接口

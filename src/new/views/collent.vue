@@ -372,7 +372,6 @@ export default {
       this.flag2 = false;
       this.flag3 = true;
       this.lineFlag = 3;
-      console.log('1234',this.lineFlag);
       (this.rent = true), (this.housTypelist = false);
       this.apartMentList = false;
       this.post_data = {
@@ -422,6 +421,10 @@ export default {
 </script>
 
 <style lang='less' scoped>
+@font-face{
+	font-family:font01;
+	src:url("../../fonts/BEBASNEUE.otf");
+}
 @import "~vux/src/styles/1px.less";
 .collentTop {
   position: fixed;
@@ -430,7 +433,7 @@ export default {
   right:.3rem;
   z-index: 11;
   height: 0.8rem;
-  border-top:1px solid #cccccc;
+  // border-top:1px solid #cccccc;
   border-bottom:1px solid #cccccc;
   .topCenterRight{
     padding-right: 12px;
@@ -454,7 +457,7 @@ export default {
     float: left;
     height: 0.7rem;
     line-height: 0.7rem;
-    font-size: 0.35rem;
+    font-size: 0.32rem;
     background:#eeeeee;
     color:#999999;
   }
@@ -481,7 +484,7 @@ export default {
   right:0.3rem;
   z-index: 11;
   height: 0.8rem;
-  border-top:1px solid #cccccc;
+  // border-top:1px solid #cccccc;
   border-bottom:1px solid #cccccc;
   div {
     margin-top: 0.06rem;
@@ -489,7 +492,7 @@ export default {
     float: left;
     height: 0.7rem;
     line-height: 0.7rem;
-    font-size: 0.35rem;
+    font-size: 0.32rem;
     background:#eeeeee;
     color:#999999;
   }
@@ -516,7 +519,7 @@ export default {
   left: .3rem;
   z-index: 11;
   height: 0.8rem;
-  border-top:1px solid #cccccc;
+  // border-top:1px solid #cccccc;
   border-bottom:1px solid #cccccc;
   div {
     margin-top: 0.06rem;
@@ -524,7 +527,7 @@ export default {
     float: left;
     height: 0.7rem;
     line-height: 0.7rem;
-    font-size: 0.35rem;
+    font-size: 0.32rem;
     background:#eeeeee;
     color:#999999;
   }
@@ -608,7 +611,7 @@ export default {
 .listHouseaverage {
   bottom: 0;
   color: #000000;
-  font-family:'Source Han Sans CN';
+  font-family:'font01';
   font-size: 0.3rem;
   overflow: hidden;
   width: 70%;
@@ -617,7 +620,7 @@ export default {
 }
 
 .listHousearearegion {
-  font-family:'Source Han Sans CN';
+  font-family:'font01';
   font-size: 0.32rem;
   width: 70%; 
   text-align: left;

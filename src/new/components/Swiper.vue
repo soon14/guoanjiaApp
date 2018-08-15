@@ -2,9 +2,9 @@
   <!-- <div :class="[AndroidTop ? 'AndroidTop' : 'body_top']" > -->
   <div>
    <!--<swiper loop auto :list="demo06_list" :index="demo06_index" dots-position="center" height="4rem" @on-index-change="demo06_onIndexChange"  @on-click-list-item="justep"></swiper> -->
-      <div style="width:100%;height:4rem;">
+      <div style="margin-left:.3rem;margin-right:.3rem;height:4rem;">
         <swiper :options="swiperOption" ref="mySwiper" v-if="urlList.length > 0">
-          <swiper-slide :key='index' v-for="(item,index) in urlList"><img style="width:100%; height:4rem" :src='item.img' @click='justep(item)' /></swiper-slide>
+          <swiper-slide :key='index' v-for="(item,index) in urlList"><img style="width:100%; height:4rem;border-radius: .1rem;" :src='item.img' @click='justep(item)' /></swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
       </div>
@@ -36,7 +36,6 @@ export default {
       this.buildid = this.demo06_list[index].id;
     },
     justep(item) {
-      console.log(item);
         if(item.type == 2){
           // this.$router.push({ path: "building_detial", query: { buildID: item.valueId } });
           this.$router.push({path:item.value})
@@ -67,7 +66,6 @@ export default {
       }).then(
         response => {
           if (response.status == 200) {
-            console.log(response)
             this.baseList = response.data;
             // console.log(this.baseList);
             this.urlList = this.baseList.map((item, index) => ({

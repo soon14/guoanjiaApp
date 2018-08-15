@@ -34,21 +34,48 @@
 		.content-room {
 			background: white;
 			box-sizing: border-box;
-			padding: 0.28rem 0.42rem 0.2rem 0.23rem;
+			padding: 0.48rem 0.42rem 0.2rem 0.23rem;
 			position: relative;
 		}
-		.content-room p {
-			margin-top: 0.1rem;
-		}
+		
 		.content-img {
-			width: 1.8rem;
-			height: 1.5rem;
+			width: 2.8rem;
+			height: 2.1rem;
 			float: left;
 			margin-right: 0.34rem;
+			img{
+				width: 100%;
+				height: 100%;
+				border-radius: 0.1rem;
+			}
 		}
-		.content-room p:nth-of-type(3) {
-			font-size: $reminderFontSize;
+		.content-room-title1{
+			font-size: 0.32rem;
+			color: black;
 		}
+		.content-room-title2{
+			font-size: 0.26rem;
+			color: #666666;
+			margin-top: 0.2rem;
+		}
+		.content-room-title3{
+			font-size: 0.28rem;
+			color: black;
+			margin-top: 0.1rem;
+		}
+		.content-tabs{
+			overflow: hidden;
+			padding-top: 0.1rem;
+			.content-tabs-item {
+				padding: 0.1rem 0.2rem;
+				float: left;
+				margin-right: 0.2rem;
+				font-size: 0.24rem;
+				color: #999999;
+				background: #F5F5F5;
+			}
+		}
+		
 		.status {
 			position: absolute;
 			width: 1.06rem;
@@ -65,7 +92,7 @@
 		.content-person {
 			background: white;
 			box-sizing: border-box;
-			margin-top: 0.05rem;
+			margin-top: 0.2rem;
 			.content-person-name{
 				box-sizing: border-box;
 				padding-left: 0.27rem;
@@ -75,39 +102,9 @@
 				float: left;
 				 font-size: 0.3rem;
 			}
-			.content-person-name>span:nth-of-type(1) {
-				color: #ec4d63;
-				margin-right: 0.28rem;
-			}
-			.content-person-name>span:nth-of-type(2) {
-				margin-right: 0.5rem;
-			}
-			.person-input {
-				float: left;
-				width: 4rem;
-				height: 0.5rem;
-				border-bottom: 1px solid black;
-				margin-left: 4%;
-			}
-			.person-input>input {
-				outline: none;
-				width: 2.5rem;
-				border: 0;
-				font-size: 0.32rem;
-
-			}
-			.person-input>p {
-				width: 1.5rem;
-				float: right;
-				color: #ec4d63;
-			}
-		}
-		.content-person>div {
-			height: 0.9rem;
 		}
 		.content-message {
 			background: white;
-			margin-top: 0.21rem;
 			box-sizing: border-box;
 			padding: 0.35rem 0.35rem;
 			p{
@@ -119,7 +116,12 @@
 			width:100%;
 			height:1rem;
 			background: white;
-			margin-top:0.2rem;
+			
+			.content-data-inner{
+				width: 6.9rem;
+				border-bottom: 1px solid #EEEEEE;
+				margin-left: 0.3rem;
+			}
 		}
 		.content-date>span{
 			width:2%;
@@ -144,9 +146,8 @@
 			outline: none;
 			border: 0;
 			width: 100%;
-			height: 1.9rem;
+			height: 2.4rem;
 			background: #f5f5f5;
-			margin-top: 0.3rem;
 			border-radius: 3px;
 			font-size: $mostFontSize;
 			box-sizing: border-box;
@@ -208,20 +209,18 @@
 	}
 	.btn-bottom{
 		overflow: hidden;
-		margin-top:0.5rem;
 		height:2.2rem;
 	}
 	.payBtn {
-		width: 5.17rem;
-		height: 0.7rem;
-		background: #e24e59;
+		width: 6.9rem;
+		height: 0.9rem;
+		background: #e34b3e;
 		color: #feffff;
 		font-size: $titleFontSize;
-		line-height: 0.7rem;
+		line-height: 0.9rem;
 		text-align: center;
 		border-radius: 5px;
-		margin-left: 15.53%;
-		margin-top:0.8rem;
+		margin:0.8rem auto 0;
 	}
 
 	.person-msg {
@@ -237,38 +236,33 @@
 		}
 	}
 	.delegation-center-name{
-                height: 2.2rem;
+                height: 1.2rem;
                 background:#fff;
-
-
                 overflow: hidden;
+                border-bottom:1px solid #EEEEEE;
+                width: 6.9rem;
+                margin: auto;
+                box-sizing: border-box;
+    			padding-top: 0.05rem;
                 .delegation-center-name-top{
                     width:100%;
                     height: 0.7rem;
                     margin-top:0.2rem;
-                    span{
-                        display: block;
-                        height: 100%;
-                        width:10%;
-                        line-height: 0.75rem;
-                        color:$partColor;
-                        text-align: center;
-                        font-size: 0.3rem;
-                        float:left;
-                    }
                     p{
                         width:20%;
                         height: 100%;
                         line-height: 0.7rem;
                         font-size: 0.3rem;
                         float: left;
+                        text-align: center;
+                        color: black;
+                        font-size: 0.32rem;
                     }
                     div{
                         float: left;
                         width:65%;
                         height: 80%;
                         border:0;
-                        background-image: url("../../../assets/home/Delegation-bage.png");
                         background-size:100% 100%;
                         input{
                             display: block;
@@ -277,11 +271,11 @@
                             height:100%;
                             float:left;
                             margin-left:4%;
-                            font-size:$fewFontSize;
                             outline:none;
                             background:transparent;
                             border:none;
                             outline:medium;
+                            font-size: 0.28rem;
                              *:focus {
                                  outline: none;
                                  background-color: transparent;
@@ -293,8 +287,28 @@
                             width:25%;
                             float: left;
                             color:$partColor;
-
                         }
+                    }
+                    .sexSelect{
+                    	.gonggongde{
+                    		width: 1.5rem;
+                    		height: 0.5rem;
+                    		float: left;
+                    		line-height: 0.64rem;
+                    		margin-top: 0.05rem;
+                    	}
+                    	.nande{
+                    		background: url(../../../../static/rent/yk/selected.png) no-repeat center;
+                    		background-size:23% ;
+                    		background-position: 0.13rem 0.12rem;
+                    		text-indent: 0.55rem;
+                    	}
+                    	.nvde{
+                    		background: url(../../../../static/rent/yk/noselect.png) no-repeat center;
+                    		background-size:23% ;
+                    		background-position: 0.13rem 0.12rem;
+                    		text-indent: 0.55rem;
+                    	}
                     }
                 }
                 .delegation-center-name-bottom{
@@ -407,69 +421,58 @@
 				<div class="content-img">
 					<img :src="picImage" alt="" />
 				</div>
-				<p><span v-if="this.houseName">{{shareName}}</span><span v-if="false">{{roomName}}</span></p>
-				<p> <span style="color: #f4605e;" v-if="this.rentPrice">{{rentPrice}}</span>
-					<span style="font-size: 0.22rem;">元/月</span> </p>
-				<p><span v-if="this.area">{{area}}㎡ |</span>  <span v-if="this.houseBuildNo">{{houseBuildNo}}层</span></p>
-				<div class="status">
+				<p class="content-room-title1">{{shareName}}</span></p>
+				<p class="content-room-title2">{{buildNo}}号楼 {{buildUnitNo}}单元&nbsp;&nbsp;{{houseBuildNo}}层/{{area}}㎡</p>
+				<p class="content-room-title3">{{rentPrice}}元/月</p>
+				<div class="content-tabs">
+					<div class="content-tabs-item" v-for="item in advantageTags">{{item}}</div>
+				</div>
+				<!--<div class="status">
 					{{houseStatus}}
-				</div>
+				</div>-->
 				<div style="clear: both;"></div>
-			</div>
-			<div class="person-msg">
-				<div class="person-img">
-					<img src="../../../../static/rent/yk/people.png" alt="" />
-				</div>
-				&nbsp;
-				联系人信息
 			</div>
 
 			<div class="content-person">
 				<div class="delegation-center-name">
 	                <div class="delegation-center-name-top">
-	                    <span>*</span>
-	                    <p class="p1">手机号</p>
+	                    <p class="p1">手机</p>
 	                    <div class="delegation-center-name-top-bage">
 	                        <input type="text" placeholder="请输入您的手机号" v-model="userPhone" maxlength="11">
-	                        <p>(必填)</p>
 	                    </div>
 	                </div>
 	            </div>
 	            <div class="delegation-center-name">
 	                <div class="delegation-center-name-top">
-	                    <span>*</span>
 	                    <p class="p1">姓名</p>
 	                    <div class="delegation-center-name-top-bage">
 	                        <input type="text" placeholder="请输入您的姓名" v-model="userName" maxlength="11">
-	                        <p>(必填)</p>
 	                    </div>
 	                </div>
 	            </div>
-				<div class="content-person-name">
-					<span>*</span>
-					<span>称&nbsp;&nbsp;&nbsp;呼</span>
-					<!-- <gaSwitch :isMan="isNow" @sendData="sendData" style="float: left; margin-left: 0.3rem;"></gaSwitch> -->
-					<div class="switchBox" @click="switchToggle">
-						<p v-show="!isMan" class="switchText switchWomen" >女士</p >
-						<span type="button"  class="switchSlide" v-bind:style="[isMan ? switchLeft : switchRight]"></span>
-						<p v-show="isMan" class="switchText switchMan">先生</p >
-					</div>
-				</div>
+	            <div class="delegation-center-name">
+	                <div class="delegation-center-name-top">
+	                    <p class="p1">称呼</p>
+	                    <div class="sexSelect">
+	                    	<div class="gonggongde" :class="[isMan?'nande':'nvde']" @click="switchman">先生</div>
+	                    	<div class="gonggongde" :class="[!isMan?'nande':'nvde']"  @click="switchwoman" >女士</div>
+	                    </div>
+	                </div>
+	            </div>
 			</div>
 			<!--入住时间-->
 			<div class="content-date">
-				<span>*</span>
-				<div>
+				<div class="content-data-inner">
+					<div style="width: 0.45rem;height: 1rem;float: left;"></div>
 					<datetime v-model="contentDate" format="YYYY-MM-DD HH:mm" :placeholder="selectTime" @on-change="change" :title="hope"></datetime>
 				</div>
 			</div>
 			<!--留言-->
 			<div class="content-message">
-				<p>留言</p>
-				<textarea v-model="message" cols="30" rows="10" placeholder="更多看房或找房需求（选填）"></textarea>
+				<textarea v-model="message" cols="30" rows="10" placeholder="请输入您的留言"></textarea>
 			</div>
 		</div>
-		<div class="btn-bottom" style="background: #e8e8e8;">
+		<div class="btn-bottom" style="background: white;">
 			<div class="payBtn" @click="toAppointSuccess">提交约看</div>
 		</div>
 	</div>
@@ -510,7 +513,10 @@
 				customerSourceCode:"",//约看来源
 				androidOrIos:true,	//默认为安卓登录
 				shareName:this.$route.query.shareName,
-				userId:this.$route.query.userId
+				userId:this.$route.query.userId,
+				buildNo:"",
+				buildUnitNo:"",
+				advantageTags:"",
 			}
 		},
 		created() {
@@ -563,15 +569,13 @@
 					}
 				}
 			},
-			switchToggle () {//switch转换事件
-				this.isMan = !this.isMan;
-				if(this.isMan == true){
-					this.renterSex = 1;
-					console.log(this.renterSex)
-				}else{
-					this.renterSex = 0;
-					console.log(this.renterSex)
-				};
+			switchman(){
+				this.isMan = true;
+				this.renterSex = 1;
+			},
+			switchwoman(){
+				this.isMan = false;
+				this.renterSex = 0;
 			},
 			sendData(data){
 				this.sexData = data;
@@ -604,6 +608,10 @@
 						this.houseBuildNo = res.data.buildFloor;//房间楼层
 						this.houseStatus = res.data.houseStatus;//房间状态
 						this.renterSex = res.data.renterSex;//性别
+						this.buildNo = res.data.buildNo;
+						this.buildUnitNo = res.data.buildUnitNo;
+						this.advantageTags = res.data.advantageTags.split(',',2);
+						
 						if(this.renterSex == 0){
 							this.isMan = false;
 						}else if(this.renterSex == 1){

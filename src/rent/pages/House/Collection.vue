@@ -142,7 +142,6 @@
             <p slot="right-btn"></p>
         </ga-page-header>-->
         <div :class="[androidOrIos ? 'emptyandroid' : 'emptyios']" v-if="!this.$store.state.showWxTitle"></div>
-        <img class="logo" :src="sclogo" alt="">
          <div class="list-box">
               <div class="housing-resource">
                 <scroller class="scroller"
@@ -193,7 +192,6 @@
 <script>
     import openUrl from "../../../../static/rent/img/open.png"
     import stopUrl from "../../../../static/rent/img/stop.png"
-    import sclogo from "../../../../static/rent/img/collection/sclogo.png"
     export default {
         name: 'Collection',
         data() {

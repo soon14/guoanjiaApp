@@ -62,9 +62,9 @@ export default {
       this.$store.state.isMyTrue = true;
       this.$store.state.isonLinerent = false;
     },
-    // 路由到在线选房
+    // 路由到新房
     xuanfang() {
-      this.$router.push("onLineHouse");
+      this.$router.push("newHouseIndex");
       this.$store.state.buttonGroup = 1;
       this.$store.state.isIndexTrue = false;
       this.$store.state.isonLineTrue = true;
@@ -73,7 +73,7 @@ export default {
     },
     // 路由到租房
     zufang() {
-      this.$router.push("HouseList");
+      this.$router.push("HomePage");
       this.$store.state.buttonGroup = 3;
       this.$store.state.isIndexTrue = false;
       this.$store.state.isonLineTrue = false;
@@ -89,7 +89,7 @@ export default {
         this.$store.state.isonLineTrue = false;
         this.$store.state.isMyTrue = true;
         this.$store.state.isonLinerent = false;
-      } else if (href.indexOf("onLineHouse") !== -1) {
+      } else if (href.indexOf("newHouseIndex") !== -1) {
         this.$store.state.buttonGroup = 1;
         this.$store.state.isIndexTrue = false;
         this.$store.state.isonLineTrue = true;
@@ -118,7 +118,7 @@ export default {
       this.$store.state.isonLineTrue = false;
       this.$store.state.isMyTrue = true;
       this.$store.state.isonLinerent = false;
-    } else if (href.indexOf("onLineHouse") !== -1) {
+    } else if (href.indexOf("newHouseIndex") !== -1) {
       this.$store.state.buttonGroup = 1;
       this.$store.state.isIndexTrue = false;
       this.$store.state.isonLineTrue = true;

@@ -106,7 +106,7 @@
               </div>
             </div>
           </flexbox-item>
-          <flexbox-item style="margin-left:6px;">
+          <flexbox-item style="margin-left:6px;" @click.native="appointement">
             <div class="card_box">
               <div class="bg_box">
                 <div class="card_icon builds"></div>
@@ -185,7 +185,7 @@
               分享国安家
             </span>
           </div>
-          <div class='product product1' style="height:1rem;">
+          <div class='product product1' style="height:1rem;" @click="AboutMe">
             <span class="searchName">
               关于我们
             </span>
@@ -357,7 +357,12 @@ export default {
     },
     // 业主委托的点击事件
     weituo() {
-      this.$router.push("Delegation");
+      // this.$router.push("Delegation");
+      if (!this.LoToken() && !this.UserPhone()) {
+        this.$router.push({path:"/Entrust"});
+      }else{
+        this.$store.state.loginShow = true;
+      }
     },
     // 我的租约的点击事件
     zuyue() {
@@ -392,9 +397,17 @@ export default {
     },
     // 签到的点击事件
     singnClick(){
+
       if (this.$store.state.showWxTitle) {
-        this.onLineSign();
+        
+        if (this.LoToken() && this.UserPhone()) {
+          this.onLineSign();
+        }else{
+          this.$store.state.loginShow = true;
+        }
       } else {
+        console.log('123423');
+        
         if (this.LoToken() && this.UserPhone()) {
           this.$store.state.loginShow = true;
         }else{
@@ -503,7 +516,6 @@ export default {
         if(this.$store.state.showWxTitle){
           //提示在右上角点击分享
         this.shockAlert = true;
-        //console.log("提示右上角分享");
         }else{
           let setTime = setTimeout(()=>{
             this.shareAlert = true;
@@ -513,11 +525,15 @@ export default {
         }
 
     },
+    AboutMe(){
+      this.$router.push("AboutUs");
+
+    },
   // 检测版本
     Toversion(){
       if(chcp){
         chcp.getVersionInfo((err, data)=>{
-          console.log('Application build version: ' + data.buildVersion);
+
         })
       }
     },
@@ -686,11 +702,9 @@ export default {
   },
   computed:{
     usersName(){
-      console.log(213,this.$store.state.userName)
       return this.$store.state.userName
     },
     usersPhone(){
-      console.log(2134,this.$store.state.userPhone)
       return this.$store.state.userPhone
     }
   },
@@ -699,7 +713,6 @@ export default {
     usersPhone(){
 
       if(this.usersPhone){
-        console.log(123,this.usersPhone)
         this.isLogin = false;
       }
     }

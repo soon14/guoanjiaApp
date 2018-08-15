@@ -1,9 +1,8 @@
 <template>
     <div  class="fixContent" >
-
         <div :class="{'topSwiper':IosTop,'topSwiper1':AndroidTop,'topSwiper2':WxTop}">
-            <div style="width:96%;margin-left:2%;" v-show="topTab">
-                <tab :line-width=2 active-color='#e00019' v-model="index">
+            <div style="width:90%;margin-left:5%;" v-show="topTab">
+                <tab :line-width=2 active-color='#e34b3e' default-color="#999" v-model="index">
                     <tab-item @on-item-click='tabClick(item)' class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
                 </tab>
             </div>
@@ -12,34 +11,51 @@
         <div :class="{'order':orderListss}" v-show="newHouse">
             <ul>
                 <li class="listHouseoLi" :key="index" v-for="(item,index) in orderList">
+                    <div class="orderps">
+                      <p>{{item.laber01}}</p>
+                      <div class="clocker" v-if='item.orderstate==10||item.orderstate==11'>
+                        倒计时：{{item.countDown}}内完成支付单 
+                        <!-- 倒计时：<clocker @on-finish="clockFinish" :time="time1"></clocker>内完成支付单  -->
+                      </div>
+                      <div class="clocker" v-if='item.orderstate==2 || item.orderstate==3'>
+                        待后台提交购房资格审核，请耐心等待
+                      </div>
+                    </div>
                     <div class="orderDiv">
                         <div class="orderDivLeft">
                             <img :src="item.buildpic" alt="">
                         </div>
                         <div class="orderDivRight">
-                            <div class="rightTopState" :class="{rightTopState1:item.orderstate ==10 || item.orderstate ==11}">{{item.orderContent}}</div>
+                            <!-- <div class="rightTopState" :class="{rightTopState1:item.orderstate ==10 || item.orderstate ==11}">{{item.orderContent}}</div> -->
                             <!-- <div class=""></div>
                                     <div class="yifu">已付定金:(元){{item.subtotalprice}}元</div> -->
-                            <div class="buildname">{{item.buildname}}</div>
+                            <!-- <div class="buildname">{{item.buildname}}</div> -->
                             <!-- <div class="house">{{item.houseinfo}}</div> -->
-                            <div class="houses">{{item.houseinfo}}</div>
-                            <div class="houseType">{{item.housetype}}</div>
-                            <div class="subMoney">总价:{{item.submoney}}元</div>
-                            <div class="subMoney" style="color:red;" v-if="item.orderstate==11">需支付登岛费(元):{{item.signtotalmoney}}元</div>
-                            <div class="subMoney" style="color:red;" v-if="item.orderstate==2">已支付的入会金额(元):{{item.signtotalmoney}}元</div>
-                            <div class="subMoney" style="color:red;" v-if="item.orderstate==10">需支付定金(元):{{item.subtotalprice}}元</div>
-                            <div class="subMoney" style="color:red;" v-if="item.orderstate==3">已支付定金(元):{{item.subtotalprice}}元</div>
+                            <!-- <div class="houses">{{item.houseinfo}}</div> -->
+                            <div class="houseType housezoom">{{item.houseinfo}}</div>
+                            <div class="housezoom">{{item.housetype}}</div>
+                            <div class="housezoom">优惠信息：{{item.discountscheme}}</div>
                         </div>
                         <div class="bottomTimes">
-                            <div class="setTimes" v-if='item.orderstate==10||item.orderstate==11'>倒计时:{{item.countDown}}</div>
-                            <div class="zishen" v-else-if='item.orderstate==3||item.orderstate==4'>已提交后台进行购房资格审核</div>
+                          <div class="btmimeleft">
+                            <div class="subMoney totleprice">总价:{{item.submoney}}元</div>
+                            <div class="subMoney" v-if="item.orderstate==11">需支付登岛费:<span class="prices" style="color:red;">{{item.signtotalmoney}}元</span></div>
+                            <div class="subMoney" v-if="item.orderstate==2">已支付的入会金额:<span class="prices" style="color:red;">{{item.signtotalmoney}}元</span></div>
+                            <div class="subMoney" v-if="item.orderstate==10">需支付定金:<span class="prices" style="color:red;">{{item.signtotalmoney}}元</span></div>
+                            <div class="subMoney" v-if="item.orderstate==3">已支付定金:<span class="prices" style="color:red;">{{item.signtotalmoney}}元</span></div>
+                            <!-- <div class="setTimes" v-if='item.orderstate==10||item.orderstate==11'>倒计时:{{item.countDown}}</div> -->
+                            <!-- <div class="zishen" v-if='item.orderstate==3||item.orderstate==4'>已提交后台进行购房资格审核</div> -->
+                          </div>
+                           
+                            <div class="buttons">
+                              <button v-if="item.orderstate == 10 || item.orderstate ==11 ||item.orderstate ==11" @click="payMoneyClick(item)" style="color:#fff;float:left;background: #e34b3e">付款</button>
+                              <button v-if="item.orderstate == 3 || item.orderstate ==4 || item.orderstate ==5" style="color:#666;">查看订单</button>
+                              
+                              <button v-if="item.orderstate == 10 || item.orderstate ==11" style="color:#999;background: #eee">取消订单</button>
+                              <button v-if="item.orderstate == 3 || item.orderstate ==4 || item.orderstate ==5" style="color:#999;background: #eee;float:left">申请退款</button>
+                            </div>
                         </div>
-                        <div class="buttons">
-                            <button v-if="item.orderstate == 3 || item.orderstate ==4 || item.orderstate ==5">查看订单</button>
-                            <button v-if="item.orderstate == 10 || item.orderstate ==11 ||item.orderstate ==11" @click="payMoneyClick(item)" style="color:red;">付款</button>
-                            <button v-if="item.orderstate == 10 || item.orderstate ==11" style="color:#ccc;">取消订单</button>
-                            <button v-if="item.orderstate == 3 || item.orderstate ==4 || item.orderstate ==5">申请退款</button>
-                        </div>
+                        
                     </div>
                 </li>
             </ul>
@@ -48,14 +64,15 @@
 </template>
 
 <script>
-import { Tab, TabItem, Sticky } from "vux";
+import { Tab, TabItem, Sticky, Clocker, } from "vux";
 const list = () => ["全部", "意向", "认购", "成交", "退款"];
 export default {
   name: "orderList",
   components: {
     Tab,
     TabItem,
-    Sticky
+    Sticky,
+    Clocker,
   },
   data() {
     return {
@@ -80,6 +97,7 @@ export default {
       marked: false,
       orderid:'',
       totalFees:'',
+      time1: '2018-08-13 22:54:00',
     };
   },
   methods: {
@@ -124,8 +142,10 @@ export default {
                 );
                 if (this.orderList[i].orderstate == "2") {
                   this.orderList[i].orderContent = "已入会，付款成功";
+                  this.orderList[i].laber01 = "已入会，付款成功";
                 } else if (this.orderList[i].orderstate == "3") {
                   this.orderList[i].orderContent = "已认购,付款成功";
+                  this.orderList[i].laber01 = "已认购，支付成功";
                 } else if (this.orderList[i].orderstate == "4") {
                   this.orderList[i].orderContent = "资格审核中";
                 } else if (this.orderList[i].orderstate == "5") {
@@ -150,8 +170,10 @@ export default {
                   this.orderList[i].orderContent = "退款完成";
                 } else if (this.orderList[i].orderstate == "10") {
                   this.orderList[i].orderContent = "下订待支付";
+                  this.orderList[i].laber01 = "已认购，待推荐";
                 } else if (this.orderList[i].orderstate == "11") {
                   this.orderList[i].orderContent = "入会待支付";
+                  this.orderList[i].laber01 = "已认购，待推荐";
                 }
               }
             } else {
@@ -282,6 +304,10 @@ export default {
         text: msg,
         type: "text"
       });
+    },
+    // 倒计时完成时
+    clockFinish() {
+      console.log('倒计时完成')
     }
   },
   mounted() {
@@ -321,7 +347,7 @@ export default {
 @import "~vux/src/styles/1px.less";
 @import "~vux/src/styles/center.less";
 .topSwiper {
-  margin-top: 60px;
+  margin-top: 1.4rem;
   width: 100%;
   height: 1.1rem;
   background: #fff;
@@ -331,7 +357,7 @@ export default {
   z-index: 10;
 }
 .topSwiper1 {
-  margin-top: 60px;
+  margin-top: 1.4rem;
   width: 100%;
   height: 1.1rem;
   background: #fff;
@@ -351,7 +377,7 @@ export default {
   z-index: 10;
 }
 .order{
-    margin-top: 2.1rem;
+    margin-top: 2.3rem;
 }
 .collentTop {
   width: 96%;
@@ -365,13 +391,30 @@ export default {
 }
 
 .listHouseoLi {
-  padding-top: 0.25rem;
+  padding: 0.25rem 0;
   width: 90%;
   margin-left: 5%;
-  height: 3rem;
-  margin-bottom: 0.25rem;
+  height: 4.5rem;
+  border-bottom: 1px solid #efefef;
+  // margin-bottom: 0.25rem;
   background: #fff;
   position: relative;
+}
+.orderps{
+  height: 1rem;
+  padding-left: .24rem;
+  text-align: left;
+  background: #eee;
+  margin-bottom: .3rem;
+  p{
+    padding: .11rem 0 .04rem 0;
+    font-size: .32rem;
+    color: #e34b3e;
+  }
+}
+.clocker{
+  font-size: .24rem;
+  color: #999; 
 }
 
 .orderDiv {
@@ -386,7 +429,7 @@ export default {
     }
   }
   .orderDivRight {
-    width: 63%;
+    width: 60%;
     float: right;
     height: 1.5rem;
     background: #fff;
@@ -416,8 +459,10 @@ export default {
       font-size: 0.25rem;
     }
     .buildname {
-      font-size: 0.3rem;
+      font-size: 0.32rem;
       text-align: left;
+      color: #000;
+      padding-bottom: .1rem;
     }
     .houses {
       font-size: 0.25rem;
@@ -429,16 +474,30 @@ export default {
       font-size: 0.25rem;
       color: #ccc;
     }
-    .subMoney {
+    .housezoom{
       text-align: left;
-      font-size: 0.25rem;
-      color: #ccc;
+      font-size: 0.24rem;
+      color: #999;
+      line-height: .4rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
+  }
+  .subMoney {
+    text-align: left;
+    font-size: 0.25rem;
+    color: #000;
+  }
+  .totleprice{
+    padding-top: .1rem;
+    margin-bottom: .2rem;
   }
   .bottomTimes {
     width: 100%; // height: 1.5rem;
     background: #fff;
     float: left;
+    border-top: 1px solid #efefef;
     margin-top: 0.125rem;
     position: relative;
     .setTimes {
@@ -467,18 +526,19 @@ export default {
     width: 50%;
     height: 0.5rem;
     position: absolute;
-    right: 0;
+    right: -.1rem;
     bottom: 0; // float: right;
     // background: red;
     button {
-      border-radius: 0.25rem;
+      border-radius: 0.1rem;
       width: 1.5rem;
       text-align: center;
-      padding: 5px;
+      padding: 5px 0;
       background: #fff;
       border: 1px solid #cdcdcd;
       float: right;
-      margin-right: 5px;
+      font-size: .24rem;
+      margin-right: .1rem;
     }
   }
 }

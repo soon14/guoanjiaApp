@@ -11,7 +11,7 @@
             <div class="inputBox">
               <div class="close2">
                 <img class="img0" src="../../../static/new/img/cloase2.png" alt="">
-                <img class="img2" :src="faceImg" alt="">
+                <!-- <img class="img2" :src="faceImg" alt=""> -->
               </div>              
               <div class="box">
                 <div class="inputTel animated" :class="{flipInX:isanimated}">
@@ -46,19 +46,19 @@
 </template>
 
 <script>
-import face00 from '../../../static/rent/login/00.png';
-import face01 from '../../../static/rent/login/01.png';
-import face02 from '../../../static/rent/login/02.png';
-import face03 from '../../../static/rent/login/03.png';
-import face04 from '../../../static/rent/login/04.png';
-import face05 from '../../../static/rent/login/05.png';
-import face06 from '../../../static/rent/login/06.png';
-import face07 from '../../../static/rent/login/07.png';
-import face08 from '../../../static/rent/login/08.png';
-import face09 from '../../../static/rent/login/09.png';
-import face10 from '../../../static/rent/login/10.png';
-import face11 from '../../../static/rent/login/11.png';
-import face12 from '../../../static/rent/login/12.png';
+// import face00 from '../../../static/rent/login/00.png';
+// import face01 from '../../../static/rent/login/01.png';
+// import face02 from '../../../static/rent/login/02.png';
+// import face03 from '../../../static/rent/login/03.png';
+// import face04 from '../../../static/rent/login/04.png';
+// import face05 from '../../../static/rent/login/05.png';
+// import face06 from '../../../static/rent/login/06.png';
+// import face07 from '../../../static/rent/login/07.png';
+// import face08 from '../../../static/rent/login/08.png';
+// import face09 from '../../../static/rent/login/09.png';
+// import face10 from '../../../static/rent/login/10.png';
+// import face11 from '../../../static/rent/login/11.png';
+// import face12 from '../../../static/rent/login/12.png';
 //解决安卓软键盘遮挡问题
 // alert(navigator.appVersion);
 if(/Android [4-8]/.test(navigator.appVersion)) {
@@ -89,18 +89,18 @@ export default {
       loginBox:"",//动态调整top高度，保证安卓软键盘不变形
       centerBox:"",//动态调整center高度，保证安卓软键盘不变形
        RegistrationID:"",//极光推送的id
-       faceImg:face00,//变换表情
+      //  faceImg:face00,//变换表情
     };
   },
   methods: {
     //调节安卓软键盘问题
     phoneClick(e) {
       this.phoneNumber=this.phoneNumber;
-      if(e == '1'){
-        this.faceImg=face00;
-      }else if(e == '2'){
-        this.faceImg=face12;
-      }
+      // if(e == '1'){
+      //   this.faceImg=face00;
+      // }else if(e == '2'){
+      //   this.faceImg=face12;
+      // }
       let bodyHeight =
         window.document.documentElement.clientHeight ||
         document.body.clientHeight;
@@ -120,29 +120,30 @@ export default {
         this.hiddenShade(); //两秒自动关闭弹出层
         return false;
       }
-      if(faceLength == 1){
-        this.faceImg=face01;
-      }else if(faceLength == 2){
-        this.faceImg=face02;
-      }else if(faceLength == 3){
-        this.faceImg=face03;
-      }else if(faceLength == 4){
-        this.faceImg=face04;
-      }else if(faceLength == 5){
-        this.faceImg=face05;
-      }else if(faceLength == 6){
-        this.faceImg=face06;
-      }else if(faceLength == 7){
-        this.faceImg=face07;
-      }else if(faceLength == 8){
-        this.faceImg=face08;
-      }else if(faceLength == 9){
-        this.faceImg=face09;
-      }else if(faceLength == 10){
-        this.faceImg=face10;
-      }else if (faceLength == 11) {
+      // if(faceLength == 1){
+      //   this.faceImg=face01;
+      // }else if(faceLength == 2){
+      //   this.faceImg=face02;
+      // }else if(faceLength == 3){
+      //   this.faceImg=face03;
+      // }else if(faceLength == 4){
+      //   this.faceImg=face04;
+      // }else if(faceLength == 5){
+      //   this.faceImg=face05;
+      // }else if(faceLength == 6){
+      //   this.faceImg=face06;
+      // }else if(faceLength == 7){
+      //   this.faceImg=face07;
+      // }else if(faceLength == 8){
+      //   this.faceImg=face08;
+      // }else if(faceLength == 9){
+      //   this.faceImg=face09;
+      // }else if(faceLength == 10){
+      //   this.faceImg=face10;
+      // }else 
+      if (faceLength == 11) {
         tel = e.target.value;
-        this.faceImg=face11;
+        // this.faceImg=face11;
         if (!/^1[3|4|5|7|8][0-9]\d{8}$/.test(tel)) {
           this.isshades = true;
           this.shdeModel = "电话号码有误,请重新输入";
@@ -171,7 +172,7 @@ export default {
     //实时判断验证码
     authCodeInput(e){
       if(!/^\d+$/.test(e.target.value)){
-        this.faceImg=face13;
+        // this.faceImg=face13;
           this.isshades = true;
           this.shdeModel="验证码有误,请重新输入";
           this.vistionCode = "";
@@ -359,7 +360,7 @@ export default {
                 ); //将客户的基本信息，收藏的楼盘放入localstorage
               }, 700);
             } else {
-              this.faceImg=face13;
+              // this.faceImg=face13;
               this.isshades = true;
               this.shdeModel=response.msg;
               this.vistionCode = "";

@@ -10,8 +10,9 @@
         width: 100%;
         height:1.3rem;
         /*border-bottom: $baseBorder;*/
+        border-bottom:1px solid #cccccc;
         z-index: 1000;
-        background: #e24e59;
+        background: #ffffff;
     }
     .on-headers{
         position: absolute;
@@ -27,7 +28,7 @@
         height: 1.2rem;
         width: $height;
         background: url("../../../../static/rent/icon-back-btn.png") no-repeat center;
-        background-size: $btnSize;
+        background-size: 20%;
         display: inline-block;
     }
     .An-back-btn{
@@ -35,7 +36,7 @@
         height: 1.1rem;
         width: $height;
         background: url("../../../../static/rent/icon-back-btn.png") no-repeat center;
-        background-size: $btnSize;
+        background-size: 20%;//$btnSize;
         display: inline-block;
     }
     .middle{
@@ -45,18 +46,18 @@
         bottom: 0;
         left: $height;
         right: $height;
-
+        background:#ffffff;
         .title{
         	height: 1.1rem;
-      		font-size: $titleFontSize;
+      		font-size: 0.36rem;//$titleFontSize;
             line-height: 1.6rem;
-            color: $titleColor;
+            color: #000000;//$titleColor;
         }
         .Antitle{
             height: 1.1rem;
-      		font-size: $titleFontSize;
+      		font-size: 0.36rem;//$titleFontSize;
             line-height: 1.5rem;
-            color: $titleColor;
+            color: #000000;//$titleColor;
         }
     }
 

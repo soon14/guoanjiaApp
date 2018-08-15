@@ -10,6 +10,13 @@
         <div :class="{'listUlDiv':!this.$store.state.showWxTitle}">
             <ul class="listUl">
                 <li class="listHouseoLi" :key="index" v-for="(item,index) in appintmentList">
+                    <div class="yytime">
+                        <span>约看时间:</span>
+                        <span>{{item.appointmentTime}}</span>
+                        <div class="visit" :class="{visit01:item.state != '未到访'}">
+                             <span style="color:#666">{{item.state}}</span>
+                        </div>
+                    </div>
                     <div class='listHouseLeftImg'>
                         <img :src='item.picture' />
                     </div>
@@ -19,36 +26,33 @@
                             <span>{{item.buildName}}</span>
                         </div>
                         <div class="listHouseaverage">
-                            <span style="color:red;">¥{{item.price}}</span>
-                            <span style="color:red;">元/㎡</span>
+                            <span style="">¥{{item.price}}</span>
+                            <span style="">元/㎡</span>
                         </div>
-                        <div class="listHouseaverage">
-                            <span style="font-size:0.3rem;color:#666666;font-weight:normal;">{{item.content}}</span>
-                            <span style="font-size:0.3rem;color:#666666;font-weight:normal;">㎡</span>
+                        <div class="listHouseaverage" style="padding-top:.32rem">
+                            <span style="font-size:0.3rem;color:#999;font-weight:normal;">{{item.content}}</span>
+                            <span style="font-size:0.34rem;color:#999;font-weight:normal;">㎡</span>
                         </div>
                         <div class="HouseaddressLocation">
                             <div class="listHouseaddress">{{item.appointmentAddress}}</div>
                         </div>
                     </div>
                     <div class="custNaTime">
-                        <div>
+                        <!-- <div>
                             <span>人数:</span>
                             <span>{{item.totalCount}}</span>
                             <span style="color:red;padding-left:.25rem;">状态:</span>
-                            <span style="color:red">{{item.state}}</span>
-                        </div>
-                        <div>
-                            <span>预约时间:</span>
-                            <span>{{item.appointmentTime}}</span>
-                        </div>
-                        <div>
-                            <span>看房地点:</span>
+                           
+                        </div> -->
+                        <div style="">
+                            <span>约看地点:</span>
                             <span>{{item.lookAddress}}</span>
                         </div>
+                        <div class="callNumber">
+                            <a href="tel:400-900-2225">联系客服</a>
+                        </div>
                     </div>
-                    <div class="callNumber">
-                        <a href="tel:400-900-2225">联系客服</a>
-                    </div>
+                    
                     <!-- <x-button class="immeditBookingPay" type="primary" action-type="button" @click.native='exitAppoint(item)'>取消预约</x-button> -->
                 </li>
                 <!-- <div class="solidLine"></div> -->
@@ -127,11 +131,6 @@ export default {
 
 <style lang="less" scoped>
 @import '~vux/src/styles/1px.less';
-html,
-body {
-    background: #ccc;
-}
-
 .collentTop {
     font-size: .4rem;
     width: 100%; // margin-left: 2%; // margin-top: 0.5rem;
@@ -146,38 +145,23 @@ body {
     background:#fff;
 }
 .listUlDiv{
-    margin:1.2rem auto;
-    width: 95%;
-    padding-left:20px;
+    margin:1.3rem auto 0;
+    width: 100%;
 }
 .listUl {
-    background: #eee;
+    // background: #eee;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 .3rem;
 }
 
 .listHouseoLi {
     padding-top: 0.25rem;
     width: 100%;
-    height: 3.2rem;
-    margin-bottom: 0.25rem;
+    height: 4.3rem;
+    // margin-bottom: 0.25rem;
     background: #fff;
     position: relative;
-    .callNumber {
-        width: 25%;
-        font-size: 0.3rem;
-        text-align: left;
-        height: .7rem;
-        position: absolute;
-        bottom: .6rem;
-        right: 2.1rem;
-        a {
-            background: url('../../../static/new/img/callNumber.png') no-repeat 90% 11%;
-            background-size: 21%;
-            display: block;
-            width: 100%;
-            height: 100%;
-            color: #2c3e50;
-        }
-    }
     .immeditBookingPay {
         background: none;
         color: #333333;
@@ -200,45 +184,49 @@ body {
 // }
 .listHouseLeftImg {
     float: left;
-    width: 35%;
+    width: 2.8rem;
 }
 
 .listHouseLeftImg img {
-    margin-top: 5px;
-    width: 2.125rem;
-    height: 1.7rem;
+    margin-top: .2rem;
+    width: 2.8rem;
+    height: 2.1rem;
     border-radius: 5px;
 }
 
 .listHouseRightDiv {
-    width: 65%;
+    width: 3.8rem;
     float: right;
     text-align: left;
     position: relative;
 }
 
 .listHouseRightName {
-    font-size: 0.35rem;
-    font-weight: 400;
+    padding-top: .2rem;
+    font-size: 0.32rem;
+    font-weight: 600;
+    color: #000;
 }
 
 .listHouseaverage {
+    padding-top: .1rem;
     bottom: 0;
-    color: #eec068;
+    color: #000;
     font-size: 0.3rem;
     font-weight: bold;
 }
 
 .HouseaddressLocation {
     .listHouseaddress {
-        font-size: 0.25rem;
+        padding-top: .04rem;
+        font-size: 0.24rem;
         float: left;
         width: 100%;
         height: .39rem;
         line-height: 0.35rem;
         text-align: left;
         font-size: 0.3rem;
-        color: #666666; 
+        color: #999; 
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -246,15 +234,39 @@ body {
 }
 
 .custNaTime {
-    width: 92%;
-    height: 1rem;
+    width: 100%;
+    height: .7rem;
     float: left;
+    line-height: .7rem;
     text-align: left;
-    margin-left: 2%; // margin-top: 0.2rem;
-    // border-top: 1px solid #ccc;
-    font-size: 0.25rem;
+    margin-top: 0.3rem;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 0.28rem;
+    font-weight: 600;
+    position: relative;
 }
-
+.callNumber {
+    width: 1.4rem;
+    font-size: 0.24rem;
+    text-align: center;
+    height: .5rem;
+    line-height: .5rem;
+    margin-top: .1rem;
+    background-color: #e34b3e;
+    border-radius: .06rem;
+    // float: right;
+    position: absolute;
+    right: 0;
+    top: 0;
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        font-weight: 400;
+    }
+}
 .market1 {
     width: 100%;
     height: 90%;
@@ -268,6 +280,26 @@ body {
     right: 0;
     margin: auto;
     z-index: 11;
+}
+.yytime{
+    height: 0.6rem;
+    background-color: #eee;
+    font-size: .28rem;
+    color: #666;
+    padding: 0 .2rem 0 .22rem;
+    line-height: .6rem;
+    text-align: left;
+}
+.visit{
+    float: right;
+    width: 1.3rem;
+    height: 0.6rem;
+    background: url("../../assets/home/yuyuexx.png") no-repeat center right;
+    background-size: 30%;
+}
+.visit01{
+    background: url("../../assets/home/yuyuexx01.png") no-repeat center right;
+    background-size: 30%;
 }
 </style>
 

@@ -75,50 +75,32 @@
 		width:100%;
 		height: 100%;
 	}
-	.banner{
-		border-bottom: 1px solid #e8e8e8;
-		height:22%;
-		position: relative;
-		div{
-			width:55%;
-			height: 0.6rem;
-			position: absolute;
-			right: 0;
-			bottom:0.15rem;
-
-			p:nth-child(1){
-				font-size:$titleFontSize;
-				float:left;
-				line-height:0.6rem;
-			}
-			p:nth-child(2){
-				font-size:$littleFontSize;
-				line-height:0.6rem;
-			}
-		}
-	}
 	/*未完成约看、已完成约看选项卡*/
 	.switch-title{
 		font-family: "微软雅黑";
-		background: #e8e8e8;
+		background: white;
 		overflow: hidden;
 		font-size: $reminderFontSize;
 		text-align: left;
-		height:78%;
+		height:81%;
 		ul{
-			width: 100%;
+			width: 6.9rem;
+			margin: auto;
 			li{
 				width: 50%;
-				height: 0.62rem;
+				height: 0.8rem;
 				text-align: center;
-				line-height: 0.62rem;
-				color: #b3b3b3;
+				line-height: 0.8rem;
+				color: #999999;
 				float: left;
 				font-size: 0.28rem;
 				box-sizing: border-box;
+				background: #EEEEEE;
+				border-bottom: 1px solid #CCCCCC;
 			}
 			.select{
-				color: #e14e58;
+				color: #E34B3E;
+				background: white;
 			}
 
 		}
@@ -126,25 +108,25 @@
 		.noneList{
 			font-size: $reminderFontSize;
 			box-sizing: border-box;
-			height:6.4rem;
+			height:10.4rem;
 			padding:0.3rem 0.3rem 0.4rem;
-			background:#e8e8e8;
+			background:white;
 			position: relative;
 			overflow: scroll;
 			.noData{
 				position: absolute;
 				bottom:-45px;
 				width:100%;
-				height: 1.2rem;
+				height: 1.4rem;
 				text-align: center;		
 				a{
 					color:#c9151d;
 					font-size:0.32rem;
 					font-weight: 600;
+					line-height: 0.5rem;
 				}
 				p{
 					color:#666666;
-					margin-top:8px;
 					font-size:0.24rem;
 				}
 
@@ -153,75 +135,65 @@
 				width:90%;
 				margin-left:5%;
 			}
-			.triangle,.triangleTwo{
-				position:absolute;
-				top:0;
-				left:24%;
-				border:0.1rem solid white;
-				border-bottom:0.1rem solid transparent;
-				border-right:0.1rem solid transparent;
-				border-left: 0.1rem solid transparent;
-			}
-			.triangleTwo{
-				left:74%;
-			}
 			.noneItem{
-				width:90%;
-				margin-left:5%;
-				margin-top:5%;
+				width:6.9rem;
+				margin: auto;
 				background: $titleColor;
 				box-sizing: border-box;
-				padding:0.32rem 0.27rem;
-				box-shadow: 0px 2px 0px #bbbbbb;
-
+				padding:0.32rem 0 0.2rem;
+				/*box-shadow: 0px 2px 0px #bbbbbb;*/
+				border-bottom: 1px solid #CCCCCC;
 				.noneItem-title{
-					color: #555555;
+					height: 0.6rem;
+					background: #EEEEEE;
+					color: #666666;
+					font-size:0.28rem;
+					line-height:0.6rem;
+					text-indent:1em;
 					p {
 						float: right;
-						color: #e89166;
+						margin-right:0.3rem ;
 					}
 				}
 				.noneItem-content{
 					margin-top: 0.2rem;
 					position: relative;
 					.left-img{
-						width:25%;
-						height: 1.52rem;
+						width:2.8rem;
+						height: 2.1rem;
 						float: left;
+						img{
+							border-radius: 0.1rem;
+						}
 					}
 					.right-msg {
 						float: left;
 						margin-left:2%;
-						width: 60%;
+						width: 3.9rem;
 						height: 1.52rem;
-						p{
-							width:100%;
-							overflow: hidden;
-							text-overflow:ellipsis;
-							white-space: nowrap;
-
+						.p1{
+							font-size: 0.32rem;
+							color: black; 
 						}
-						.collect-message{
-							width:100%;
-							height: 0.66rem;
-							box-sizing: border-box;
-							padding: 0.19rem 0 0 0;
-							margin-top: 0.07rem;
-							overflow: hidden;
+						.p2{
+							font-size: 0.26rem;
+							color: #666666;
+							margin-top: 0.2rem;
 						}
-						.collect-message>span{
-							width:30%;
-							margin-left:3%;
-							display: inline-block;
-							background: #e99064;
-							color: #f9ffff;
-							border-radius: 5px;
+						.p3{
+							font-size: 0.28rem;
+							color: #000000;
+							margin-top: 0.1rem;
+						}
+						.collect-message-tags{
+							display: block;
+							padding: 0.1rem 0.2rem;
+							background: #F5F5F5;
+							color: #999999;
 							text-align: center;
-							padding: 0.03rem 0rem;
-							overflow: hidden;
-							text-overflow:ellipsis;
-							white-space: nowrap;
-							float:left;
+							float: left;
+							margin-right: 0.2rem;
+							margin-top: 0.1rem;
 						}
 					}
 					.center-img{
@@ -241,15 +213,27 @@
 				}
 				.noneItem-bottom{
 					margin-top:0.2rem;
-					border-top:1px solid #e8e8e8;
 					box-sizing: border-box;
-					padding-top: 0.15rem;
 					position: relative;
+					overflow: hidden;
 					.clear{
 						width: 0.5rem;
 						height: 0.5rem;
 						float: right;
 					}
+					.cancel-btn,.mapLink{
+						display: block;
+						float: right;
+						padding: 0.1rem 0.2rem;
+						background: rgb(227,75,62);
+						color: white;
+						margin-right: 0.2rem;
+						border-radius: 0.05rem;
+					}
+					.cancel-btn{
+						background: rgb(153,153,153);
+					}
+					
 				}
 
 			}
@@ -260,49 +244,8 @@
 			height:1rem;
 			width:100%;
 		}
-		.noneItem{
-			border-radius: 0.1rem;
-		}
 	}
-	.right-msg:first-line{
-		font-size: $titleFontSize;
-		color: #343434;
-	}
-	.right-msg p:nth-of-type(2){
-		margin-top: 0.08rem;
-		font-size: $reminderFontSize;
-		color: #545454;
-	}
-	.noneItem-bottom span:nth-of-type(1){
-		color: #f16160;
-		font-size: $mostFontSize;
-	}
-	.noneItem-bottom span:nth-of-type(2){
-		color: #666666;
-		font-size: $fewFontSize;
-	}
-	.noneItem-bottom span:nth-of-type(3){
-		float: right;
-		color: #d1cfd0;
-		border: 2px solid #d1cfd0;
-		box-sizing: border-box;
-		padding: 0.03rem;
-		border-radius: 0.05rem;
-	}
-	.noneItem-bottom span:nth-of-type(4){
-		float: right;
-		box-sizing: border-box;
-		padding: 0.2rem;
-		border-radius: 0.05rem;
-	}
-	.noneItem-bottom span:last-child{
-		float: right;
-		color: #eb1314;
-		border: 2px solid #eb1314;
-		box-sizing: border-box;
-		padding: 0.03rem;
-		border-radius: 0.05rem;
-	}
+
 	.noneItem-bottom .seek-box-top-img{
 		width: 0.4rem;
 		height: 0.5rem;
@@ -356,26 +299,18 @@
 	<div ref="topOne" :class="[androidOrIos ? 'emptyandroid' : 'emptyios']" v-if="!this.$store.state.showWxTitle"></div>
 	<div class="fixContentBox">
 		<div class="fixContentBoxTop" :class="[androidOrIos ? 'emptyandroid' : 'emptyios']" v-if="!this.$store.state.showWxTitle"></div>
-		<!--banner图-->
-		<div class="banner"  ref="topTwo">
-			<img src="../../../assets/home/appointSuccess-wancheng.png" alt="" />
-			<div>
-				<p>客服电话:</p>
-				<p><a href="tel:400-900-2225">400-900-2225</a></p>
-			</div>
-		</div>
-
+		
+		<div style="height: 0.5rem;"></div>
 		<!--未完成约看、已完成约看选项卡-->
 		<div class="switch-title">
 			<ul>
-				<li style="background:#fff;" @click="none" v-bind:class="{ select: isAppoint }">未完成的约看</li>
-				<li @click="already" v-bind:class="{ select: !isAppoint }" style="border-left: 1px solid #b3b3b3;background:#fff;">已完成的约看</li>
+				<li  @click="none" v-bind:class="{ select: isAppoint }">未完成的约看</li>
+				<li @click="already" v-bind:class="{ select: !isAppoint }">已完成的约看</li>
 			</ul>
 			<div style="clear: both;"></div>
 			<!--未完成约看列表-->
 			<div class="noneList" v-show="isAppoint">
-				<img @click="bgNewHome" style="width:60%;height:90%;margin:0 auto;" src="../../../assets/home/bg.png" alt="" v-if="bgimg1">
-				<div class="triangle" v-if="bgimg2"></div>
+				<img @click="bgNewHome" style="width:60%;height:65%;margin:0 auto;" src="../../../assets/home/bg.png" alt="" v-if="bgimg1">
 				<div class="housing-resource" v-if="bgimg2">
 					<scroller class="scroller"
 						:on-refresh="refresh"
@@ -385,31 +320,27 @@
 					>
 						<div class="noneItem"  v-for="item in HouseLists" :key="item.id">
 								<div class="noneItem-box">
-									<div class="noneItem-title" @click="goHouseDetail"><span>约看时间:</span>{{item.appointTime|date-time-filter}}
-										<p></p>
+									<div class="noneItem-title" @click="goHouseDetail(item)">
+										<span>约看时间:</span>{{item.appointTime|date-time-filter}}
+										<p style="float: right;">{{item.appointName}}</p>
 									</div>
-									<div class="noneItem-content" @click="goHouseDetail">
+									<div class="noneItem-content" @click="goHouseDetail(item)">
 										<div class="left-img">
 											<img :src='item.Image'/>
 										</div>
 										<div class="right-msg">
-											<p><span>{{item.houseName}}</span></p>
-											<p><span></span><span v-if="item.roomName">{{item.roomName}}</span>&nbsp;&nbsp;<span v-if="item.usedArea">{{item.usedArea}}</span>㎡ | <span v-if="item.buildFloor">{{item.buildFloor}}</span>层</p>
+											<p class="p1">{{item.houseName}}{{item.roomName}}</p>
+											<p class="p2">26号楼 1单元 24层/{{item.usedArea}}㎡</p>
+											<p class="p3">{{item.priceAll}}元/月</p>
 											<div class="collect-message">
-												<span v-for="items in item.advantageTags" :key="items">{{items}}</span>
+												<span class="collect-message-tags" v-for="items in item.advantageTags" :key="items">{{items}}</span>
 											</div>
-										</div>
-										<div class="center-img">
-											<p style="color:#e24e59">{{item.appointName}}</p>
 										</div>
 										<div style="clear: both;"></div>
 									</div>
 
 									<div class="noneItem-bottom">
-										<span>{{item.priceAll}}</span>
-										<span>元/月</span>
-										<span  @click="onShow(item.id)">取消约看</span>
-										<span></span>
+										<span class="cancel-btn"  @click="onShow(item.id)">取消约看</span>
 										<span class="mapLink"  @click="mapLink(item)">查看路线</span>										
 									</div>
 								</div>
@@ -424,62 +355,51 @@
 			
 			<!--已约看列表-->
 			<div class="noneList" v-show="!isAppoint">
-				<img @click="bgNewHome" style="width:60%;height:90%;margin:0 auto;" src="../../../assets/home/bg.png" alt="" v-if="bgimg1">
-				<div class="triangleTwo" v-if="bgimg2"></div>
+				<img @click="bgNewHome" style="width:60%;height:65%;margin:0 auto;" src="../../../assets/home/bg.png" alt="" v-if="bgimg1">
 				<div class="housing-resource" v-if="bgimg2">
 					<scroller class="scroller"
 						:on-refresh="refreshs"
 						:on-infinite="infinites"
 						noDataText="------已经到最后了------"
 						ref="myLists"
-					>
-							<div class="noneItem"  v-for="item in HouseLists" :key="item.id">
-								<div class="noneItem-box">
-									<div class="noneItem-title" @click="goHouseDetail"><span>带看时间:</span>{{item.appointTime|date-time-filter}}
-										<p></p>
-									</div>
-									<div class="noneItem-content" @click="goHouseDetail">
-										<div class="left-img">
-											<img :src='item.Image || noDataimg'/>
-										</div>
-										<div class="right-msg">
-											<p><span>{{item.houseName}}</span></p>
-											<p><span></span><span v-if="item.roomName">-{{item.roomName}}</span>&nbsp;&nbsp;<span v-if="item.usedArea">{{item.usedArea}}</span>㎡ | <span v-if="item.buildFloor">{{item.buildFloor}}</span>层</p>
-											<div class="collect-message">
-												<span v-for="items in item.advantageTags" :key="items">{{items}}</span>
-											</div>
-										</div>
-										<div class="center-img">
-											<p style="color:#e24e59">{{item.appointName}}</p>
-										</div>
-										<div style="clear: both;"></div>
-									</div>
-
-									<div class="noneItem-bottom">
-										<span>{{item.priceAll}}</span>
-										<span>元/月</span>
-										<!-- <div class="clear" @click="onShow(item.id,item)"><img src="../../../../static/yk/clear.png" alt="" /></div> -->
-
-										<div style="clear: both;"></div>
-									</div>
+					>		
+					
+						<div class="noneItem"  v-for="item in HouseLists" :key="item.id">
+							<div class="noneItem-box">
+								<div class="noneItem-title" @click="goHouseDetail(item)">
+									<span>约看时间:</span>{{item.appointTime|date-time-filter}}
+									<p style="float: right;">{{item.appointName}}</p>
 								</div>
+								<div class="noneItem-content" @click="goHouseDetail(item)">
+									<div class="left-img">
+										<img :src='item.Image || noDataimg'/>
+									</div>
+									<div class="right-msg">
+										<p class="p1">{{item.houseName}}{{item.roomName}}</p>
+										<p class="p2">26号楼 1单元 24层/{{item.usedArea}}㎡</p>
+										<p class="p3">{{item.priceAll}}元/月</p>
+										<div class="collect-message">
+											<span class="collect-message-tags" v-for="items in item.advantageTags" :key="items">{{items}}</span>
+										</div>
+									</div>
+									<div style="clear: both;"></div>
+								</div>
+
 							</div>
-							<div class="noData" v-if="noDataShow">
-								<a href="tel:400-900-2225">400-900-2225</a>
-								<p>拨打热线告诉我们您的租房需求</p>
-							</div>
+						</div>
+						<div class="noData" v-if="noDataShow">
+							<a href="tel:400-900-2225">400-900-2225</a>
+							<p>拨打热线告诉我们您的租房需求</p>
+						</div>
 					</scroller>
 				</div>
 			</div>
-			<div style="height: 0.45rem;"></div>
 		</div>
-		<!-- <ga-page-bottom></ga-page-bottom> -->
 	</div>
 </div>
 </template>
 
 <script>
-import houseList from "../../../../static/rent/img/house-list.png";
 import trash    from "../../../../static/rent/img/clear.png";
 // import noDataimg from "https://media.guoanfamily.com/rent/static/HomePage/noneImg1.png";
 	export default {
@@ -639,7 +559,7 @@ import trash    from "../../../../static/rent/img/clear.png";
 								item.Image = "https://media.guoanfamily.com/rent/static/HomePage/noneImg1.png";
 							}
 							//item.Image= item.roomId ? (this.concatFileUrl(item.roomFirst)) : this.concatFileUrl(item.houseFirst);
-							item.advantageTags= item.advantageTags ? item.advantageTags.split(",").slice(0,3): "";
+							item.advantageTags= item.advantageTags ? item.advantageTags.split(",").slice(0,2): "";
 							if(item.roomId == "" || item.roomId == null || item.roomId == undefined){
 								item.priceAll = item.rentPrice;
 							}else{
@@ -663,8 +583,8 @@ import trash    from "../../../../static/rent/img/clear.png";
 				});
             },
             //跳到房源详情
-            goHouseDetail(){
-                //this.$router.push({path:'/HouseList/houseDetail', query:{id:item.id}})
+            goHouseDetail(item){
+                  this.$router.push({path:'/HouseList/houseDetail', query:{id:item.roomId,productType:item.productType}})
                 // this.listPosition = this.$refs.myList.getPosition();
             },
 
@@ -693,10 +613,6 @@ import trash    from "../../../../static/rent/img/clear.png";
 			},
 			//跳转到地图路线
 			mapLink(e){
-				console.log(e);
-				console.log(e.latitude);
-				console.log(e.longitude);
-				console.log(e.communityName);
 				this.$router.push({path:'/MapRouteLine', query:{latitude:e.latitude,longitude:e.longitude,areaName:e.communityName}})
 			},
 			//垃圾桶按钮

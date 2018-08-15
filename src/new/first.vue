@@ -5,14 +5,20 @@
 	      <!-- 头部 -->
 	        <!--轮播图  -->
 	        <!-- <swipers></swipers> -->
-          <div class="topTest"><span>国安家首页</span></div>
-          <div class="topImgdiv" @click="TabOneClick"></div>
-          <!-- 搜索 -->
-          <div class="topSearchInput">
-            <x-input class='topSearch' title="" placeholder="">
-              <img style="width:20px;margin-left:.3rem;" slot="label" src='../../static/new/reversionimg/search.png' />
-              <img style="width:20px;margin-right:.3rem;" slot="right" src='../../static/new/reversionimg/location.png' />
-            </x-input>
+          <!-- <div class="topTest"><span>国安家首页</span></div> -->
+          <div class="topImgdiv">
+            <!-- 搜索 -->
+            <div class="topSearchInput" @click="toHouseList">
+              <x-input class='topSearch' title="" placeholder="">
+                <img style="width:20px;margin-left:.3rem;" slot="label" src='../../static/new/reversionimg/search.png' />
+                <img @click.stop='mapSearchroom' style="width:20px;margin-right:.3rem;" slot="right" src='../../static/new/reversionimg/location.png' />
+              </x-input>
+            </div>
+            <swiper :options="swiperOption" ref="mySwiper">
+                <swiper-slide><img src='.././../static/new/reversionimg/newIndexTop.png' style="width:100%; height:4rem" /></swiper-slide>
+                <swiper-slide><img src='.././../static/new/reversionimg/firstTop.png' style="width:100%; height:4rem" /></swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
           </div>
           <!--导航栏  -->
           <div class="navigation">
@@ -52,9 +58,9 @@
           <!-- 横线 -->
           <div class="Division"></div>
           <!-- 全景看房 -->
-          <div class='panorama'><span>360°全景看房</span></div>
+          <div class='panorama'><span><span style="font-family:font01">360°</span>全景看房</span></div>
           <!-- 全景看房图片展示 -->
-          <div class='panoramaImg'></div>
+          <div class='panoramaImg' @click='PanoramicViewClick'></div>
 	        <!-- <navigation></navigation> -->
           <!-- 精彩活动部分 -->
           <div class='panorama' style='margin-top:.4rem;'>
@@ -132,8 +138,7 @@
             <span @click="apartmentClick"></span>
           </div>
           <newuploade></newuploade>
-	        <!-- 抽奖活动 -->
-	        <div :class="{'luckDraw':!hideSigno,'singoNone':hideSigno}" v-show="luckdraw" v-transfer-dom  @click="toluckDraw"></div>
+	      
 	        <!-- 邀请注册部分 -->
 	        <!-- 遮罩层 -->
 	        <div class="market" style="opacity:.8;" v-transfer-dom v-show="this.$store.state.IndexMarketShow" @click="market1Click"></div>
@@ -154,11 +159,11 @@
 import { TransferDom } from "vux";
 import IosorAndroid from './components/IosorAndroid'
 import swipers from "./components/Swiper"; //引入轮播图组件
-import navigation from "./components/navigation"; //引入导航栏
 import downLoad from "../rent/components/home/downLoad";
 import activity from '../rent/components/home/activity';//精彩活动
 import hometemplate from '../rent/components/home/HomeTemplate';//国安家公寓
 import newuploade from '../rent/components/home/newupload';//最新上架
+
 // import{ViewBox} from 'vux'
 export default {
   directives: {
@@ -167,7 +172,6 @@ export default {
   components: {
     IosorAndroid,
     swipers,
-    navigation,
     downLoad,
     activity,
     hometemplate,
@@ -175,6 +179,14 @@ export default {
   },
   data() {
     return {
+      swiperOption: {
+        loop: true,
+        autoplay: true,
+        disableOnInteraction:false,
+        pagination: {
+          el: ".swiper-pagination"
+        }
+      },
       defaultValue: "",
       list: [], //楼盘数据
       showSuccess: false,
@@ -192,13 +204,36 @@ export default {
    * 新房改版部分
    * 
    */
+  //  搜索框的点击事件
+  toHouseList(){//点击搜索框跳转到搜索页面
+      this.$router.push({path:"HouseList/HotSearch"})
+  },
+  // 地图找房的点击事件
+    mapSearchroom(){
+      this.$router.push({path:"/MapSearch"});
+    },
+  // 全景看房的点击事件
+    PanoramicViewClick(){
+      this.$router.push({path:"VrLook"});
+    },
   // 新房的点击事件
     TabOneClick(){
-      this.$router.push('buildList');
+      // this.$router.push('buildList');
+      this.$router.push("newHouseIndex");
+      this.$store.state.buttonGroup = 1;
+      this.$store.state.isIndexTrue = false;
+      this.$store.state.isonLineTrue = true;
+      this.$store.state.isMyTrue = false;
+      this.$store.state.isonLinerent = false;
     },
    // 租房的点击事件  
     TabTwoClick(){
       this.$router.push("HomePage");
+      this.$store.state.buttonGroup = 3;
+      this.$store.state.isIndexTrue = false;
+      this.$store.state.isonLineTrue = false;
+      this.$store.state.isMyTrue = false;
+      this.$store.state.isonLinerent = true;
     },
     // 房价的点击事件
     TabThreeClick(){
@@ -432,6 +467,10 @@ export default {
 </script>
 
 <style lang='less' scoped>
+@font-face{
+	font-family:font01;
+	src:url("../fonts/BEBASNEUE.otf");
+}
 .topTest{
   width:100%;
   height:.8rem;
@@ -450,16 +489,20 @@ export default {
   margin-top:.1rem;
   margin-left:.3rem;
   margin-right:.3rem;
-  background:url('.././../static/new/reversionimg/indexTop.jpg') no-repeat center;
-  background-size:100%;
+  // background:url('.././../static/new/reversionimg/newIndexTop.png') no-repeat center;
+  // background-size:100%;
+  position:relative;
 }
 .topSearchInput{
-  margin-left: .3rem;
-  margin-right: .3rem;
-  margin-top: .4rem;
-  height:.8rem;
-  border-radius:.08rem;
-  background:#f5f5f5;
+  height: .8rem;
+  border-radius: .08rem;
+  background: #f5f5f5;
+  width: 6.5rem;
+  margin: auto;
+  position: absolute;
+  top: .25rem;
+  left: 0.15rem;
+  z-index:2;
 }
 .navigation{
   margin-top:.6rem;
@@ -470,7 +513,7 @@ export default {
 }
 .Division{
   width:100%;
-  height:20px;
+  height:.2rem;
   background:#eeeeee;
   margin-top:.2rem;
 }
@@ -586,40 +629,8 @@ export default {
     }
   }
 }
-.luckDraw {
-  width: 1.5rem;
-  height: 1.8rem;
-  position: fixed;
-  top: 60%;
-  right: 0;
-  background: url("../assets/luck/hongbao.png") center no-repeat;
-  background-size: 65%;
-  z-index: 10;
-  transform: 0.9s;
-}
-.signo {
-  position: fixed;
-  z-index: 10;
-  top: 50%;
-  right: 0;
-  width: 1.5rem;
-  height: 0.9rem;
-  background: url("../../static/new/img/sign.png") no-repeat;
-  background-position: center;
-  background-size: 100%;
-  transition: 0.9s;
-}
-.singoNone{
-  width:0;
-  position: fixed;
-  height: 0.9rem;
-  top: 60%;
-  right: 0;
-  transition: 0.9s;
-  background: url("../../static/new/img/sign.png") no-repeat;
-  background-position: center;
-  background-size: 100%;
-}
+
+
 .singnSuccess {
   width: 80%;
   height: 8rem;
@@ -680,7 +691,7 @@ export default {
     display: flex;
     height: 3.5rem;
     .bigli {
-      margin-right: 0.4rem;
+      margin-right: 0.2rem;
     }
   }
   .HousTypeTop {
@@ -700,7 +711,7 @@ export default {
       color:#000000;
       height:.3rem;
       font-size:.24rem;
-      font-family:'Source Han Sans CN';
+      font-family:font01;
     }
   }
   .HousTypeBottomImg {
@@ -785,125 +796,6 @@ export default {
   float: left;
 }
 
-.bottom-margin {
-  margin-top: 0.3rem;
-  padding-bottom: 80px;
-	.earnestShow{
-		width: 96%;
-		margin-left:2%;
-	    height: 4.01rem;
-	    overflow-x: scroll;
-	    .earnestShow-slide{
-	    	width:17.4rem;
-			height: 3.92rem;
-	    	.earnestShow-item{
-		    	width:3.28rem;
-		    	height:3.92rem;
-		    	background:#ffffff;
-		    	margin-left: 0.25rem;
-		    	float: left;
-		    	position: relative;
-		    	border-radius: 0.1rem;
-	   			box-shadow: 5px 5px 5px #f4f4f4;
-	   			.active5{
-					width: 0.8rem;
-					height:0.8rem;
-					position: absolute;
-					bottom: 1.2rem;
-					left: 0.2rem;
-					z-index: 2000;
-					background: url("../../static/rent/house-list/active418.png") no-repeat;
-					background-size: 100%;
-				}
-				.earnestShow-item-top{
-				  	width: 100%;
-				  	height: 100%;
-		    		position: relative;
-		    		z-index:2;
-		    		.item-top{
-		    			width:100%;
-		    			height:2.86rem;
-					  	box-sizing: border-box;
-					  	padding-top: 0.6rem;
-		    			.earnestShow-item-top-title{
-					  		text-align:center;
-					  		font-size: 0.34rem;
-					  		color: #FEFEFF;
-					  		font-weight: 700;
-					  		margin-bottom: 0.38rem;
-					  	}
-					  	.earnestShow-item-top-tags{
-					  		width: 100%;
-					  		height: 0.3rem;
-					  		text-align: center;
-					  		line-height: 0.01rem;
-					  		margin-top: -0.11rem;
-					  		span{
-					  			display: inline-block;
-					  			height: 0.3rem;
-					  			padding: 0 0.1rem 0 0.1rem;
-					  			font-size:0.22rem;
-					  			color: #5A5A5A;
-					  			line-height: 0.3rem;
-					  			background: #f0f0f0;
-					  			border-radius: 0.08rem;
-					  			margin-right: 0.1rem;
-					  			box-sizing: border-box;
-					  			padding-top: 0.02rem;
-					  		}
-					  	}
-					  	.earnestShow-item-top-wash{
-					  		font-size: 0.24rem;
-					  		color: #FFFEFE;
-					  		text-align: center;
-					  		margin-top: 0.48rem;
-					  	}
-		    		}
-				  	.item-bottom{
-				  		width: 100%;
-				  		height: 1.06rem;
-				  		font-size: 0.24rem;
-				  		color: #D7000F;
-				  		text-align: center;
-				  		line-height: 1.06rem;
-				  		vertical-align:middle;
-				  		.bottom-img{
-				  			height: 0.24rem;
-				  			display: inline-block;
-				  			margin-left: 0.1rem;
-				  		}
-				  	}
-				  	
-				}
-		    	.background-img{
-		    		width: 3.28rem;
-		    		height: 2.86rem;
-		    		display: block;
-		    		position: absolute;
-		    		border-top-left-radius: 0.1rem;
-		    		border-top-right-radius: 0.1rem;
-		    		top: 0;
-		    		left: 0;
-		    		z-index:1;
-		    	}
-		    	.shadow{
-		    		width: 3.28rem;
-		    		height: 2.86rem;
-		    		position: absolute;
-		    		border-top-left-radius: 0.1rem;
-		    		border-top-right-radius: 0.1rem;
-		    		top: 0;
-		    		left: 0;
-		    		z-index:1;
-		    		background: rgba(0,0,0,.1);
-		    	}
-		    }
-	    }
-	    .earnestShow-slide .earnestShow-item:nth-of-type(1){
-	    	margin-left: 0 !important;
-	    }
-	}
-}
 .bankNum{
   width: 80%;
   height: 300px;
@@ -950,6 +842,9 @@ export default {
 }
 </style>
 <style lang ='less'>
+.swiper-pagination-bullet-active{
+  background:#ffffff !important;
+}
 .vux-swiper-desc {
   display: none;
 }

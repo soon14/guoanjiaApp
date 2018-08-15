@@ -6,7 +6,8 @@ Vue.use(VueRouter);
 
 /*--------------------------------------------新房----------------------------------------------------------*/
 const login = resolve => require(['../new/views/login'], resolve) //登录
-//const index = resolve => require(['../new/views/index'], resolve) //首页
+    //const index = resolve => require(['../new/views/index'], resolve) //首页
+const newHouseIndex = resolve => require(['../new/views/newHouseIndex'], resolve) //新房首页
 const personalCenter = resolve => require(['../new/views/personalCenter'], resolve) //个人中心
 const first = resolve => require(['../new/first'], resolve) //第一页
 const onLineHouse = resolve => require(['../new/views/onLineHouse'], resolve) //在线选房
@@ -17,6 +18,7 @@ const onLineHouse = resolve => require(['../new/views/onLineHouse'], resolve) //
 const buildList = resolve => require(['../new/views/buildList'], resolve) //新房楼盘列表
 const newbuildList = resolve => require(['../new/views/newbuildList'], resolve) //新房楼盘列表
 const newhousehome = resolve => require(['../new/views/newhousehome'], resolve) //新房首页
+const areaList = resolve => require(['../new/views/areaList'], resolve) //新房首页
 const information = resolve => require(['../new/views/information'], resolve) //资讯列表
 const informationDetail = resolve => require(['../new/views/informationDetail'], resolve) //资讯详情
 const search = resolve => require(['../new/components/newhouse/search.vue'], resolve) //新房搜索
@@ -37,6 +39,7 @@ const reservationpage = resolve => require(['../new/views/reservationpage'], res
 const appointement = resolve => require(['../new/views/appointment'], resolve) //预约列表
 const collent = resolve => require(['../new/views/collent'], resolve) //收藏列表
 const building_detial = resolve => require(['../new/views/building_detial'], resolve) //楼盘详情
+const reservationPages = resolve => require(['../new/views/reservationPages'], resolve) //预约看房详情页
 const houseType = resolve => require(['../new/views/houseType'], resolve) //户型详情
 const MemberIfream = resolve => require(['../new/views/MemberIfream'], resolve) //入会说明ifrem
 const membership = resolve => require(['../new/views/membership'], resolve) //入会详情
@@ -68,11 +71,11 @@ const placeChouse = resolve => require(['../new/views/meetPlacce/placeChouse'], 
 const placeOpaction = resolve => require(['../new/views/meetPlacce/placeOpaction'], resolve) //场地预定详情
 const placePayMent = resolve => require(['../new/views/meetPlacce/placePayMent'], resolve) //场地预定订单
 const placeResult = resolve => require(['../new/views/meetPlacce/placeResult'], resolve) //场地预定订单
-/*------------------------------------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------------------------------------*/
 
 /*---------------------------------------------活动抽奖---------------------------------------------------------*/
-const drawrules = resolve => require(['../new/views/Lucky/drawrules'], resolve) // 幸运转盘
-const luckdraw = resolve => require(['../new/views/Lucky/luckdraw'], resolve) // 幸运转盘
+// const drawrules = resolve => require(['../new/views/Lucky/drawrules'], resolve) // 幸运转盘
+// const luckdraw = resolve => require(['../new/views/Lucky/luckdraw'], resolve) // 幸运转盘
 
 /*---------------------------------------------我的积分---------------------------------------------------------*/
 const myintegral = resolve => require(['../new/views/integral/MyIntegral.vue'], resolve) //
@@ -84,6 +87,7 @@ const Withdrawals = resolve => require(['../new/views/integral/Withdrawals.vue']
 //首页
 const HomePage = resolve => require(['../rent/pages/HomePage/HomePage'], resolve);
 const framePage = resolve => require(['../rent/pages/HomePage/framePage'], resolve);
+const VrLook = resolve => require(['../rent/pages/HomePage/vrlook'], resolve);
 // const Login = resolve => require(['../rent/pages/Login/Index'], resolve);
 // const PersonalCenter = resolve => require(['../rent/pages/HomePage/personalCenter'], resolve); //个人中心
 const HouseList = resolve => require(['../rent/pages/House/HouseList'], resolve); //房源列表
@@ -99,7 +103,8 @@ const PaymentDetails = resolve => require(['../rent/pages/House/PaymentDetails']
 const Collection = resolve => require(['../rent/pages/House/Collection'], resolve);
 //mxx
 
-const Delegation = resolve => require(['../rent/pages/Delegation/Delegation'], resolve); //业主委托
+const Entrust = resolve => require(['../rent/pages/Delegation/entrust'], resolve); //新业主委托宣传页
+const Submituntrust = resolve => require(['../rent/pages/Delegation/submituntrust'], resolve); //新业主委托提交
 const DepositContract = resolve => require(['../rent/pages/DepositContract/DepositContract'], resolve); //定金合同
 const Lessee = resolve => require(['../rent/pages/Lessee/Lessee'], resolve); //合同详情
 const MyContract = resolve => require(['../rent/pages/MyContract/MyContract'], resolve); //我的合同
@@ -122,6 +127,8 @@ const MapSearch = resolve => require(['../rent/components/HouseList/HeatMap'], r
 const houseDetailMap = resolve => require(['../rent/components/fyxq/houseDetailMap'], resolve);
 //线路
 const MapRouteLine = resolve => require(['../rent/components/fyxq/MapRouteLine'], resolve);
+const AboutUs = resolve => require(['../rent/pages/AboutUs/AboutUs'], resolve);
+const ExhibitionCenter = resolve => require(['../rent/pages/ExhibitionCenter/ExhibitionCenter'], resolve);
 
 /*------------------------------------------------------------------------------------------------------*/
 
@@ -136,6 +143,15 @@ const routes = [
         meta: {
             title: '登录',
             business: 'new'
+        },
+    },
+    {
+        path: '/newHouseIndex', //新房首页
+        name: 'newHouseIndex',
+        component: newHouseIndex,
+        meta: {
+            title: '新房首页',
+            isShow: true
         },
     },
     {
@@ -164,6 +180,15 @@ const routes = [
         component: newhousehome,
         meta: {
             title: '新房首页',
+            isShow: false
+        },
+    },
+    {
+        path: '/arealist', //区域列表页
+        name: 'arealist',
+        component: areaList,
+        meta: {
+            title: '',
             isShow: false
         },
     },
@@ -382,7 +407,7 @@ const routes = [
         name: 'appointement',
         component: appointement,
         meta: {
-            title: '我的预约',
+            title: '新房约看记录',
             business: 'new'
         },
     }, {
@@ -399,6 +424,14 @@ const routes = [
         component: building_detial,
         meta: {
             title: '楼盘详情',
+            business: 'new'
+        },
+    }, {
+        path: '/reservationPages', //楼盘详情
+        name: 'reservationPages',
+        component: reservationPages,
+        meta: {
+            title: '楼盘约看',
             business: 'new'
         },
     }, {
@@ -447,7 +480,7 @@ const routes = [
         name: 'housingPriceInfo',
         component: housingPriceInfo,
         meta: {
-            title: '楼盘走势图',
+            title: '房价详情',
             business: 'new'
         },
     }, {
@@ -547,25 +580,26 @@ const routes = [
             business: 'new'
         },
     },
-    {
-        path: '/luckdraw',
-        name: 'luckdraw',
-        component: luckdraw,
-        meta: {
-            title: '幸运抽奖',
-            isShow: false,
-            business: 'new'
-        },
-    }, {
-        path: '/drawrules',
-        name: 'drawrules',
-        component: drawrules,
-        meta: {
-            title: '抽奖说明',
-            isShow: false,
-            business: 'new'
-        },
-    }, { //积分
+    // {
+    //     path: '/luckdraw',
+    //     name: 'luckdraw',
+    //     component: luckdraw,
+    //     meta: {
+    //         title: '幸运抽奖',
+    //         isShow: false,
+    //         business: 'new'
+    //     },
+    // }, {
+    //     path: '/drawrules',
+    //     name: 'drawrules',
+    //     component: drawrules,
+    //     meta: {
+    //         title: '抽奖说明',
+    //         isShow: false,
+    //         business: 'new'
+    //     },
+    // }, 
+    { //积分
         path: '/myintegral',
         name: 'myintegral',
         component: myintegral,
@@ -600,9 +634,19 @@ const routes = [
         path: '/HomePage',
         meta: {
             title: '首页',
-            business: 'rent'
+            business: 'rent',
+            isShow: true,
         },
         component: HomePage //首页
+    },
+    {
+        path: '/VrLook',
+        meta: {
+            title: 'VR看房',
+            business: 'rent',
+            isShow: false,
+        },
+        component: VrLook //vr看房列表页
     },
     {
         path: '/framePage',
@@ -693,14 +737,24 @@ const routes = [
             business: 'rent'
         },
         component: HotSearch
-    }, {
-        path: '/Delegation', //业主委托
+    },
+    {
+        path: '/Entrust', //新业主委托
         meta: {
             title: '业主委托',
             isShow: false,
             business: 'rent'
         },
-        component: Delegation
+        component: Entrust
+    },
+    {
+        path: '/Submituntrust', //业主委托提交
+        meta: {
+            title: '业主委托',
+            isShow: false,
+            business: 'rent'
+        },
+        component: Submituntrust
     }, {
         path: '/MyContract/DepositContract', //定金合同
         meta: {
@@ -778,6 +832,45 @@ const routes = [
         component: MapRouteLine
     },
     {
+        path: '/AboutUs', //关于我们
+        meta: {
+            title: '关于我们',
+            business: 'rent'
+        },
+        component: AboutUs
+    }, {
+        path: '/ExhibitionCenter', //展示中心
+        meta: {
+            title: '国安家展示中心',
+            business: 'rent'
+        },
+        component: ExhibitionCenter
+    },
+    //信用分的别删还在等接口。。。
+    // {
+    //     path: '/CreditScore', //信用分
+    //     meta: {
+    //         title: '有信用免押金',
+    //         business: 'rent'
+    //     },
+    //     component: CreditScore
+    // },
+    // {
+    //     path: '/ZhiMa', //芝麻信用
+    //     meta: {
+    //         title: '芝麻信用',
+    //         business: 'rent'
+    //     },
+    //     component: ZhiMa
+    // }, {
+    //     path: '/Accredit', //芝麻信用授权
+    //     meta: {
+    //         title: '芝麻信用授权',
+    //         business: 'rent'
+    //     },
+    //     component: Accredit
+    // },
+    {
         path: '*',
         beforeEnter: (to, from, next) => {
             next("/")
@@ -812,18 +905,18 @@ router.beforeEach((to, from, next) => {
         // 平台 + 业务 +  地址
         _hmt.push(['_trackPageview', '/' + platform + '/' + to.meta.business + to.fullPath]);
         let url = 'tongji/save/reportHtmlRecord'
-        // 设置cookies,看看有没有
-        var tid =  Vue.prototype.getCookid('Tid');//获取cookie
+            // 设置cookies,看看有没有
+        var tid = Vue.prototype.getCookid('Tid'); //获取cookie
         // console.log('---------------------',tid)
         var Tid = 'Tid';
         var onTid = '';
         // 判断有没有值
         if (Vue.prototype.notEmpty(tid)) {
-            tid =  Vue.prototype.uuidFn();
-            onTid =  Tid;
-            Vue.prototype.setCookie(Tid,tid);
-        }else{
-            onTid =  tid;
+            tid = Vue.prototype.uuidFn();
+            onTid = Tid;
+            Vue.prototype.setCookie(Tid, tid);
+        } else {
+            onTid = tid;
         }
 
         var UUID = Vue.prototype.uuidFn();
@@ -832,16 +925,16 @@ router.beforeEach((to, from, next) => {
             window.sessionStorage.setItem('PID', UUID);
         }
         let post_data = {
-            id: UUID,
-            platform: platform,
-            bs: to.meta.business,
-            req_url: to.path,
-            url_from: from.path,
-            pid: pid,
-            url_name: to.meta.title,
-            tid:onTid
-        }
-        // console.log('------------',post_data)
+                id: UUID,
+                platform: platform,
+                bs: to.meta.business,
+                req_url: to.path,
+                url_from: from.path,
+                pid: pid,
+                url_name: to.meta.title,
+                tid: onTid
+            }
+            // console.log('------------',post_data)
         Vue.prototype.post(url, post_data, {
             interfaceType: "tongji"
         }).then(response => {}, response => {

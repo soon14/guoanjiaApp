@@ -20,7 +20,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
             top:0.45rem;
             z-index: 2;
             opacity: 1;
-            background-color: $greyColor;
+            background-color: #fff;
             font-size:$mostFontSize;
         }
         .regloinlists{
@@ -29,7 +29,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
             top:0.9rem;
             z-index: 2;
             opacity: 1;
-            background-color: $greyColor;
+            background-color: #fff;
             font-size:$mostFontSize;
             height: 70%;
             .buttons{
@@ -101,19 +101,22 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                 background-clip: padding-box;
                 color: #333333;
                 position: relative;
+                font-size: 0.28rem;
             }
             .open-icon {
                 display: inline-block;
                 position: absolute;
-                width: 30%;
-                top: 24%;
+                width: 0.1rem;
+                top: 45%;
+                left: 1.4rem;
             }
 
             .stop-icon {
                 display: inline-block;
                 position: absolute;
-                width: 30%;
-                top: 15%;
+                width: 0.1rem;
+                top: 43%;
+                left: 1.4rem;
             }
             .isnewhouse{
                 top:25%;
@@ -122,7 +125,10 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
             .long-string{
                 position: absolute;
                 left: 2rem;
-                top:0rem;
+                top:0.1rem;
+                width: 1px;
+                height: 0.5rem;
+                background-color: #eee;
                 display: none;
             }
             .notnewhouse{
@@ -159,20 +165,20 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
             width: 100%;
             height:6rem;
             max-height: 6rem;
-            background-color: #e8e8e8;
+            background-color: #fff;
             z-index: 10000;
             .house-head{
-                height: 0.56rem;
-                line-height: 0.6rem;
-                padding: 0 0.14rem;
-                font-size: 0.24rem;
-                color: #0c0d0e;
-                border-bottom: 1px solid #e8e8e8;
+                height: 0.92rem;
+                line-height: 0.92rem;
+                padding-left: 0.3rem;
+                font-size: 0.32rem;
+                color: #000;
+                // border-bottom: 1px solid #e8e8e8;
                 background-color: #fff;
             }
             .scroller{
                 // position: relative;
-                margin-top:0.6rem;
+                margin-top:0.92rem;
             }
             .scroller-absolute{
                 position: relative;
@@ -194,8 +200,11 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                     position: relative;
                     width: 100%;
                     height: 2.11rem;
-                    border-bottom: 1px solid #ccc;
-                    padding: 0.2rem 0 0.2rem 0.2rem;
+                    border-bottom: 1px solid #eee;
+                    padding: 0.3rem 0 0.2rem 0.3rem;
+                    &:nth-child(1){
+                        padding-top:0rem;
+                    }
                     .image-left{
                         float: left;
 	                    width: 2.86rem;
@@ -213,7 +222,8 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                         font-size:$titleFontSize;
                         margin:0.05rem 0.3rem 0 0;
                         .headline{
-                            font-size: 0.3rem;
+                            font-size: 0.32rem;
+                            color:#000;
                             span{
                                 display:inline-block;
                                 width: 80%;
@@ -239,8 +249,9 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                             font-size:0.2rem;
                         }
                         .house-desc{
-                            margin-top: 0.12rem;
-                            font-size: 0.25rem;
+                            // margin-top: 0.12rem;
+                            font-size: 0.26rem;
+                            color:#666;
                             .houseproducttype{
                                 display:inline-block;
                                 width: 0.45rem;
@@ -269,25 +280,26 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                         .house-bottom{
                             height: 20%;
                             font-size: $mostFontSize;
+                            color:#000;
                             .money-month{
-                                margin-top: 0.12rem;
+                                // margin-top: 0.06rem;
                                 text-align: left;
-                                .money{
-                                    color:$partColor;
-                                }
+                                // .money{
+                                //     color:$partColor;
+                                // }
                             }
                         }
                         .bedroom{
-                            color:$mostColor;
+                            color:$unselectedColor;
                             margin-right:0.3rem;
                         }
                         .area{
-                            color:$mostColor;
-                            font-size:0.25rem;
+                            color:$unselectedColor;
+                            font-size:0.26rem;
                         }
                         .house-label{
                             width: 100%;
-                            margin-top:0.12rem;
+                            margin-top:0.2rem;
                             .label{
                                 width: 29%;
                                 height: 0.45rem;
@@ -302,16 +314,18 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                                 white-space: nowrap;
                                 padding: 0 0.05rem;
                                 box-sizing: border-box;
+                                background-color: #f5f5f5;
+                                color: #999;
                             }
-                            @mixin color($bgColor){
-                                border: 1px solid $bgColor;
-                                color: $bgColor;
-                            }
-                            @for $i from 1 through 3{
-                                .label:nth-child(3n+#{$i}){
-                                    @include color(nth($ColorClass,$i));
-                                }
-                            }
+                            // @mixin color($bgColor){
+                            //     border: 1px solid $bgColor;
+                            //     color: $bgColor;
+                            // }
+                            // @for $i from 1 through 3{
+                            //     .label:nth-child(3n+#{$i}){
+                            //         @include color(nth($ColorClass,$i));
+                            //     }
+                            // }
                             
                         }
                     }
@@ -348,6 +362,10 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
     .fade-mark-enter, .fade-mark-leave-active {
         opacity : 0
     }
+    @keyframes myfirst{
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
 </style>
 <style scoped lang="scss">
     .map{
@@ -366,7 +384,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                                 <span :class="{regionarea:regionClass}">区域</span>
                                 <img class="open-icon" v-if="region" :src="openUrl" :class="{isnewhouse:isnewhouse}"/>
                                 <img class="stop-icon" v-if="!region" :src="stopUrl" :class="{isnewhouse:isnewhouse}"/>
-                                <span class="long-string" :class="{notnewhouse:isonLinerent}">|</span>
+                                <span class="long-string" :class="{notnewhouse:isonLinerent}"></span>
                         </div>
                     </flexbox-item>
                     <flexbox-item>
@@ -374,7 +392,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                                 <span :class="{regionarea:subwayClass}">地铁</span>
                                 <img class="open-icon" v-if="subway" :src="openUrl" :class="{isnewhouse:isnewhouse}"/>
                                 <img class="stop-icon" v-if="!subway" :src="stopUrl" :class="{isnewhouse:isnewhouse}" />
-                                <span class="long-string" :class="{notnewhouse:isonLinerent}">|</span>
+                                <span class="long-string" :class="{notnewhouse:isonLinerent}"></span>
                         </div>
                     </flexbox-item>
                     <flexbox-item>
@@ -382,7 +400,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                                 <span :class="{regionarea:priceClass}">价格</span>
                                 <img class="open-icon" v-if="price" :src="openUrl" :class="{isnewhouse:isnewhouse}"/>
                                 <img class="stop-icon" v-if="!price" :src="stopUrl" :class="{isnewhouse:isnewhouse}"/>
-                                <span class="long-string" :class="{notnewhouse:isonLinerent}">|</span>
+                                <span class="long-string" :class="{notnewhouse:isonLinerent}"></span>
                         </div>
                     </flexbox-item>
                     <flexbox-item>
@@ -420,7 +438,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
         <transition name="fade-list">
             <div class="house-list" v-if="showList" :class="{'scroll-list':scrollList}">
                 <div class="house-head">
-                    <h2> <span style="float:left;">{{areaName}}</span><span class="flor" style="float:right;"><span style="color:rgb(228, 57, 60)">{{houseNumber}}套</span>房源</span></h2>
+                    <h2> <span style="float:left;">{{areaName}}({{houseNumber}}套)</span></h2>
                     <div style="clear:both;"> </div>
                 </div>
                 <scroller class="scroller"
@@ -438,12 +456,12 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                                 </div>
                                 <div class="list-right">
                                     <div class="headline">
-                                        <span>{{item.houseName}}&nbsp;{{item.roomName}}{{item.roomNumber || ""}}</span>                                            
+                                        <span>{{item.houseName}}&nbsp;{{item.roomName}}房间{{item.roomNumber || ""}}</span>                                            
                                         <i class="abbr3d" v-if="item.lookUrl"></i>
                                     </div>
                                     <div class="house-desc">
-                                        <span class="bedroom">{{item.buildNo}}号楼-{{item.roomName}}</span>
-                                        <span calss="floor">{{item.buildFloor}}层|{{item.userArea}}㎡</span>
+                                        <span class="bedroom">{{item.buildNo}}号楼&nbsp;{{item.buildUnitNo}}单元</span>
+                                        <span calss="floor">{{item.buildFloor}}层&nbsp;/&nbsp;{{item.userArea}}㎡</span>
                                         <!-- <span :class="{houseproducttype:item.productType==='0019001',houseentire:item.productType==='0019002',househome:item.productType==='0019003'}"></span> -->
                                     </div>
                                     <div class="house-bottom">
@@ -481,8 +499,8 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
     import PriceList from './PriceList.vue';
     import openUrl1 from "../../../../static/new/img/stop.png";
     import stopUrl1 from "../../../../static/new/img/open.png";
-    import openUrl from "../../../../static/rent/img/open.png";
-    import stopUrl from "../../../../static/rent/img/stop.png";
+    import openUrl from "../../../../static/rent/img/open1.png";
+    import stopUrl from "../../../../static/rent/img/stop1.png";
     import icon_ditu2 from '../../../../static/rent/fyxq/icon/ditu2.gif'
     export default {
         components: {
@@ -551,12 +569,12 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                 count:"",
                 subwayList:[],
                 subwayType:{},
-                isMoveend:true,   //拖拽是否加载数据
+                isMoveend:false,   //拖拽是否加载数据
                 isSubwaySearch:false,  //是第一次地铁找房
                 // isenableMassClear:false,   //是否已经解除禁止清除
                 oneregionSearch:true,     //是否点击了区域
                 subwayStation:false,    // 是否点击了站点不进行缩放事件跟拖拽
-                iszoomend:true,       //是否可以缩放
+                iszoomend:false,       //是否可以缩放
                 isshowcolor:false,
                 isAndrion:true,  //判断是ios还是andriod
 
@@ -602,6 +620,8 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                 notData:false,
                 longitude:"",
                 latitude:"",
+                isone:true, //初始化的时候
+                circle:""  //圆
             }
         },
 
@@ -618,7 +638,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
             this.notnewhouse = this.$route.query.title != "在线租房";
             this.isnewhouse = this.$route.query.title == "在线租房";
             this.getAddressComponent();
-            this.getAreaDistribution();
+            // this.getAreaDistribution();
             // this.getHouseDistribution();
             
         },
@@ -637,8 +657,9 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
             map.setMinZoom(11);
             map.setMaxZoom(18);
             this.map = map;
+            // let point1 = [new BMap.Point(116.404, 39.915)]
             this.local = new BMap.LocalSearch(map, {
-                renderOptions:{map: map}
+                renderOptions:{map: map},
             });
             this.map.addEventListener("zoomend", ()=>{   
                 if(!this.isSubwaySearch && !this.subwayStation && !this.regionSearch){   //地铁找房
@@ -699,7 +720,6 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                 }else if(moveendCenter>=14){
                     if(this.isMoveend && this.regionSearch && this.oneregionSearch){   //区域
                         this.getHouseDistribution(()=>{
-                            this.map.clearOverlays();
                             setTimeout(()=>{
                                 this.createMarkPoint()
                             },200)
@@ -708,7 +728,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
 
                     }else if(this.isMoveend && !this.isSubwaySearch){       //地铁
                          this.getHouseDistribution(()=>{
-                            this.map.clearOverlays();
+                            // this.map.clearOverlays();
                             setTimeout(()=>{
                                 this.subwayMarkPoint();
                             },200)
@@ -754,6 +774,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
             createAreaCover(){
                 let size = 1.2;
                 let _this = this;
+                // this.map.setZoom(14)
                 this.area.map((item,index) => {
                     let labelText = item.totalNum!=0 ? `${item.districtName}<br/>(${item.totalNum}套)` : "";
                     if(item.totalNum!=0){
@@ -798,7 +819,12 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                         });
                     }  
                 });
-                this.isMoveend = true;
+                // this.map.setViewport(point1,{ViewportOptions:{
+                //     enableAnimation:true,
+                //     delay:500
+                // }})
+                // this.isone = false;
+                this.isMoveend = true;   
             },
             //绘制地铁
             createSubwayCover(subwayList,subwayType){
@@ -871,7 +897,9 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
             },
             //获取点击时区域内的的小区
             getHouseDistribution(cb = ()=>{}){
-                this.getLatLog();
+                if(!this.isone){
+                    this.getLatLog();
+                }
                 this.post("pc/HouseInfoController/getCommunityByScreenCoordinate", {
                     areaId: this.areaId,
                     priceMax: this.dynamicTags.priceMax,											
@@ -908,10 +936,39 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
             //绘制区域点击后小区
             createMarkPoint(){
                 let points = this.points;
+                let point = [];
                 for (let i = 0; i < points.length; i++) {
                     let obj = points[i];
                     this._getContent(obj)
+                    let point1 = new BMap.Point(obj.longitude,obj.latitude);
+                    point.push(point1)
                 }
+                // this.dynamicTags.screenLeftLog = cp.getSouthWest().lng,    //西南
+                // this.dynamicTags.screenRightLog = cp.getNorthEast().lng,   //东北
+                // this.dynamicTags.screenLeftLat =  cp.getSouthWest().lat,     //西南
+                // this.dynamicTags.screenRightLat = cp.getNorthEast().lat
+                if(this.isone){
+                    // this.map.setZoom(14);
+                    // this.map.panTo(new BMap.Point(this.longitude, this.latitude))
+                    // this.circle.getBounds().getSouthWest().lng,this.circle.getBounds().getSouthWest().lat,this.circle.getBounds().getNorthEast().lng,this.circle.getBounds().getNorthEast().lat
+                    this.map.setViewport([new BMap.Point(this.circle.getBounds().getSouthWest().lng,this.circle.getBounds().getSouthWest().lat),new BMap.Point(this.circle.getBounds().getNorthEast().lng,this.circle.getBounds().getNorthEast().lat)],{ViewportOptions:{
+                        enableAnimation:true,
+                        delay:500
+                    }})
+                    this.circle.enableMassClear();
+                }
+               
+                setTimeout(()=>{
+                    this.isone = false;
+                    this.isMoveend = true;   //创建完小区可以拖拽加载
+                    // this.isenableMassClear = false;
+                    this.oneregionSearch = true; //创建完小区可以缩放 
+                    this.iszoomend = true;  //缩放
+                },600)
+                // this.map.setViewport(point1,{ViewportOptions:{
+                //     enableAnimation:true,
+                //     delay:500
+                // }})
                 
             },
             //小区
@@ -938,7 +995,8 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                     div.style.lineHeight = "0.3rem";
                     div.style.whiteSpace = "nowrap";
                     div.style.MozUserSelect = "none";
-                    div.style.fontSize = "0.24rem"
+                    div.style.fontSize = "0.24rem";
+                    div.style.animation = 'myfirst 0.8s linear';
                     var span = this._span = document.createElement("span");
                     div.appendChild(span);
                     span.appendChild(document.createTextNode(this._overText));      
@@ -1002,15 +1060,8 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                 }else{
                     var txt = obj.communityName, mouseoverTxt = txt + " " + obj.totalNum + "套" ;
                 }
-                
-                    
                 var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(obj.longitude,obj.latitude), obj.communityName,mouseoverTxt);
-
                 mp.addOverlay(myCompOverlay);
-                this.isMoveend = true;   //创建完小区可以拖拽加载
-                // this.isenableMassClear = false;
-                this.oneregionSearch = true; //创建完小区可以缩放 
-                this.iszoomend = true;  //缩放
             },
             //搜索时改变显示区域
             commitReigon(){
@@ -1092,7 +1143,8 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                                 marginLeft: `-0.28rem`,
                                 paddingTop: `0.53rem`,
                                 boxSizing: "border-box",
-                                border:"none"
+                                border:"none",
+                                animation :'myfirst 0.8s linear'
                         });
                         this.map.addOverlay(label);
                     });
@@ -1162,6 +1214,7 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                     enableHighAccuracy: true,
                     maximumAge: 1000
                 };
+                // this.map.clearOverlays();
                 if (navigator.geolocation) {
                     //浏览器支持geolocation
                     var geolocation = new BMap.Geolocation();
@@ -1173,36 +1226,28 @@ $ColorClass: $labelOne, $labelTwo, $labelThree;
                         var myIcon = new BMap.Icon(icon_ditu2, 
                         new BMap.Size(45,70));
                         var mk = new BMap.Marker(point,{icon:myIcon});  // 创建标注
-                        this.map.centerAndZoom(new BMap.Point(this.longitude,this.latitude),15);
+                        // this.map.centerAndZoom(new BMap.Point(this.longitude,this.latitude),14);
+                        this.circle = new BMap.Circle(point,2000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3}); //创建圆
                         mk.disableMassClear();
+                        this.circle.disableMassClear();
                         this.map.addOverlay(mk);
-                        // this.addressAnalysis();
+                        this.map.addOverlay(this.circle);
+                        // console.log(this.circle.getBounds().getSouthWest().lng,this.circle.getBounds().getSouthWest().lat,this.circle.getBounds().getNorthEast().lng,this.circle.getBounds().getNorthEast().lat)
+                        this.dynamicTags.screenLeftLog = this.circle.getBounds().getSouthWest().lng,    //西南
+                        this.dynamicTags.screenRightLog = this.circle.getBounds().getNorthEast().lng,   //东北
+                        this.dynamicTags.screenLeftLat =  this.circle.getBounds().getSouthWest().lat,     //西南
+                        this.dynamicTags.screenRightLat = this.circle.getBounds().getNorthEast().lat     //东北
+                        this.map.clearOverlays();
+                        this.getHouseDistribution(()=>{
+                            this.isMoveend = false;   
+                            this.createMarkPoint()
+                        });
+                        // this.map.setViewport()
+                        
                     });
                 }
             },
-            // addressAnalysis() {
-            // //  console.log(234,this.longitude,this.latitude);
-            //     var geolocation = new BMap.Geolocation();
-            //     var gc = new BMap.Geocoder();
-            //     geolocation.getCurrentPosition(r => {
-            //         if (geolocation.getStatus() == 0) {
-            //         //console.log(r.point.lat)
-            //             var mypoint = new BMap.Point(this.longitude, this.latitude); //r.point.lng,r.point.lat);
-            //             gc.getLocation(mypoint, x => {
-            //                 //正确的是地址逆解析成功后设置元素内容为详细地址，
-            //                 //但是这里解析错误x为null  不清楚什么原因，
-            //                 //但之前是好的 不知道怎么回事百度API就报错了
-            //                 //有人遇到过百度经常报错时好时坏的吗？
-            //                 this.address = x.surroundingPois[0].title;
-            //                 this.recordSource = x.surroundingPois[0].title;
-            //                 // console.log(this.address);
-            //                 // $("#map_objective").html(x.address);
-            //             });
-            //         } else {
-            //             alert(geolocation.getStatus());
-            //         }
-            //     });
-            // },
+    
             //获取区域或地铁数据
             getRegionSubway(){
                 let url ="";

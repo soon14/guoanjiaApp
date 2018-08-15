@@ -64,7 +64,7 @@
             <div class="activity-box" @click="activity2">
                 <div class="activity-top">
                     <div class="activity-left">
-                    	<img src="../../../../static/rent/dianliang.png" alt="" />
+                    	<img src="https://media.guoanfamily.com/rent/static/HomePage/dianliang.png" alt="" />
                     </div>
                     <div class="activity-right">
                         <p class="title-activty">点亮北京</p>
@@ -77,7 +77,7 @@
             <div class="activity-box" @click="activity1">
                 <div class="activity-top" style="padding-top: 0;">
                     <div class="activity-left">
-                    	<img src="../../../../static/rent/baiwan.png" alt="" />
+                    	<img src="https://media.guoanfamily.com/rent/static/HomePage/baiwan.png" alt="" />
 
                     </div>
                     <div class="activity-right" >

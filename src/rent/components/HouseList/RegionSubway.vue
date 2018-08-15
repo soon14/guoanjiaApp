@@ -15,36 +15,48 @@
                     float: left;
                     width: 50%;
                     background-color: $titleColor;
-                    padding-left:0.3rem;
+                    // padding-left:0.3rem;
                     box-sizing: border-box;
                     border-right: 2px solid $lineColor;
+                    background-color: #fff;
                     -webkit-overflow-scrolling: touch;
                         &:last-child{
                             border-right:none
+                        }
+                        &:nth-child(1){
+                            background-color: #eee;
                         }
                  .oLi{
                     width: 100%;
                     height: 0.54rem;
                     line-height: 0.54rem;
-                    text-align: left;
-                    padding:0.15rem;
+                    text-align: center;
+                    padding:0.15rem 0rem;
                     font-size: 0.28rem;
                     /* border: 1px solid #ccc; */
-                    margin-left: 2%;
+                    // margin-left: 2%;
                     margin-top: 0px;
                     border-radius: 0px;
                     border: none;
+                    .textregion{
+                        display: inline-block;
+                        padding: 0.05rem 0.2rem;
+                    }
                 }
                 .no-limit{
                     
                 }
                 .redColor {
-                    background-color: $listColor;
-                    color: $mineColor;
+                    display: inline-block;
+                    padding: 0.05rem 0.2rem;
+                    background-color: $mineColor;
+                    color: #fff;
                 }
                 .subColor{
-                    background-color: $listColor;
-                    color: $mineColor;
+                    display: inline-block;
+                    padding: 0.05rem 0.2rem;
+                    background-color: $mineColor;
+                    color: #fff;
                 }
             }
         }  
@@ -85,14 +97,14 @@
                 <div class="search-house-list">
                     <ul class="house-type-ul">
                         <template>
-                            <li  class=" oLi no-limit" :class="{redColor:isLimit}" @click="areaLimitClick">不限</li> 
-                            <li v-for="(item,index) in regionSubway" :key="index" class="oLi area-list" :class="{redColor:item.id===isAreaType}" @click="allAreaClick(item.id,index)">{{item.name}}</li>
+                            <li  class=" oLi no-limit"  @click="areaLimitClick"> <span class="textregion" :class="{redColor:isLimit}">不限</span> </li> 
+                            <li v-for="(item,index) in regionSubway" :key="index" class="oLi area-list"  @click="allAreaClick(item.id,index)"> <span class="textregion" :class="{redColor:item.id===isAreaType}">{{item.name}}</span> </li>
                         </template>
                     </ul>
                     <ul class="house-type-ul" id="area">
                         <template>
-                            <li  class=" oLi no-limit" v-if="isNoLimit" :class="{subColor:isSubwayLimit}" @click="subwayLimitClick">不限</li> 
-                            <li v-for="item in regionSubwayChildList" :key="item.id" class="oLi area-list" :class="{subColor:item.id==isSubwayType}" @click="subwayClick(item.id,item.name)">{{item.name}}</li>
+                            <li  class=" oLi no-limit" v-if="isNoLimit"  @click="subwayLimitClick"><span class="textregion" :class="{subColor:isSubwayLimit}">不限</span></li> 
+                            <li v-for="item in regionSubwayChildList" :key="item.id" class="oLi area-list"  @click="subwayClick(item.id,item.name)"><span class="textregion" :class="{subColor:item.id==isSubwayType}">{{item.name}}</span></li>
                         </template>
                     </ul>
                 </div>   

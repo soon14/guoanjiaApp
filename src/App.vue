@@ -8,10 +8,10 @@
                 <router-view v-if="$route.meta.keepAlive" style="overflow-y:scroll;"></router-view>
             </keep-alive>
             <router-view v-if="!$route.meta.keepAlive" style="overflow-y:scroll;"></router-view>
-            <buttonGroup v-if="this.$store.state.isShowBottom"></buttonGroup>
             <login style="z-index:1100;" v-transfer-dom></login>
             <Screenshot class="aaa" style="z-index:1100;"  v-transfer-dom></Screenshot>
             <ga-loading-tip></ga-loading-tip>
+            <buttonGroup slot='bottom' v-if="this.$store.state.isShowBottom"></buttonGroup>
         </view-box>
     </div>
 </template>
@@ -39,10 +39,12 @@ export default {
   },
 
   created() {
+    this.$wechat.ready(()=>{
+      // console.log("测试版本:",window.__wxjs_environment=="miniprogram")
+    })
   },
 
   mounted() {
-  	
     // //去除链接上的用户信息
     // if (this.isECTouch() && !this.getStorage(this.KEYS.OPENID)) {
     //   this.getOpenId();
@@ -71,12 +73,12 @@ export default {
   },
 
   methods: {},
-	
+
   watch: {
-  	
+
   },
   computed: {
-  	
+
     // 控制页面标题文字
     title() {
       if (!this.$route.meta.title) {
@@ -89,7 +91,7 @@ export default {
     showBack() {
       return (
         this.$route.path !== "/" &&
-        this.$route.path !== "/onLineHouse" &&
+        this.$route.path !== "/newHouseIndex" &&
         this.$route.path !== "/personalCenter" &&
         this.$route.query.title !== "在线租房"
       );
@@ -104,6 +106,7 @@ export default {
         this.$route.path == '/newhousebuilddetail' ||
         this.$route.path == '/housetypedetail' ||
         this.$route.path == "/" ||
+        this.$route.path == "/newHouseIndex" ||
         this.$route.path == "/personalCenter" ||
         this.$route.path == "/HouseList" ||
         this.$route.path == "/HomePage" ||
@@ -139,7 +142,7 @@ export default {
 #app {
   height: 100%;
   width: 100%;
-  overflow: auto;
+  // overflow: auto;
   // background-color:$greyColor;
   background-color: #fff;
 }

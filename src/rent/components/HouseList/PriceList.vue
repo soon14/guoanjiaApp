@@ -5,27 +5,27 @@
                 width: 6.9rem;
                 height: 100%;
                 background-color: $titleColor;
-                margin-top:0.3rem;
-                margin-left:0.3rem;
-                .price-one{
-                    padding:0rem 0.3rem;
-                }
-                .types{
-                    height: 0.8rem;
-                    padding:0rem 0.3rem;
-                    line-height: 0.8rem;
-                    border-bottom: 1px solid $lineColor;
-                    font-size:0.3rem;
-                }
+                // margin-top:0.3rem;
+                margin-left:0.32rem;
+                // .price-one{
+                //     padding:0rem 0.3rem;
+                // }
+                // .types{
+                //     height: 0.8rem;
+                //     padding:0rem 0.3rem;
+                //     line-height: 0.8rem;
+                //     border-bottom: 1px solid $lineColor;
+                //     font-size:0.3rem;
+                // }
                 .house-type-ul{
                     overflow: hidden;
                     margin:0.1rem 0rem;
-                    padding:0rem 0.4rem 0rem 0.5rem;
-                    height: 2rem;
+                    padding:0rem 0.1rem 0rem 0.2rem;
+                    height: 3.1rem;
                     .renge{
                         width: 100%;
-                        margin-left:8%;
-                        margin-top:0.6rem;
+                        // margin-left:2%;
+                        margin-top:1.2rem;
                         position: relative;
                        .min-price{
                             position: absolute;
@@ -45,32 +45,34 @@
            
             .buttons{
                 width: 100%;
-                margin-top:0.3rem;
-                margin-bottom:1.3rem;
-                .subMit{
-                    width: 1.45rem;
-                    height: 0.6rem;
-                    line-height: 0.6rem;
-                    border-radius: 0.15rem;
-                    background-color: $mineColor;
-                    font-size:$reminderFontSize;
-                    border:1px solid $mineColor;
+                margin-top:0.4rem;
+                margin-bottom:1.6rem;
+                .subMit1{
+                    width: 4.4rem;
+                    height: 0.9rem;
+                    line-height: 0.9rem;
+                    background-color: #e34b3e;
+                    border-radius:0.1rem;
+                    font-size:$titleFontSize;
                     color:$titleColor;
                     float:left;
                     margin-top:0px;
-                    margin-left:1.64rem;
+                    margin-left:0.2rem;
+                    border:none;
                 }
                 .exit{
-                    margin-left:4.04rem;
-                    width: 1.45rem;
-                    height: 0.6rem;
-                    line-height: 0.6rem;
-                    border-radius: 0.15rem;
-                    font-size:$reminderFontSize;
-                    background-color:$greyColor;
-                    border:1px solid $mineColor;
-                    margin-top:-0.59rem;
-                    color:$mineColor;
+                    margin-left:5rem;
+                    width: 2.3rem;
+                    height: 0.9rem;
+                    line-height: 0.9rem;
+                    // border-radius: 0.15rem;
+                    font-size:$titleFontSize;
+                    // background-color:$greyColor;
+                    background: url("../../../../static/rent/house-list/exit-button.png") no-repeat;
+                    background-size: 100%;
+                    // border:1px solid $mineColor;
+                    margin-top:-0.9rem;
+                    color:$titleColor;
                 }
             }  
         }
@@ -108,18 +110,24 @@
     <transition name="bounce">
          <div class="regloin" v-if="isSearchShow" :class="{iosregloin:!isAndrion}">
             <div class="search-house-list">
-                <div class="price-one">
+                <!-- <div class="price-one">
                     <div class="types">价格区间(每月)</div>
-                </div>
+                </div> -->
                 <div class="house-type-ul">
                     <div class="renge">
                         <vue-slider  @callback="cb" ref="slider3" v-bind="demo" v-model="demo.value"></vue-slider>
-                        <span class="min-price">￥500</span><span class="max-price">￥10000</span>
+                        <!-- <template slot="tooltip" slot-scope="tooltip">
+                            <div class="diy-tooltip">
+                                <img src="../../../../static/rent/house-list/price-icon.png" width="40"/>
+                                {{ tooltip.value }}
+                            </div>
+                        </template> -->
+                        <!-- <span class="min-price">￥500</span><span class="max-price">￥10000</span> -->
                     </div>
                 </div>
             </div>
              <div class="buttons">
-                <button class="subMit" @click="allBuildClick">确定</button>
+                <button class="subMit1" @click="allBuildClick">确定</button>
                 <button class="exit" @click="allBuildExitClick">重置</button>
             </div>
         </div>
@@ -146,19 +154,19 @@ import vueSlider from 'vue-slider-component'
              return{
                 demo: {
 					value: [500, 10000],
-					width: "80%",
-					height: 10,
-					dotSize: 15,
+					width: '97%',
+					height: 24,
+					dotSize: 26,
 					min: 500,
                     max: 10000,
                     interval:100,
 					disabled: false,
 					show: true,
 					tooltip: 'always',
-                    formatter: '¥{value}',
+                    formatter: '{value}元',
                     tooltipDir: [
                     "bottom",
-                    "top"
+                    "bottom"
                     ],
 					bgStyle: {
 						backgroundColor: '#e8e8e8',
@@ -176,7 +184,9 @@ import vueSlider from 'vue-slider-component'
 						backgroundColor: '#e24e59',
 					},
                     sliderStyle:{
-                        backgroundColor: '#ff9b2f',
+                        // backgroundColor: '#ff9b2f',
+                        background:'url("../../../../static/rent/house-list/price-icon.png") no-repeat',
+                        backgroundSize:'100%',
                     }
                 },
                 isAndrion:true,

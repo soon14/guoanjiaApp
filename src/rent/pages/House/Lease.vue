@@ -160,15 +160,15 @@
                         margin: 0 0.1rem 0 0.2rem;
                     }
                     .right {
-                        margin-right: 0.3rem;
+                        margin-right: 0.6rem;
                         margin-left: 0.2rem;
                         color: #9b9b9b;
                     }
                     .countDown {
                         font-size: 0.2rem;
                         margin-right: 0rem;
-                        line-height: 0.4rem;
-                        color: $partColor;
+                        line-height: 0.55rem;
+                        color: #0f0;
                     }
                 }
             }
@@ -181,11 +181,11 @@
                     height: 1rem;
                     width: 1.2rem;
                     // margin-top: 0.3rem;
-                    // background-color:$labelOne;
+                    background-color:#ccc;
                     color: #fff;
                     .topp {
-                        height: 0.5rem;
-                        line-height: 0.5rem;
+                        height: 0.7rem;
+                        line-height: 0.7rem;
                         width: 100%;
                         font-size: 0.32rem;
                         // .fr {
@@ -206,10 +206,10 @@
                         // }
                     }
                     .bottomm {
-                        height: 50%;
-                        height: 0.5rem;
-                        line-height: 0.5rem;
-                        font-size: 0.32rem;
+                        // height: 50%;
+                        height: 0.3rem;
+                        line-height: 0.2rem;
+                        font-size: 0.24rem;
                         color: #fff;
                         // .money {
                         //     font-size: 0.3rem;
@@ -223,6 +223,9 @@
                         //     text-align: right;
                         // }
                     }
+                }
+                .paid{
+                    background-color: rgb(228,80,68);
                 }
             }
         }
@@ -397,16 +400,16 @@
         // }
     }
 
-    @mixin color($bgColor) {
-        background-color: $bgColor;
+    // @mixin color($bgColor) {
+    //     background-color: $bgColor;
 
-    }
+    // }
 
-    @for $i from 1 through 3 {
-        .bill:nth-child(3n+#{$i}) .billRZ {
-            @include color(nth($ColorClass, $i));
-        }
-    }
+    // @for $i from 1 through 3 {
+    //     .bill:nth-child(3n+#{$i}) .billRZ {
+    //         @include color(nth($ColorClass, $i));
+    //     }
+    // }
 
     .btm {
         height: 0.4rem;
@@ -519,7 +522,7 @@
                 <div class="bill" v-for="(item,index) in receiptPlanList[swiperItemIndex]" :key="index">
                     <div class="top">
                         <div class="billR">
-                            <div class="billRZ">
+                            <div class="billRZ" :class="{paid:!item.payStatus}">
                                 <div class="topp">
                                     第{{item.number}}期
                                     <!-- <div class="qi fr">期</div>
@@ -540,8 +543,8 @@
                             </div>
                             <div class="billLB">
                                 <div class="left">应付款日:</div>
-                                <span class="countDown left" style="float:right;">({{compareDate(item.rentDateStart,item.rentDateEnd,item.payStatus)}})</span>
-                                <img src="../../../../static/rent/img/collection/shalou.png">
+                                <span class="countDown left" style="float:right;">{{compareDate(item.rentDateStart,item.rentDateEnd,item.payStatus)}}</span>
+                                <!-- <img src="../../../../static/rent/img/collection/shalou.png"> -->
                                 <div class="right left" style="float:right;">{{item.rentDate}}</div>
                             </div>
                         </div>
@@ -588,7 +591,8 @@
                 saleContractId: "",//出房合同ID
                 userId: "",
                 androidOrIos: true,	//默认为安卓登录
-                isHad: false
+                isHad: false,
+                isPaid:false,
             }
         },
         components: {

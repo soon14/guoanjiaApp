@@ -14,7 +14,7 @@
         // bottom: 4rem;
         width: 100%;
         height: 100%;
-        background-color: #e8e8e8;
+        background-color: #fff;
     }
     .regloin{
         position: absolute;
@@ -46,8 +46,10 @@
                 width: 4.4rem;
                 height: 0.9rem;
                 line-height: 0.9rem;
-                background: url("../../../../static/rent/house-list/submit-button.png") no-repeat;
-                background-size: 100%;
+                // background: url("../../../../static/rent/house-list/submit-button.png") no-repeat;
+                background-color: #e34b3e;
+                // background-size: 100%;
+                border-radius:0.1rem;
                 font-size:$titleFontSize;
                 color:$titleColor;
                 float:left;
@@ -80,7 +82,7 @@
         fill: #999;
         position: absolute;
         top:0.3rem;
-        left:0.24rem;
+        left:0.4rem;
     }
     .map-icon{
         position: absolute;
@@ -102,7 +104,7 @@
         top:0.62rem;
     }
     .wexcssBtn{
-    	top:0.35rem;
+    	top:0.4rem;
         left:0.45rem;
     }
     .type-search {
@@ -205,7 +207,7 @@
                 font-size:0.30rem;
                 width: 100%;
                 height: 100%;
-                background-color: #e8e8e8;
+                background-color: #fff;
                 z-index: 1000;
                 text-align: center;
                 .nodataimg{
@@ -255,7 +257,7 @@
             				top: 10%;
             				width: 1.8rem;
             				height: 0.6rem;
-            				background: rgba(0,0,0,0.3);
+            				background: rgba(0,0,0,0.6);
         					line-height: 0.5rem;
         					text-align: center;
             				color:white;
@@ -611,12 +613,12 @@
 
     .back-btn{
         float: left;
-        height: 0.32rem;
-        width: 0.20rem;
-        background: url("../../../../static/rent/icon-back.png") no-repeat center;
-        background-size: 100%;
+        height: 100%;
+        width: 100%;
+        background: url("../../../../static/rent/icon-back-btn.png") no-repeat center;
+        background-size: 20%;
         display: block;
-        margin-left: 0.3rem;
+        // margin-left: 0.3rem;
     }
     .iosbackbtn{
         height:1.6rem;
@@ -648,7 +650,7 @@
         }
         .wexcss{
             width: 5.9rem;
-            left:0rem;
+            left:0.3rem;
             top: 0.3rem;
         }
     }
@@ -701,10 +703,9 @@
 		<div><downLoad></downLoad></div>
 		
         <div class="header" :class="{iosheader:isWex}">
-        	<div style="width: 1rem;height: 1.1rem;float: left;" @click="back">
-        		<span class="back-btn"  :class="{iosbackbtn:!isAndrion}" v-if="!this.$store.state.showWxTitle"></span>
+        	<div style="width: 1.3rem;height: 1.2rem;float: left;" @click="back">
+        		<span class="back-btn"  :class="{iosbackbtn:!isWex}" v-if="!this.$store.state.showWxTitle"></span>
         	</div>
-
             <div class="middle" :class="{wexmiddle:isWex}">
                 <input type="text" class="header-search" placeholder="请输入您想住的区域或小区" @click="searchChange" v-model="headerSearch" :class="{iosheadersearch:!isAndrion,wexcss:isWex}" >
                 <x-icon type="ios-search" size="25" class="input-search"  @click="searchChange" :class="{iosinputsearch:!isAndrion,wexcssBtn:isWex}" ></x-icon>

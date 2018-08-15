@@ -14,7 +14,7 @@
 		    			<div class="item-bottom">
 		    				<p class="houseRoomName">{{item.houseName}}{{item.roomName}}{{item.roomNumber}}</p>
 			    			<p class="house-room-price">
-			    				<span class="house-room-price-one">{{item.price ? item.price :'等待上架'}}</span>
+			    				<span class="house-room-price-one">{{item.price ? item.price :'敬请关注'}}</span>
 			    				<span class="house-room-price-two" v-if="item.price">/月</span>
 			    			</p>
 			    		</div>
@@ -88,17 +88,23 @@ export default {
 <style lang="less" scoped>
 @import '~vux/src/styles/1px.less';
 @import '~vux/src/styles/center.less';
+@font-face{
+	font-family:font01;
+	src:url("../../../fonts/BEBASNEUE.otf");
+}
+
+
 .earnestShow{
 	// width: 100%;
 	// padding-left:3%;
 	margin-left:.3rem;
 	margin-right:.3rem;
-   	height:3.9rem;
+   	height:3.7rem;
     overflow-x: scroll;
     box-sizing:border-box;
     background:white;
     .earnestShow-slide{
-    	width:11.4rem;
+    	width:13.2rem;
 		height: 3.45rem;
 		background:white;
 		padding:0.1rem 0;
@@ -106,7 +112,7 @@ export default {
 	    	width:2.4rem;
 	    	height:3.45rem;
 	    	background:#ffffff;
-	    	margin-left: 0.4rem;
+	    	margin-left: 0.3rem;
 	    	float: left;
 	    	position: relative;
 	    	border-radius: 0.1rem;
@@ -178,7 +184,8 @@ export default {
 			  			font-size: 0.3rem;
 			  			color: black;
 			  			font-size:.3rem;
-						font-family:'Source Han Sans CN';		
+						font-family:font01;	
+						font-weight: 600;	
 			  		}
 			  		.house-room-price-two{
 			  			font-size: 0.2rem;

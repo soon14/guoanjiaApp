@@ -317,9 +317,6 @@ export default {
 .wx_top {
   margin-top: 0px;
 }
-.name /deep/ .weui-cell {
-  padding-left: 0;
-}
 .topHead {
   width: 94%;
   height: 1.15rem;
@@ -487,14 +484,20 @@ export default {
     }
   }
 }
-.labelStyle /deep/ .weui-cell_access{
+.labelStyle .weui-cell_access{
   padding-left: 0rem !important;
 }
-.labelStyle /deep/ .weui-label{
+.labelStyle .weui-label{
   width: 6em !important;
   color: #333 !important;
 }
-.labelStyle /deep/ .vux-popup-picker-select{
+.name .weui-cell {
+  padding-left: 0;
+}
+.name .vux-selector.weui-cell_select-after{
+  padding-left: 0;
+}
+.labelStyle .vux-popup-picker-select{
   text-align:left !important;
   .vux-cell-placeholder{
     float: left;

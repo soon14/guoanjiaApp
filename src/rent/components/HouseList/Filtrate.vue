@@ -16,27 +16,33 @@
                 background-color: $titleColor;
                 margin-left:0.3rem;
                 box-sizing: border-box;
-                padding:0.2rem 0.25rem;
+                // padding:0.2rem 0rem;
+                margin-top:0.4rem;
                 font-size: 0.28rem;
                 .types{
                     height: 0.5rem;
                     padding:0rem 0rem 0rem 0.25rem;
                     line-height: 0.5rem;
-                    border-bottom: 1px solid $lineColor;
-                    font-size: 0.28rem;
+                    // border-bottom: 1px solid $lineColor;
+                    font-size: 0.32rem;
                     text-align: left;
+                    color: #000;
+
                 }
                 .house-type-ul{
                     width: 100%;
                     overflow: hidden;
                     margin-top:0rem;
+                    padding-bottom: 0.3rem;
+                    border-bottom: 1px solid #dcdcdc;
                     .oLi{
-                        background-color: $greyColor;
-                        margin-right:0.35rem;
-                        width: 1.8rem;
-                        height: 0.5rem;
-                        line-height: 0.5rem;
+                        background-color: $titleColor;
+                        margin-right:0.2rem;
+                        width: 2rem;
+                        height: 0.48rem;
+                        line-height: 0.48rem;
                         border-radius:0.08rem;
+                        border: 1px solid #ccc;
                         float: left;
                         text-align: center;
                         font-size:0.24rem;
@@ -47,18 +53,20 @@
                         }
                     }
                     .no-limit{
-                        width: 1.85rem;
-                        height: 0.5rem;
-                        line-height: 0.5rem;
+                        width: 1.1rem;
+                        height: 0.48rem;
+                        line-height: 0.48rem;
                         border-radius:0.08rem;
                         text-align: center;
                         margin-top:0.2rem;
-                        // margin-right:0.4rem;
-                        // margin-left: 0.3rem;
-                        background-color: $greyColor;
+                        border: 1px solid #ccc;
+                        background-color: $titleColor;
+                        float: left;
+                        margin-right: 0.2rem;
                     }
                     .feature-list{
-                        background-color: $greyColor;
+                        background-color: $titleColor;
+                        border: 1px solid #ccc;
                         width: 1.85rem;
                         height: 0.5rem;
                         line-height: 0.5rem;
@@ -72,8 +80,9 @@
                         }
                     }
                     .redColor {
-                        background-color: $partColor;
-                        color: $titleColor;
+                        border: 1px solid $partColor;
+                        // background-color: $partColor;
+                        color: $partColor;
                     }
                 }
             }
@@ -82,22 +91,22 @@
                 .house-type-ul{
                     .household-list{
                         width: 1.15rem;
-                        margin-right: 0.1rem;
+                        margin-right: 0.2rem;
                     }
                     .orientation-list{
                         width: 1.15rem;
-                        margin-right: 0.1rem;
+                        margin-right: 0.2rem;
                         &:nth-child(5){
                             margin-right: 0rem;
                         }
                     }
                     .constellation-list{
-                        width: 1.15rem;
-                        margin-right: 0.1rem;
-                        &:nth-child(5){
+                        width: 0.9rem;
+                        margin-right: 0.2rem;
+                        &:nth-child(6){
                             margin-right: 0rem;
                         }
-                        &:nth-child(10){
+                        &:nth-child(12){
                             margin-right: 0rem;
                         }
                     }
@@ -107,15 +116,16 @@
             .area{
                 margin-top:0.2rem;
                 .area-list{
-                    background-color: $greyColor;
-                    width: 1.85rem;
-                    height: 0.5rem;
-                    line-height: 0.5rem;
+                    background-color: $titleColor;
+                    width: 1.6rem;
+                    height: 0.48rem;
+                    line-height: 0.48rem;
                     border-radius:0.08rem;
                     float: left;
                     text-align: center;
                     margin-top:0.2rem;
                     margin-right: 0.3rem;
+                    border: 1px solid #ccc;
                     &:nth-child(4){
                         margin-right: 0rem;
                     }
@@ -285,40 +295,40 @@
                 ],
                 constellationList:[ {
                         flat: false,
-                        type: '水瓶座'
+                        type: '水瓶'
                     },{    //下拉
                         flat: false,
-                        type: '双鱼座'
+                        type: '双鱼'
                     },  {
                         flat: false,
-                        type: '白羊座'
+                        type: '白羊'
                     },{    //下拉
                         flat: false,
-                        type: '金牛座'
+                        type: '金牛'
                     },  {
                         flat: false,
-                        type: '双子座'
+                        type: '双子'
                     },{    //下拉
                         flat: false,
-                        type: '巨蟹座'
+                        type: '巨蟹'
                     },  {
                         flat: false,
-                        type: '狮子座'
+                        type: '狮子'
                     },{    //下拉
                         flat: false,
-                        type: '处女座'
+                        type: '处女'
                     },  {
                         flat: false,
-                        type: '天秤座'
+                        type: '天秤'
                     },{    //下拉
                         flat: false,
-                        type: '天蝎座'
+                        type: '天蝎'
                     },  {
                         flat: false,
-                        type: '射手座'
+                        type: '射手'
                     },{    //下拉
                         flat: false,
-                        type: '魔蝎座'
+                        type: '魔蝎'
                     },],
                 isHousTypeList:"",  //房型
                 isHouseholdType:"", //户型

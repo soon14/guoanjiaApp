@@ -5,10 +5,10 @@
         height: 100%;
         background-color:$titleColor;
         .header-search{
-            width: 5.8rem;
+            width: 5.6rem;
             padding-left:0.7rem;
-            color:$titleColor;
-            left:0rem;
+            color:#000;
+            left: 0.1rem;
             top:0.3rem;
             height: 0.6rem;
         }
